@@ -3,6 +3,7 @@
 # Desarrollado para networking_tester
 
 from scapy.all import sniff, wrpcap
+import os
 
 class FrameCapturer:
     def __init__(self, interface=None, capture_filter=None, count=0, timeout=None):
@@ -66,6 +67,15 @@ class FrameCapturer:
             print(f"Paquetes guardados en: {path}")
         else:
             print("No hay paquetes capturados para guardar (o se usó un callback externo).")
+
+    def start_capture_and_get_packets(self):
+        """
+        Captura paquetes y retorna la lista de paquetes capturados.
+        Returns:
+            list: Lista de paquetes capturados.
+        """
+        self.start_capture()
+        return self.get_captured_packets()
 
 # Ejemplo de uso (se movería a main.py o un script específico)
 if __name__ == '__main__':

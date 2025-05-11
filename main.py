@@ -10,6 +10,9 @@ from networking_tester.ai_monitoring import anomaly_detector # Ejemplo
 from networking_tester.utils import logging_config
 import logging
 
+# Add this line to define the missing variable
+project_name = "networking_tester"
+
 logger = logging_config.setup_logging()
 
 def run_capture_and_analyze(interface, count, pcap_file=None):

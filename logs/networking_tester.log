@@ -1,0 +1,182 @@
+2025-05-11 18:14:37 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: logs\networking_tester.log
+2025-05-11 18:14:37 [INFO   ] [networking_tester   ] [main:48] Iniciando networking_tester con argumentos: Namespace(interface=None, count=10, read=None, write=None, ai_monitor=False)
+2025-05-11 18:14:37 [WARNING] [networking_tester   ] [main:56] No se especificó una interfaz para captura en vivo ni un archivo PCAP para leer.
+2025-05-11 18:14:37 [INFO   ] [networking_tester   ] [main:63] networking_tester finalizado.
+2025-05-11 18:18:26 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: logs\networking_tester.log
+2025-05-11 18:18:26 [INFO   ] [networking_tester   ] [main:48] Iniciando networking_tester con argumentos: Namespace(interface=None, count=10, read=None, write=None, ai_monitor=False)
+2025-05-11 18:18:26 [WARNING] [networking_tester   ] [main:56] No se especificó una interfaz para captura en vivo ni un archivo PCAP para leer.
+2025-05-11 18:18:26 [INFO   ] [networking_tester   ] [main:63] networking_tester finalizado.
+2025-05-11 18:28:06 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: DEBUG. Archivo: logs\networking_tester.log
+2025-05-11 18:29:11 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: DEBUG. Archivo: logs\networking_tester.log
+2025-05-11 18:33:47 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: DEBUG. Archivo: logs\networking_tester.log
+2025-05-11 18:33:47 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:19] Inicializando analizador IEEE 802.11
+2025-05-11 18:33:47 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:17] Inicializando analizador de protocolos
+2025-05-11 18:33:47 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:19] Inicializando analizador IEEE 802.11
+2025-05-11 18:33:47 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:17] Inicializando analizador de protocolos
+2025-05-11 18:33:47 [INFO   ] [networking_tester   ] [test_packet_summary_generation:388] Packet summary generation test successful
+2025-05-11 18:33:47 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:19] Inicializando analizador IEEE 802.11
+2025-05-11 18:33:47 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:17] Inicializando analizador de protocolos
+2025-05-11 18:33:47 [INFO   ] [networking_tester   ] [test_performance_metrics_extraction:420] Performance metrics extraction from 10 frames successful
+2025-05-11 18:33:47 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:19] Inicializando analizador IEEE 802.11
+2025-05-11 18:33:47 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:17] Inicializando analizador de protocolos
+2025-05-11 18:33:47 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:19] Inicializando analizador IEEE 802.11
+2025-05-11 18:33:47 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:17] Inicializando analizador de protocolos
+2025-05-11 18:33:47 [INFO   ] [networking_tester   ] [test_qos_extraction:242] QoS extraction from 32 IP packets successful
+2025-05-11 18:33:47 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:19] Inicializando analizador IEEE 802.11
+2025-05-11 18:33:47 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:17] Inicializando analizador de protocolos
+2025-05-11 18:33:47 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:19] Inicializando analizador IEEE 802.11
+2025-05-11 18:33:47 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:17] Inicializando analizador de protocolos
+2025-05-11 18:37:30 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: DEBUG. Archivo: logs\networking_tester.log
+2025-05-11 18:37:30 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:19] Inicializando analizador IEEE 802.11
+2025-05-11 18:37:30 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:17] Inicializando analizador de protocolos
+2025-05-11 18:37:30 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:19] Inicializando analizador IEEE 802.11
+2025-05-11 18:37:30 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:17] Inicializando analizador de protocolos
+2025-05-11 18:37:30 [INFO   ] [networking_tester   ] [test_packet_summary_generation:388] Packet summary generation test successful
+2025-05-11 18:37:30 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:19] Inicializando analizador IEEE 802.11
+2025-05-11 18:37:30 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:17] Inicializando analizador de protocolos
+2025-05-11 18:37:30 [INFO   ] [networking_tester   ] [test_performance_metrics_extraction:420] Performance metrics extraction from 10 frames successful
+2025-05-11 18:37:30 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:19] Inicializando analizador IEEE 802.11
+2025-05-11 18:37:30 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:17] Inicializando analizador de protocolos
+2025-05-11 18:37:30 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:19] Inicializando analizador IEEE 802.11
+2025-05-11 18:37:30 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:17] Inicializando analizador de protocolos
+2025-05-11 18:37:30 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:19] Inicializando analizador IEEE 802.11
+2025-05-11 18:37:30 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:17] Inicializando analizador de protocolos
+2025-05-11 18:37:30 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:19] Inicializando analizador IEEE 802.11
+2025-05-11 18:37:30 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:17] Inicializando analizador de protocolos
+2025-05-11 18:37:30 [INFO   ] [networking_tester   ] [test_wifi_frame_analysis:131] Analyzed 3 WiFi frames successfully
+2025-05-11 18:41:49 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: DEBUG. Archivo: logs\networking_tester.log
+2025-05-11 18:41:49 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:41:49 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:41:49 [INFO   ] [networking_tester   ] [test_ethernet_frame_analysis:83] Analyzed 3 Ethernet frames successfully
+2025-05-11 18:41:49 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:41:49 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:41:49 [INFO   ] [networking_tester   ] [test_packet_summary_generation:388] Packet summary generation test successful
+2025-05-11 18:41:49 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:41:49 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:41:49 [INFO   ] [networking_tester   ] [test_performance_metrics_extraction:420] Performance metrics extraction from 10 frames successful
+2025-05-11 18:41:49 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:41:49 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:41:49 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:41:49 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:41:49 [INFO   ] [networking_tester   ] [test_qos_extraction:242] QoS extraction from 32 IP packets successful
+2025-05-11 18:41:49 [INFO   ] [networking_tester   ] [test_qos_extraction:277] QoS extraction from 8 WiFi QoS frames successful
+2025-05-11 18:41:49 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:41:49 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:41:49 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:41:49 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:41:49 [INFO   ] [networking_tester   ] [test_wifi_frame_analysis:131] Analyzed 3 WiFi frames successfully
+2025-05-11 18:45:11 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: DEBUG. Archivo: logs\networking_tester.log
+2025-05-11 18:45:11 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:45:11 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:45:11 [INFO   ] [networking_tester   ] [test_ethernet_frame_analysis:83] Analyzed 3 Ethernet frames successfully
+2025-05-11 18:45:11 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:45:11 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:45:11 [INFO   ] [networking_tester   ] [test_packet_summary_generation:388] Packet summary generation test successful
+2025-05-11 18:45:11 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:45:11 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:45:11 [INFO   ] [networking_tester   ] [test_performance_metrics_extraction:420] Performance metrics extraction from 10 frames successful
+2025-05-11 18:45:11 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:45:11 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:45:11 [INFO   ] [networking_tester   ] [test_protocol_analysis:207] Analyzed 3 protocol packets successfully
+2025-05-11 18:45:11 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:45:11 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:45:11 [INFO   ] [networking_tester   ] [test_qos_extraction:242] QoS extraction from 32 IP packets successful
+2025-05-11 18:45:11 [INFO   ] [networking_tester   ] [test_qos_extraction:277] QoS extraction from 8 WiFi QoS frames successful
+2025-05-11 18:45:11 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:45:11 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:45:11 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:45:11 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:45:11 [INFO   ] [networking_tester   ] [test_wifi_frame_analysis:131] Analyzed 3 WiFi frames successfully
+2025-05-11 18:47:08 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: DEBUG. Archivo: logs\networking_tester.log
+2025-05-11 18:47:08 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:47:08 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:47:08 [INFO   ] [networking_tester   ] [test_ethernet_frame_analysis:83] Analyzed 3 Ethernet frames successfully
+2025-05-11 18:47:08 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:47:08 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:47:08 [INFO   ] [networking_tester   ] [test_packet_summary_generation:388] Packet summary generation test successful
+2025-05-11 18:47:08 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:47:08 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:47:08 [INFO   ] [networking_tester   ] [test_performance_metrics_extraction:420] Performance metrics extraction from 10 frames successful
+2025-05-11 18:47:08 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:47:08 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:47:08 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:47:08 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:47:08 [INFO   ] [networking_tester   ] [test_qos_extraction:242] QoS extraction from 32 IP packets successful
+2025-05-11 18:47:08 [INFO   ] [networking_tester   ] [test_qos_extraction:277] QoS extraction from 8 WiFi QoS frames successful
+2025-05-11 18:47:08 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:47:08 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:47:08 [INFO   ] [networking_tester   ] [test_security_analysis:318] Security analysis of 3 IP packets successful
+2025-05-11 18:47:08 [INFO   ] [networking_tester   ] [test_security_analysis:347] Security analysis of 3 WiFi frames successful
+2025-05-11 18:47:08 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:47:08 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:47:08 [INFO   ] [networking_tester   ] [test_wifi_frame_analysis:131] Analyzed 3 WiFi frames successfully
+2025-05-11 18:48:56 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: DEBUG. Archivo: logs\networking_tester.log
+2025-05-11 18:48:56 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:48:56 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:48:56 [INFO   ] [networking_tester   ] [test_ethernet_frame_analysis:83] Analyzed 3 Ethernet frames successfully
+2025-05-11 18:48:56 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:48:56 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:48:56 [INFO   ] [networking_tester   ] [test_packet_summary_generation:388] Packet summary generation test successful
+2025-05-11 18:48:56 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:48:56 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:48:56 [INFO   ] [networking_tester   ] [test_performance_metrics_extraction:420] Performance metrics extraction from 10 frames successful
+2025-05-11 18:48:56 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:48:56 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:48:56 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:48:56 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:48:56 [INFO   ] [networking_tester   ] [test_qos_extraction:242] QoS extraction from 32 IP packets successful
+2025-05-11 18:48:56 [INFO   ] [networking_tester   ] [test_qos_extraction:277] QoS extraction from 8 WiFi QoS frames successful
+2025-05-11 18:48:56 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:48:56 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:48:56 [INFO   ] [networking_tester   ] [test_security_analysis:318] Security analysis of 3 IP packets successful
+2025-05-11 18:48:56 [INFO   ] [networking_tester   ] [test_security_analysis:347] Security analysis of 3 WiFi frames successful
+2025-05-11 18:48:56 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:48:56 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:48:56 [INFO   ] [networking_tester   ] [test_wifi_frame_analysis:131] Analyzed 3 WiFi frames successfully
+2025-05-11 18:53:11 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: DEBUG. Archivo: logs\networking_tester.log
+2025-05-11 18:53:11 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:53:11 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:53:11 [INFO   ] [networking_tester   ] [test_ethernet_frame_analysis:83] Analyzed 3 Ethernet frames successfully
+2025-05-11 18:53:11 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:53:11 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:53:11 [INFO   ] [networking_tester   ] [test_packet_summary_generation:388] Packet summary generation test successful
+2025-05-11 18:53:11 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:53:11 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:53:11 [INFO   ] [networking_tester   ] [test_performance_metrics_extraction:420] Performance metrics extraction from 10 frames successful
+2025-05-11 18:53:11 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:53:11 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:53:11 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:53:11 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:53:11 [INFO   ] [networking_tester   ] [test_qos_extraction:242] QoS extraction from 32 IP packets successful
+2025-05-11 18:53:11 [INFO   ] [networking_tester   ] [test_qos_extraction:277] QoS extraction from 8 WiFi QoS frames successful
+2025-05-11 18:53:11 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:53:11 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:53:11 [INFO   ] [networking_tester   ] [test_security_analysis:318] Security analysis of 3 IP packets successful
+2025-05-11 18:53:11 [INFO   ] [networking_tester   ] [test_security_analysis:347] Security analysis of 3 WiFi frames successful
+2025-05-11 18:53:11 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:53:11 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:53:11 [INFO   ] [networking_tester   ] [test_wifi_frame_analysis:131] Analyzed 3 WiFi frames successfully
+2025-05-11 18:57:07 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: DEBUG. Archivo: logs\networking_tester.log
+2025-05-11 18:57:07 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:57:07 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:57:07 [INFO   ] [networking_tester   ] [test_ethernet_frame_analysis:83] Analyzed 3 Ethernet frames successfully
+2025-05-11 18:57:07 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:57:07 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:57:07 [INFO   ] [networking_tester   ] [test_packet_summary_generation:388] Packet summary generation test successful
+2025-05-11 18:57:07 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:57:07 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:57:07 [INFO   ] [networking_tester   ] [test_performance_metrics_extraction:420] Performance metrics extraction from 10 frames successful
+2025-05-11 18:57:07 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:57:07 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:57:07 [INFO   ] [networking_tester   ] [test_protocol_analysis:207] Analyzed 3 protocol packets successfully
+2025-05-11 18:57:07 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:57:07 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:57:07 [INFO   ] [networking_tester   ] [test_qos_extraction:242] QoS extraction from 32 IP packets successful
+2025-05-11 18:57:07 [INFO   ] [networking_tester   ] [test_qos_extraction:277] QoS extraction from 8 WiFi QoS frames successful
+2025-05-11 18:57:07 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:57:07 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:57:07 [INFO   ] [networking_tester   ] [test_security_analysis:318] Security analysis of 3 IP packets successful
+2025-05-11 18:57:07 [INFO   ] [networking_tester   ] [test_security_analysis:347] Security analysis of 3 WiFi frames successful
+2025-05-11 18:57:07 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
+2025-05-11 18:57:07 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
+2025-05-11 18:57:07 [INFO   ] [networking_tester   ] [test_wifi_frame_analysis:131] Analyzed 3 WiFi frames successfully
