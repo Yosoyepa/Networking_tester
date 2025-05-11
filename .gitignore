@@ -1,0 +1,37 @@
+# Archivos y carpetas a ignorar por Git
+
+# Entornos virtuales
+venv/
+.venv/
+env/
+.env
+
+# Archivos de Python compilados y caches
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+.pytest_cache/
+
+# Archivos de configuración local (si los hubiera)
+config/local_settings.yaml
+
+# Datos sensibles o muy grandes
+data/captures/*.pcap
+data/models/*.joblib
+data/models/*.onnx
+data/models/*.pb
+data/reports/*
+
+# Archivos de IDE
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Archivos de empaquetado de Python
+build/
+dist/
+*.egg-info/

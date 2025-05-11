@@ -1,0 +1,11 @@
+# Dependencias del proyecto (añadir versiones específicas según necesidad)
+scapy>=2.5.0        # Para captura y manipulación de paquetes
+numpy             # Para operaciones numéricas (útil con IA)
+pandas            # Para manipulación y análisis de datos (útil con IA)
+scikit-learn      # Para modelos de Machine Learning (IA)
+# tensorflow        # Opcional: para redes neuronales más complejas (IA)
+# torch             # Opcional: alternativa a TensorFlow (IA)
+# onnxruntime       # Opcional: para ejecutar modelos ONNX (IA ligera)
+pyyaml            # Para leer archivos de configuración .yaml
+python-dotenv     # Para manejar variables de entorno (ej. API keys)
+requests          # Para realizar llamadas a APIs externas (IA en la nube)

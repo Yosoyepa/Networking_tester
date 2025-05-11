@@ -1,0 +1,14 @@
+# Archivo de configuración para networking_tester
+
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "app.log" # Opcional: para guardar logs en un archivo
+
+network:
+  default_interface: "auto" # 'auto' o un nombre específico como 'eth0'
+  # pcap_save_path: "data/captures/"
+
+ai_models:
+  anomaly_detector_path: "data/models/anomaly_detector_v1.joblib"
+  # qos_classifier_path: "data/models/qos_classifier_v1.onnx"
