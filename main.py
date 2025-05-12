@@ -4,63 +4,62 @@
 """Punto de entrada principal para networking_tester."""
 
 import argparse
-from networking_tester.capture import frame_capturer
-from networking_tester.analysis import frame_parser # O los analizadores específicos
-from networking_tester.ai_monitoring import anomaly_detector # Ejemplo
-from networking_tester.utils import logging_config
 import logging
-
-# Add this line to define the missing variable
-project_name = "networking_tester"
-
-logger = logging_config.setup_logging()
-
-def run_capture_and_analyze(interface, count, pcap_file=None):
-    logger.info(f'Iniciando captura en {interface} por {count} paquetes.')
-    # Aquí iría la lógica para llamar a frame_capturer
-    # y luego pasar los paquetes a los módulos de análisis y IA.
-    # Ejemplo:
-    # capturer = frame_capturer.FrameCapturer(interface=interface, count=count)
-    # packets = capturer.start_capture_and_get_packets()
-    # if pcap_file and packets:
-    #     capturer.save_to_pcap(packets, pcap_file)
-    #     logger.info(f'Captura guardada en {pcap_file}')
-
-    # for packet in packets:
-    #     analysis_result = frame_parser.parse_packet(packet) # Suponiendo una función genérica
-    #     logger.debug(f'Análisis: {analysis_result}')
-    #     # Pasar a IA si es necesario
-    #     # ai_features = ai_monitoring.feature_extractor.extract(packet)
-    #     # ai_prediction = ai_monitoring.anomaly_detector.predict(ai_features)
-    logger.info('Proceso de captura y análisis (simulado) completado.')
+import sys
+from networking_tester.utils.logging_config import setup_logging # Uses ConfigManager internally
+from networking_tester.core.engine import AnalysisEngine
+from networking_tester.utils.config_manager import ConfigManager # To access version or other general config
 
 def main():
-    parser = argparse.ArgumentParser(description='Herramienta networking_tester para análisis de redes.')
-    parser.add_argument('-i', '--interface', type=str, required=False, help='Interfaz de red para capturar (ej: eth0, wlan0).')
-    parser.add_argument('-c', '--count', type=int, default=10, help='Número de paquetes a capturar.')
-    parser.add_argument('-r', '--read', type=str, help='Leer paquetes desde un archivo PCAP en lugar de capturar en vivo.')
-    parser.add_argument('-w', '--write', type=str, help='Guardar los paquetes capturados en un archivo PCAP.')
-    parser.add_argument('--ai-monitor', action='store_true', help='Activar monitoreo con IA (funcionalidad a desarrollar).')
-    # Añadir más argumentos según las funcionalidades (Punto 5 y 6)
+    # Setup logging first, as it now reads from config
+    setup_logging() 
+    logger = logging.getLogger(__name__) # Get logger after setup
+
+    project_name = ConfigManager.get('general.project_name', 'Networking Tester')
+    version = ConfigManager.get('general.version', 'N/A')
+    logger.info(f"Starting {project_name} v{version}")
+
+    parser = argparse.ArgumentParser(description=f"{project_name} - Network Traffic Capture and Analysis Tool")
+    parser.add_argument('-i', '--interface', type=str, help="Network interface to capture from (e.g., eth0, Wi-Fi). 'auto' or omit for default.")
+    parser.add_argument('-c', '--count', type=int, default=0, help="Number of packets to capture (0 for unlimited until timeout or Ctrl+C).")
+    parser.add_argument('-t', '--timeout', type=int, help="Stop capturing after N seconds.")
+    parser.add_argument('-r', '--read', type=str, metavar="PCAP_FILE", help="Read packets from a PCAP file instead of live capture.")
+    parser.add_argument('-w', '--write', type=str, metavar="PCAP_FILE", help="Save captured packets to a PCAP file (Not yet fully integrated with engine flow).") # TODO
+    parser.add_argument('-f', '--filter', type=str, help="BPF filter string for capture (e.g., 'tcp port 80').")
+    parser.add_argument('--report-format', type=str, choices=['console', 'json', 'csv'], help="Output report format.")
+    # Add more arguments as needed
 
     args = parser.parse_args()
 
-    logger.info(f'Iniciando {project_name} con argumentos: {args}')
+    engine = AnalysisEngine()
 
-    if args.read:
-        logger.info(f'Leyendo paquetes desde: {args.read}')
-        # Lógica para leer y procesar desde PCAP
-    elif args.interface:
-        run_capture_and_analyze(args.interface, args.count, args.write)
-    else:
-        logger.warning('No se especificó una interfaz para captura en vivo ni un archivo PCAP para leer.')
-        parser.print_help()
+    try:
+        if args.report_format: # Allow overriding config for report format via CLI
+            ConfigManager._config['reporting']['default_format'] = args.report_format # Temporary direct modification for demo
+            logger.info(f"Report format overridden by CLI: {args.report_format}")
 
-    if args.ai_monitor:
-        logger.info('Monitoreo con IA activado (simulación).')
-        # Lógica para el monitoreo con IA
 
-    logger.info(f'networking_tester finalizado.')
+        if args.read:
+            engine.run_from_pcap(args.read)
+        else:
+            interface_to_use = args.interface if args.interface else ConfigManager.get('capture.default_interface', 'auto')
+            engine.run_live_capture(
+                interface=interface_to_use,
+                count=args.count,
+                timeout=args.timeout,
+                bpf_filter=args.filter
+            )
+        
+        # TODO: Implement -w --write logic. This would involve collecting raw packets in the engine
+        # and then calling frame_capturer.write_pcap().
 
-if __name__ == '__main__':
+    except KeyboardInterrupt:
+        logger.info("Capture interrupted by user (Ctrl+C).")
+    except Exception as e:
+        logger.critical(f"An unhandled error occurred: {e}", exc_info=True)
+    finally:
+        engine.shutdown()
+        logger.info(f"{project_name} finished.")
+
+if __name__ == "__main__":
     main()
