@@ -180,3 +180,86 @@
 2025-05-11 18:57:07 [DEBUG  ] [networking_tester.analysis.ieee802_11_analyzer] [__init__:18] Inicializando analizador IEEE 802.11
 2025-05-11 18:57:07 [DEBUG  ] [networking_tester.analysis.protocol_analyzer] [__init__:18] Inicializando analizador de protocolos
 2025-05-11 18:57:07 [INFO   ] [networking_tester   ] [test_wifi_frame_analysis:131] Analyzed 3 WiFi frames successfully
+2025-05-11 19:22:52 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: logs\networking_tester.log
+2025-05-11 19:22:52 [INFO   ] [__main__            ] [setUp:50] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmp18v4kgf8\test_capture.pcap
+2025-05-11 19:22:52 [INFO   ] [networking_tester.capture.frame_capture] [start_async_capture:197] Starting async capture on interface eth0
+2025-05-11 19:22:52 [INFO   ] [networking_tester.capture.frame_capture] [start_async_capture:219] Async capture started on eth0
+2025-05-11 19:22:52 [INFO   ] [networking_tester.capture.frame_capture] [stop_async_capture:234] Stopping async capture
+2025-05-11 19:22:52 [INFO   ] [networking_tester.capture.frame_capture] [stop_async_capture:247] Async capture stopped, captured 0 packets
+2025-05-11 19:22:52 [INFO   ] [__main__            ] [test_async_capture:273] Async capture test successful
+2025-05-11 19:22:52 [INFO   ] [__main__            ] [tearDown:62] Test cleanup complete
+2025-05-11 19:22:52 [INFO   ] [__main__            ] [setUp:50] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmpbjo56w7m\test_capture.pcap
+2025-05-11 19:22:52 [INFO   ] [__main__            ] [test_capture_statistics:228] Capture statistics test successful
+2025-05-11 19:22:52 [INFO   ] [__main__            ] [tearDown:62] Test cleanup complete
+2025-05-11 19:22:52 [INFO   ] [__main__            ] [setUp:50] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmphf6v5sli\test_capture.pcap
+2025-05-11 19:22:52 [INFO   ] [networking_tester.capture.frame_capture] [start_capture:101] Starting capture on interface eth0
+2025-05-11 19:22:52 [INFO   ] [networking_tester.capture.frame_capture] [start_capture:122] Captured 2 packets
+2025-05-11 19:22:52 [INFO   ] [__main__            ] [test_capture_with_filter:155] Capture with filter test successful
+2025-05-11 19:22:52 [INFO   ] [__main__            ] [tearDown:62] Test cleanup complete
+2025-05-11 19:22:52 [INFO   ] [__main__            ] [setUp:50] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmp1_d2o464\test_capture.pcap
+2025-05-11 19:22:52 [INFO   ] [networking_tester.capture.frame_capture] [start_capture:101] Starting capture on interface nonexistent0
+2025-05-11 19:22:52 [ERROR  ] [networking_tester.capture.frame_capture] [start_capture:126] Error during packet capture: Interface not found
+2025-05-11 19:22:52 [INFO   ] [__main__            ] [test_error_handling:197] Error handling test successful
+2025-05-11 19:22:52 [INFO   ] [__main__            ] [tearDown:62] Test cleanup complete
+2025-05-11 19:22:52 [INFO   ] [__main__            ] [setUp:50] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmp9r5aqcg1\test_capture.pcap
+2025-05-11 19:22:52 [INFO   ] [networking_tester.capture.frame_capture] [start_capture:101] Starting capture on interface eth0
+2025-05-11 19:22:52 [INFO   ] [networking_tester.capture.frame_capture] [start_capture:122] Captured 5 packets
+2025-05-11 19:22:52 [INFO   ] [__main__            ] [tearDown:62] Test cleanup complete
+2025-05-11 19:22:52 [INFO   ] [__main__            ] [setUp:50] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmp_f9vo6ps\test_capture.pcap
+2025-05-11 19:22:52 [INFO   ] [__main__            ] [test_packet_analysis_callback:180] Packet analysis callback test successful
+2025-05-11 19:22:52 [INFO   ] [__main__            ] [tearDown:62] Test cleanup complete
+2025-05-11 19:22:52 [INFO   ] [__main__            ] [setUp:50] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmpx7oi6obo\test_capture.pcap
+2025-05-11 19:22:52 [INFO   ] [__main__            ] [test_print_capture_summary:248] Print capture summary test successful
+2025-05-11 19:22:52 [INFO   ] [__main__            ] [tearDown:62] Test cleanup complete
+2025-05-11 19:22:52 [INFO   ] [__main__            ] [setUp:50] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmp7en529q1\test_capture.pcap
+2025-05-11 19:22:52 [INFO   ] [networking_tester.capture.frame_capture] [read_pcap:140] Reading packets from C:\Users\juanc\AppData\Local\Temp\tmp7en529q1\test_capture.pcap
+2025-05-11 19:22:52 [INFO   ] [networking_tester.capture.frame_capture] [read_pcap:154] Read 5 packets from C:\Users\juanc\AppData\Local\Temp\tmp7en529q1\test_capture.pcap
+2025-05-11 19:22:52 [INFO   ] [__main__            ] [test_read_from_pcap:103] PCAP reading test successful
+2025-05-11 19:22:52 [INFO   ] [__main__            ] [tearDown:62] Test cleanup complete
+2025-05-11 19:22:52 [INFO   ] [__main__            ] [setUp:50] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmphbmxe7z_\test_capture.pcap
+2025-05-11 19:22:52 [INFO   ] [networking_tester.capture.frame_capture] [write_pcap:173] Writing 5 packets to C:\Users\juanc\AppData\Local\Temp\tmphbmxe7z_\output.pcap
+2025-05-11 19:22:52 [INFO   ] [networking_tester.capture.frame_capture] [write_pcap:178] Successfully wrote 5 packets to C:\Users\juanc\AppData\Local\Temp\tmphbmxe7z_\output.pcap
+2025-05-11 19:22:52 [INFO   ] [__main__            ] [test_write_to_pcap:125] PCAP writing test successful
+2025-05-11 19:22:52 [INFO   ] [__main__            ] [tearDown:62] Test cleanup complete
+2025-05-11 19:25:16 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: logs\networking_tester.log
+2025-05-11 19:25:16 [INFO   ] [__main__            ] [setUp:50] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmpos1flzv4\test_capture.pcap
+2025-05-11 19:25:16 [INFO   ] [networking_tester.capture.frame_capture] [start_async_capture:207] Starting async capture on interface eth0
+2025-05-11 19:25:16 [INFO   ] [networking_tester.capture.frame_capture] [start_async_capture:229] Async capture started on eth0
+2025-05-11 19:25:16 [INFO   ] [networking_tester.capture.frame_capture] [stop_async_capture:244] Stopping async capture
+2025-05-11 19:25:16 [INFO   ] [networking_tester.capture.frame_capture] [stop_async_capture:257] Async capture stopped, captured 0 packets
+2025-05-11 19:25:16 [INFO   ] [__main__            ] [test_async_capture:273] Async capture test successful
+2025-05-11 19:25:16 [INFO   ] [__main__            ] [tearDown:62] Test cleanup complete
+2025-05-11 19:25:16 [INFO   ] [__main__            ] [setUp:50] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmpo3egtkip\test_capture.pcap
+2025-05-11 19:25:16 [INFO   ] [__main__            ] [test_capture_statistics:228] Capture statistics test successful
+2025-05-11 19:25:16 [INFO   ] [__main__            ] [tearDown:62] Test cleanup complete
+2025-05-11 19:25:16 [INFO   ] [__main__            ] [setUp:50] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmpnfxmu7bi\test_capture.pcap
+2025-05-11 19:25:16 [INFO   ] [networking_tester.capture.frame_capture] [start_capture:101] Starting capture on interface eth0
+2025-05-11 19:25:16 [INFO   ] [networking_tester.capture.frame_capture] [start_capture:122] Captured 2 packets
+2025-05-11 19:25:16 [INFO   ] [__main__            ] [test_capture_with_filter:155] Capture with filter test successful
+2025-05-11 19:25:16 [INFO   ] [__main__            ] [tearDown:62] Test cleanup complete
+2025-05-11 19:25:16 [INFO   ] [__main__            ] [setUp:50] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmpw7tqsmbk\test_capture.pcap
+2025-05-11 19:25:16 [INFO   ] [networking_tester.capture.frame_capture] [start_capture:101] Starting capture on interface nonexistent0
+2025-05-11 19:25:16 [ERROR  ] [networking_tester.capture.frame_capture] [start_capture:136] Error during packet capture: Interface not found
+2025-05-11 19:25:16 [INFO   ] [__main__            ] [test_error_handling:197] Error handling test successful
+2025-05-11 19:25:16 [INFO   ] [__main__            ] [tearDown:62] Test cleanup complete
+2025-05-11 19:25:16 [INFO   ] [__main__            ] [setUp:50] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmp5jcpfd5c\test_capture.pcap
+2025-05-11 19:25:16 [INFO   ] [networking_tester.capture.frame_capture] [start_capture:101] Starting capture on interface eth0
+2025-05-11 19:25:16 [INFO   ] [networking_tester.capture.frame_capture] [start_capture:122] Captured 5 packets
+2025-05-11 19:25:16 [INFO   ] [__main__            ] [test_live_capture:86] Live capture test successful
+2025-05-11 19:25:16 [INFO   ] [__main__            ] [tearDown:62] Test cleanup complete
+2025-05-11 19:25:16 [INFO   ] [__main__            ] [setUp:50] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmpc3tpbxuf\test_capture.pcap
+2025-05-11 19:25:16 [INFO   ] [__main__            ] [test_packet_analysis_callback:180] Packet analysis callback test successful
+2025-05-11 19:25:16 [INFO   ] [__main__            ] [tearDown:62] Test cleanup complete
+2025-05-11 19:25:16 [INFO   ] [__main__            ] [setUp:50] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmp1se97y4z\test_capture.pcap
+2025-05-11 19:25:16 [INFO   ] [__main__            ] [test_print_capture_summary:248] Print capture summary test successful
+2025-05-11 19:25:16 [INFO   ] [__main__            ] [tearDown:62] Test cleanup complete
+2025-05-11 19:25:16 [INFO   ] [__main__            ] [setUp:50] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmp9z42iuh0\test_capture.pcap
+2025-05-11 19:25:16 [INFO   ] [networking_tester.capture.frame_capture] [read_pcap:150] Reading packets from C:\Users\juanc\AppData\Local\Temp\tmp9z42iuh0\test_capture.pcap
+2025-05-11 19:25:16 [INFO   ] [networking_tester.capture.frame_capture] [read_pcap:164] Read 5 packets from C:\Users\juanc\AppData\Local\Temp\tmp9z42iuh0\test_capture.pcap
+2025-05-11 19:25:16 [INFO   ] [__main__            ] [test_read_from_pcap:103] PCAP reading test successful
+2025-05-11 19:25:16 [INFO   ] [__main__            ] [tearDown:62] Test cleanup complete
+2025-05-11 19:25:16 [INFO   ] [__main__            ] [setUp:50] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmp5jeow1tb\test_capture.pcap
+2025-05-11 19:25:16 [INFO   ] [networking_tester.capture.frame_capture] [write_pcap:183] Writing 5 packets to C:\Users\juanc\AppData\Local\Temp\tmp5jeow1tb\output.pcap
+2025-05-11 19:25:16 [INFO   ] [networking_tester.capture.frame_capture] [write_pcap:188] Successfully wrote 5 packets to C:\Users\juanc\AppData\Local\Temp\tmp5jeow1tb\output.pcap
+2025-05-11 19:25:16 [INFO   ] [__main__            ] [test_write_to_pcap:125] PCAP writing test successful
+2025-05-11 19:25:16 [INFO   ] [__main__            ] [tearDown:62] Test cleanup complete
