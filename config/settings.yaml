@@ -1,14 +1,47 @@
 # Archivo de configuración para networking_tester
 
+general:
+  project_name: "Networking Tester"
+  version: "0.2.0"
+
 logging:
   level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
-  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-  file: "app.log" # Opcional: para guardar logs en un archivo
+  format: "%(asctime)s [%(levelname)-7s] [%(name)-20s] [%(funcName)s:%(lineno)d] %(message)s"
+  file: "logs/networking_tester.log" # Relative to project root
+  console_logging: true
 
-network:
+capture:
   default_interface: "auto" # 'auto' o un nombre específico como 'eth0'
-  # pcap_save_path: "data/captures/"
+  # pcap_save_path: "data/captures/" # Example, if auto-saving captures
 
-ai_models:
-  anomaly_detector_path: "data/models/anomaly_detector_v1.joblib"
-  # qos_classifier_path: "data/models/qos_classifier_v1.onnx"
+analysis:
+  known_ports:
+    80: "HTTP"
+    443: "HTTPS"
+    21: "FTP"
+    22: "SSH"
+    53: "DNS"
+    # Add more common ports
+  anomaly_detection:
+    enabled: false
+    rules: # Example simple rules
+      - type: "high_traffic_source"
+        threshold_packets: 1000 # Packets per minute from a single source
+        alert_message: "High traffic detected from source IP {source_ip}"
+  performance_metrics:
+    rtt_threshold_ms: 100
+    jitter_threshold_ms: 30
+
+reporting:
+  default_format: "json" # csv, json, console
+  output_directory: "reports" # Relative to project root
+  report_filename_template: "capture_report_{timestamp}.{format}"
+
+storage:
+  database_enabled: false
+  database_type: "sqlite"
+  database_name: "data/analysis_results.db" # Relative to project root
+
+# ai_models: # If you integrate ML models later
+#   anomaly_detector_path: "data/models/anomaly_detector_v1.joblib"
+#   qos_classifier_path: "data/models/qos_classifier_v1.onnx"
