@@ -68,17 +68,17 @@ El proyecto sigue una estructura modular para facilitar el desarrollo y mantenim
 
 ```bash
 # 1. Clona el repositorio (si es necesario)
-# git clone <URL_DEL_REPOSITORIO>
-# cd networking_tester
+ git clone <https://github.com/Yosoyepa/Networking_tester>
+ cd networking_tester
 
 # 2. Crea un entorno virtual (recomendado)
 python -m venv venv
 
 # 3. Activa el entorno virtual
-# En Windows:
-# venv\Scripts\activate
-# En macOS/Linux:
-# source venv/bin/activate
+ En Windows:
+ venv\Scripts\activate
+ En macOS/Linux:
+ source venv/bin/activate
 
 # 4. Instala las dependencias
 pip install -r requirements.txt
