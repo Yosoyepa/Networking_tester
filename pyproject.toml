@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "networking_tester"
+version = "0.2.0" # Should match config/settings.yaml and docs/conf.py
+authors = [
+  { name="Juan C Andrade Unigarro", email="jandradeu@unal.edu.co" },
+]
+description = "A tool for network traffic capture and analysis."
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: System :: Networking :: Monitoring",
+    "Topic :: Security",
+    "Development Status :: 3 - Alpha", # Or Beta
+]
+dependencies = [
+    "scapy>=2.5.0", # Check latest stable version
+    "PyYAML>=6.0",
+    # Add other direct dependencies here if any
+    # e.g., for PDF reporting: "reportlab"
+    # e.g., for a web UI: "Flask" or "Django"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/Yosoyepa/networking_tester"
+"Bug Tracker" = "https://github.com/Yosoyepa/networking_tester/issues"
+
+[project.scripts]
+networking-tester = "networking_tester.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["."] # Tells setuptools to look for packages in the current directory
+include = ["networking_tester*"] # Include the main package and its subpackages
+exclude = ["tests*", "docs*"] # Exclude tests and docs from the wheel
