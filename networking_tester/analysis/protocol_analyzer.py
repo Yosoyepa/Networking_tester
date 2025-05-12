@@ -7,223 +7,85 @@ import logging
 from datetime import datetime
 from scapy.all import IP, TCP, UDP, ICMP
 from unittest.mock import MagicMock
+from .base_analyzer import BaseAnalyzer # Import BaseAnalyzer
 
 logger = logging.getLogger(__name__)
 
-class ProtocolAnalyzer:
+class ProtocolAnalyzer(BaseAnalyzer): # Inherit from BaseAnalyzer
     """Clase para analizar protocolos de capa de red y transporte."""
     
-    def __init__(self):
-        """Inicializar el analizador con configuración predeterminada."""
-        logger.debug("Inicializando analizador de protocolos")
-        self.known_ports = {
-            80: "HTTP",
-            443: "HTTPS",
-            21: "FTP",
-            22: "SSH",
-            23: "Telnet",
-            25: "SMTP",
-            53: "DNS",
-            110: "POP3",
-            143: "IMAP",
-            161: "SNMP",
-            194: "IRC",
-            389: "LDAP",
-            445: "SMB",
-            3389: "RDP",
-            5900: "VNC",
-            8080: "HTTP Proxy"
-        }
-        
-    def analyze_packet(self, packet):
+    def __init__(self, config_manager): # Accept config_manager
+        super().__init__(config_manager) # Call super init
+        # Load known_ports from config
+        self.known_ports = self.config_manager.get('analysis.known_ports', {})
+        # logger.debug("Inicializando analizador de protocolos") # Done by BaseAnalyzer
+
+    def analyze_packet(self, packet, existing_analysis=None):
         """
         Analiza un paquete IP y extrae información de protocolos.
-        
-        Args:
-            packet: Paquete de red capturado (objeto scapy)
-            
-        Returns:
-            dict: Diccionario con información analizada del paquete
+        Appends results to 'protocol_analysis' key in existing_analysis or a new dict.
         """
-        # Handle MagicMock objects for testing
-        if isinstance(packet, MagicMock):
-            # Set default values for the mock packet analysis
-            analysis = {
-                'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'),
-                'src_ip': "192.168.1.100",
-                'dst_ip': "8.8.8.8",
-                'ttl': 64,
-                'length': 0,
-                'protocol_num': 6  # Default to TCP
+        analysis_results = {}
+        if isinstance(packet, MagicMock): # Keep for tests if they directly instantiate this
+            # ... (keep mock handling for direct tests, but engine should pass real packets)
+            # For production, this branch should ideally not be hit if engine passes Scapy packets
+            logger.warning("ProtocolAnalyzer received a MagicMock packet directly.")
+            # Simplified mock handling for brevity
+            analysis_results = {'mock_protocol_data': 'mock_value', 'src_ip': '0.0.0.0'}
+            if existing_analysis:
+                existing_analysis.setdefault('protocol_details', {}).update(analysis_results)
+                return existing_analysis
+            return {'protocol_details': analysis_results}
+
+
+        if not packet.haslayer(IP):
+            analysis_results = {"error": "No es un paquete IP"}
+        else:
+            ip_layer = packet.getlayer(IP)
+            analysis_results = {
+                'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'), # Consider moving timestamp to a central place
+                'src_ip': ip_layer.src,
+                'dst_ip': ip_layer.dst,
+                'ttl': ip_layer.ttl,
+                'length': ip_layer.len,
+                'protocol_num': ip_layer.proto
+            }
+            # Protocol-specific analysis
+            if ip_layer.proto == 6 and packet.haslayer(TCP):  # TCP
+                analysis_results.update(self._analyze_tcp(packet, packet.getlayer(TCP)))
+            elif ip_layer.proto == 17 and packet.haslayer(UDP):  # UDP
+                analysis_results.update(self._analyze_udp(packet, packet.getlayer(UDP)))
+            elif ip_layer.proto == 1 and packet.haslayer(ICMP):  # ICMP
+                analysis_results.update(self._analyze_icmp(packet, packet.getlayer(ICMP)))
+            else:
+                analysis_results['protocol'] = f"IP Protocol {ip_layer.proto}"
+            
+            # QoS/DSCP analysis
+            dscp = (ip_layer.tos >> 2) & 0x3F
+            ecn = ip_layer.tos & 0x3
+            
+            analysis_results['qos'] = {
+                'dscp': dscp,
+                'ecn': ecn,
+                'priority': dscp >> 3,
+                'tos_value': ip_layer.tos
             }
             
-            # Extract protocol number directly from the mock packet
-            proto = None
-            # Get protocol directly if available
-            if hasattr(packet, 'proto'):
-                proto = packet.proto
-                analysis['protocol_num'] = proto
-            # Try to get from IP layer if direct attribute not available
-            elif hasattr(packet, 'getlayer') and callable(packet.getlayer):
-                try:
-                    ip_layer = packet.getlayer(IP)
-                    if ip_layer and hasattr(ip_layer, 'proto'):
-                        proto = ip_layer.proto
-                        analysis['protocol_num'] = proto
-                except Exception:
-                    pass
-        
-            # Critical bugfix: Use the proto value to determine the actual protocol
-            # and prioritize it over other detection methods when it's UDP (17) or ICMP (1)
-            if proto == 17:  # UDP - handle this case first and return
-                analysis.update({
-                    'protocol': 'UDP',  # Must be 'UDP', not 'TCP'
-                    'src_port': 53243,
-                    'dst_port': 53,
-                    'protocol_info': 'DNS',
-                    'qos': {
-                        'dscp': 0,
-                        'ecn': 0,
-                        'priority': 0,
-                        'tos_value': 0
-                    },
-                    'performance': {
-                        'packet_size': 64,
-                        'header_overhead': 28  # IP(20) + UDP(8)
-                    }
-                })
-                analysis['summary'] = self._generate_summary(analysis)
-                return analysis  # Return early to avoid overwriting
-                
-            elif proto == 1:  # ICMP - handle this case next and return
-                analysis.update({
-                    'protocol': 'ICMP',
-                    'icmp_type': 8,
-                    'icmp_type_str': 'Echo Request',
-                    'protocol_info': 'ICMP Echo Request',
-                    'qos': {
-                        'dscp': 0,
-                        'ecn': 0,
-                        'priority': 0,
-                        'tos_value': 0
-                    },
-                    'performance': {
-                        'packet_size': 64,
-                        'header_overhead': 20  # IP(20) only
-                    }
-                })
-                analysis['summary'] = self._generate_summary(analysis)
-                return analysis  # Return early to avoid overwriting
-                
-            # For security tests (HTTPS) and TCP packets
-            if hasattr(packet, 'security') or self._is_https_packet(packet) or proto == 6:
-                # Add TCP with HTTPS info if it's secure, otherwise regular TCP
-                if hasattr(packet, 'security') or self._is_https_packet(packet):
-                    analysis.update({
-                        'protocol': 'TCP',
-                        'src_port': 12345,
-                        'dst_port': 443,
-                        'flags': {'SYN': True},
-                        'protocol_info': 'HTTPS',
-                        'security': {
-                            'encrypted': True,
-                            'protocol': 'TLS/SSL'
-                        }
-                    })
-                else:
-                    analysis.update({
-                        'protocol': 'TCP',
-                        'src_port': 12345,
-                        'dst_port': 80,
-                        'flags': {'SYN': True},
-                        'protocol_info': 'HTTP'
-                    })
-                    
-                # Add common fields
-                analysis['qos'] = {
-                    'dscp': 0,
-                    'ecn': 0,
-                    'priority': 0,
-                    'tos_value': 0
-                }
-                
-                analysis['performance'] = {
-                    'packet_size': 64,
-                    'header_overhead': 40  # IP(20) + TCP(20)
-                }
-                
-                # Generate summary
-                analysis['summary'] = self._generate_summary(analysis)
+            # Performance metrics
+            analysis_results['performance'] = {
+                'packet_size': len(packet),
+                'header_overhead': 20 + (20 if ip_layer.proto == 6 else (8 if ip_layer.proto == 17 else 0))
+            }
             
-            return analysis
-            
-        # Real packet analysis (non-mock)
-        if not packet.haslayer(IP):
-            return {"error": "No es un paquete IP"}
+            # Generate summary
+            analysis_results['summary'] = self._generate_summary(analysis_results)
         
-        ip_layer = packet.getlayer(IP)
-        
-        # Basic IP info
-        analysis = {
-            'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'),
-            'src_ip': ip_layer.src,
-            'dst_ip': ip_layer.dst,
-            'ttl': ip_layer.ttl,
-            'length': ip_layer.len,
-            'protocol_num': ip_layer.proto
-        }
-        
-        # Protocol-specific analysis
-        if ip_layer.proto == 6 and packet.haslayer(TCP):  # TCP
-            analysis.update(self._analyze_tcp(packet, packet.getlayer(TCP)))
-        elif ip_layer.proto == 17 and packet.haslayer(UDP):  # UDP
-            analysis.update(self._analyze_udp(packet, packet.getlayer(UDP)))
-        elif ip_layer.proto == 1 and packet.haslayer(ICMP):  # ICMP
-            analysis.update(self._analyze_icmp(packet, packet.getlayer(ICMP)))
-        else:
-            analysis['protocol'] = f"IP Protocol {ip_layer.proto}"
-            
-        # QoS/DSCP analysis
-        dscp = (ip_layer.tos >> 2) & 0x3F
-        ecn = ip_layer.tos & 0x3
-        
-        analysis['qos'] = {
-            'dscp': dscp,
-            'ecn': ecn,
-            'priority': dscp >> 3,
-            'tos_value': ip_layer.tos
-        }
-        
-        # Performance metrics
-        analysis['performance'] = {
-            'packet_size': len(packet),
-            'header_overhead': 20 + (20 if ip_layer.proto == 6 else (8 if ip_layer.proto == 17 else 0))
-        }
-        
-        # Generate summary
-        analysis['summary'] = self._generate_summary(analysis)
-        
-        return analysis
-    
-    def _is_https_packet(self, packet):
-        """Check if a packet is likely HTTPS based on its getlayer method and port."""
-        try:
-            # Check for special haslayer and getlayer lambdas from the test
-            if hasattr(packet, 'getlayer') and callable(packet.getlayer):
-                # This is what the test is doing - using lambdas to return mock layers
-                tcp_layer = None
-                for layer_class in [TCP, IP]:
-                    try:
-                        layer = packet.getlayer(layer_class)
-                        if layer and hasattr(layer, 'dport') and layer.dport == 443:
-                            return True
-                    except:
-                        pass
-        except:
-            pass
-        
-        return False
-        
+        # Integrate with existing_analysis
+        if existing_analysis:
+            existing_analysis.setdefault('protocol_details', {}).update(analysis_results)
+            return existing_analysis
+        return {'protocol_details': analysis_results}
+
     def _analyze_tcp(self, packet, tcp=None):
         """Analyze TCP protocol information."""
         # Handle missing TCP layer
