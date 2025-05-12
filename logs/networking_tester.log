@@ -263,3 +263,5 @@
 2025-05-11 19:25:16 [INFO   ] [networking_tester.capture.frame_capture] [write_pcap:188] Successfully wrote 5 packets to C:\Users\juanc\AppData\Local\Temp\tmp5jeow1tb\output.pcap
 2025-05-11 19:25:16 [INFO   ] [__main__            ] [test_write_to_pcap:125] PCAP writing test successful
 2025-05-11 19:25:16 [INFO   ] [__main__            ] [tearDown:62] Test cleanup complete
+2025-05-11 19:53:38 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-11 19:53:38 [WARNING] [networking_tester   ] [test_end_to_end_workflow:430] test_end_to_end_workflow in test_ai_monitoring.py needs significant refactoring due to core engine changes.
