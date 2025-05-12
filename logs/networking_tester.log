@@ -265,3 +265,281 @@
 2025-05-11 19:25:16 [INFO   ] [__main__            ] [tearDown:62] Test cleanup complete
 2025-05-11 19:53:38 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
 2025-05-11 19:53:38 [WARNING] [networking_tester   ] [test_end_to_end_workflow:430] test_end_to_end_workflow in test_ai_monitoring.py needs significant refactoring due to core engine changes.
+2025-05-11 19:56:23 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-11 19:59:10 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-11 19:59:10 [INFO   ] [networking_tester   ] [test_ethernet_frame_analysis:93] Analyzed 3 Ethernet frames successfully
+2025-05-11 19:59:10 [INFO   ] [networking_tester   ] [test_packet_summary_generation:433] Packet summary generation test successful (assuming integrated into analyze_packet)
+2025-05-11 19:59:10 [WARNING] [networking_tester   ] [test_performance_metrics_extraction:442] test_performance_metrics_extraction needs significant refactoring.
+2025-05-11 19:59:10 [WARNING] [networking_tester.analysis.protocol_analyzer] [analyze_packet:32] ProtocolAnalyzer received a MagicMock packet directly.
+2025-05-11 19:59:10 [INFO   ] [networking_tester   ] [test_qos_extraction:262] QoS extraction from 32 IP packets successful
+2025-05-11 19:59:10 [INFO   ] [networking_tester   ] [test_qos_extraction:301] QoS extraction from 8 WiFi QoS frames successful
+2025-05-11 19:59:10 [WARNING] [networking_tester.analysis.protocol_analyzer] [analyze_packet:32] ProtocolAnalyzer received a MagicMock packet directly.
+2025-05-11 19:59:10 [INFO   ] [networking_tester   ] [test_wifi_frame_analysis:144] Analyzed 3 WiFi frames successfully
+2025-05-11 20:00:44 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-11 20:00:44 [INFO   ] [networking_tester   ] [test_ethernet_frame_analysis:93] Analyzed 3 Ethernet frames successfully
+2025-05-11 20:00:44 [INFO   ] [networking_tester   ] [test_packet_summary_generation:433] Packet summary generation test successful (assuming integrated into analyze_packet)
+2025-05-11 20:00:44 [WARNING] [networking_tester   ] [test_performance_metrics_extraction:442] test_performance_metrics_extraction needs significant refactoring.
+2025-05-11 20:00:44 [WARNING] [networking_tester.analysis.protocol_analyzer] [analyze_packet:30] ProtocolAnalyzer received a MagicMock packet directly. Providing enhanced mock data.
+2025-05-11 20:00:44 [WARNING] [networking_tester.analysis.protocol_analyzer] [analyze_packet:30] ProtocolAnalyzer received a MagicMock packet directly. Providing enhanced mock data.
+2025-05-11 20:00:44 [INFO   ] [networking_tester   ] [test_qos_extraction:262] QoS extraction from 32 IP packets successful
+2025-05-11 20:00:44 [INFO   ] [networking_tester   ] [test_qos_extraction:301] QoS extraction from 8 WiFi QoS frames successful
+2025-05-11 20:00:44 [WARNING] [networking_tester.analysis.protocol_analyzer] [analyze_packet:30] ProtocolAnalyzer received a MagicMock packet directly. Providing enhanced mock data.
+2025-05-11 20:00:44 [INFO   ] [networking_tester   ] [test_wifi_frame_analysis:144] Analyzed 3 WiFi frames successfully
+2025-05-11 20:01:58 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-11 20:01:58 [INFO   ] [networking_tester   ] [test_ethernet_frame_analysis:93] Analyzed 3 Ethernet frames successfully
+2025-05-11 20:01:58 [INFO   ] [networking_tester   ] [test_packet_summary_generation:367] Packet summary generation test successful (assuming integrated into analyze_packet)
+2025-05-11 20:01:58 [WARNING] [networking_tester   ] [test_performance_metrics_extraction:376] test_performance_metrics_extraction needs significant refactoring.
+2025-05-11 20:01:58 [WARNING] [networking_tester.analysis.protocol_analyzer] [analyze_packet:30] ProtocolAnalyzer received a MagicMock packet directly. Providing enhanced mock data.
+2025-05-11 20:01:58 [WARNING] [networking_tester.analysis.protocol_analyzer] [analyze_packet:30] ProtocolAnalyzer received a MagicMock packet directly. Providing enhanced mock data.
+2025-05-11 20:01:58 [WARNING] [networking_tester.analysis.protocol_analyzer] [analyze_packet:30] ProtocolAnalyzer received a MagicMock packet directly. Providing enhanced mock data.
+2025-05-11 20:01:58 [INFO   ] [networking_tester   ] [test_protocol_analysis:197] Analyzed 3 protocol packets successfully
+2025-05-11 20:01:58 [INFO   ] [networking_tester   ] [test_qos_extraction:236] QoS extraction from 32 IP packets successful
+2025-05-11 20:01:58 [INFO   ] [networking_tester   ] [test_qos_extraction:275] QoS extraction from 8 WiFi QoS frames successful
+2025-05-11 20:01:58 [WARNING] [networking_tester.analysis.protocol_analyzer] [analyze_packet:30] ProtocolAnalyzer received a MagicMock packet directly. Providing enhanced mock data.
+2025-05-11 20:01:58 [WARNING] [networking_tester.analysis.protocol_analyzer] [analyze_packet:30] ProtocolAnalyzer received a MagicMock packet directly. Providing enhanced mock data.
+2025-05-11 20:01:58 [INFO   ] [networking_tester   ] [test_wifi_frame_analysis:144] Analyzed 3 WiFi frames successfully
+2025-05-11 20:06:14 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-11 20:06:14 [INFO   ] [networking_tester   ] [test_ethernet_frame_analysis:98] Analyzed 3 Ethernet frames successfully
+2025-05-11 20:06:14 [INFO   ] [networking_tester   ] [test_packet_summary_generation:372] Packet summary generation test successful (assuming integrated into analyze_packet)
+2025-05-11 20:06:14 [INFO   ] [networking_tester   ] [test_performance_metrics_extraction:380] Running test_performance_metrics_extraction.
+2025-05-11 20:06:14 [WARNING] [networking_tester.analysis.protocol_analyzer] [analyze_packet:30] ProtocolAnalyzer received a MagicMock packet directly. Providing enhanced mock data.
+2025-05-11 20:06:14 [WARNING] [networking_tester.analysis.protocol_analyzer] [analyze_packet:30] ProtocolAnalyzer received a MagicMock packet directly. Providing enhanced mock data.
+2025-05-11 20:06:14 [WARNING] [networking_tester.analysis.protocol_analyzer] [analyze_packet:30] ProtocolAnalyzer received a MagicMock packet directly. Providing enhanced mock data.
+2025-05-11 20:06:14 [INFO   ] [networking_tester   ] [test_protocol_analysis:202] Analyzed 3 protocol packets successfully
+2025-05-11 20:06:14 [INFO   ] [networking_tester   ] [test_qos_extraction:241] QoS extraction from 32 IP packets successful
+2025-05-11 20:06:14 [INFO   ] [networking_tester   ] [test_qos_extraction:280] QoS extraction from 8 WiFi QoS frames successful
+2025-05-11 20:06:14 [WARNING] [networking_tester.analysis.protocol_analyzer] [analyze_packet:30] ProtocolAnalyzer received a MagicMock packet directly. Providing enhanced mock data.
+2025-05-11 20:06:14 [WARNING] [networking_tester.analysis.protocol_analyzer] [analyze_packet:30] ProtocolAnalyzer received a MagicMock packet directly. Providing enhanced mock data.
+2025-05-11 20:06:14 [INFO   ] [networking_tester   ] [test_security_analysis:315] Security analysis of 2 IP packets successful
+2025-05-11 20:06:14 [INFO   ] [networking_tester   ] [test_wifi_frame_analysis:149] Analyzed 3 WiFi frames successfully
+2025-05-11 20:07:37 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-11 20:07:37 [INFO   ] [networking_tester   ] [test_ethernet_frame_analysis:98] Analyzed 3 Ethernet frames successfully
+2025-05-11 20:07:37 [INFO   ] [networking_tester   ] [test_packet_summary_generation:372] Packet summary generation test successful (assuming integrated into analyze_packet)
+2025-05-11 20:07:37 [INFO   ] [networking_tester   ] [test_performance_metrics_extraction:380] Running test_performance_metrics_extraction.
+2025-05-11 20:07:37 [WARNING] [networking_tester.analysis.protocol_analyzer] [analyze_packet:30] ProtocolAnalyzer received a MagicMock packet directly. Providing enhanced mock data.
+2025-05-11 20:07:37 [WARNING] [networking_tester.analysis.protocol_analyzer] [analyze_packet:30] ProtocolAnalyzer received a MagicMock packet directly. Providing enhanced mock data.
+2025-05-11 20:07:37 [WARNING] [networking_tester.analysis.protocol_analyzer] [analyze_packet:30] ProtocolAnalyzer received a MagicMock packet directly. Providing enhanced mock data.
+2025-05-11 20:07:37 [INFO   ] [networking_tester   ] [test_protocol_analysis:202] Analyzed 3 protocol packets successfully
+2025-05-11 20:07:37 [INFO   ] [networking_tester   ] [test_qos_extraction:241] QoS extraction from 32 IP packets successful
+2025-05-11 20:07:37 [INFO   ] [networking_tester   ] [test_qos_extraction:280] QoS extraction from 8 WiFi QoS frames successful
+2025-05-11 20:07:37 [WARNING] [networking_tester.analysis.protocol_analyzer] [analyze_packet:30] ProtocolAnalyzer received a MagicMock packet directly. Providing enhanced mock data.
+2025-05-11 20:07:37 [WARNING] [networking_tester.analysis.protocol_analyzer] [analyze_packet:30] ProtocolAnalyzer received a MagicMock packet directly. Providing enhanced mock data.
+2025-05-11 20:07:37 [INFO   ] [networking_tester   ] [test_security_analysis:315] Security analysis of 2 IP packets successful
+2025-05-11 20:07:37 [INFO   ] [networking_tester   ] [test_wifi_frame_analysis:149] Analyzed 3 WiFi frames successfully
+2025-05-11 20:10:42 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-11 20:10:42 [INFO   ] [networking_tester   ] [test_ethernet_frame_analysis:98] Analyzed 3 Ethernet frames successfully
+2025-05-11 20:10:42 [INFO   ] [networking_tester   ] [test_packet_summary_generation:372] Packet summary generation test successful (assuming integrated into analyze_packet)
+2025-05-11 20:10:42 [INFO   ] [networking_tester   ] [test_performance_metrics_extraction:380] Running test_performance_metrics_extraction.
+2025-05-11 20:10:42 [WARNING] [networking_tester.analysis.protocol_analyzer] [analyze_packet:30] ProtocolAnalyzer received a MagicMock packet directly. Providing enhanced mock data.
+2025-05-11 20:10:42 [WARNING] [networking_tester.analysis.protocol_analyzer] [analyze_packet:30] ProtocolAnalyzer received a MagicMock packet directly. Providing enhanced mock data.
+2025-05-11 20:10:42 [WARNING] [networking_tester.analysis.protocol_analyzer] [analyze_packet:30] ProtocolAnalyzer received a MagicMock packet directly. Providing enhanced mock data.
+2025-05-11 20:10:42 [INFO   ] [networking_tester   ] [test_protocol_analysis:202] Analyzed 3 protocol packets successfully
+2025-05-11 20:10:42 [INFO   ] [networking_tester   ] [test_qos_extraction:241] QoS extraction from 32 IP packets successful
+2025-05-11 20:10:42 [INFO   ] [networking_tester   ] [test_qos_extraction:280] QoS extraction from 8 WiFi QoS frames successful
+2025-05-11 20:10:42 [WARNING] [networking_tester.analysis.protocol_analyzer] [analyze_packet:30] ProtocolAnalyzer received a MagicMock packet directly. Providing enhanced mock data.
+2025-05-11 20:10:42 [WARNING] [networking_tester.analysis.protocol_analyzer] [analyze_packet:30] ProtocolAnalyzer received a MagicMock packet directly. Providing enhanced mock data.
+2025-05-11 20:10:42 [INFO   ] [networking_tester   ] [test_security_analysis:315] Security analysis of 2 IP packets successful
+2025-05-11 20:10:42 [INFO   ] [networking_tester   ] [test_wifi_frame_analysis:149] Analyzed 3 WiFi frames successfully
+2025-05-11 20:12:49 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-11 20:12:49 [INFO   ] [networking_tester   ] [test_ethernet_frame_analysis:98] Analyzed 3 Ethernet frames successfully
+2025-05-11 20:12:49 [INFO   ] [networking_tester   ] [test_packet_summary_generation:372] Packet summary generation test successful (assuming integrated into analyze_packet)
+2025-05-11 20:12:49 [INFO   ] [networking_tester   ] [test_performance_metrics_extraction:380] Running test_performance_metrics_extraction.
+2025-05-11 20:12:49 [INFO   ] [networking_tester   ] [test_performance_metrics_extraction:464] Performance metrics extraction test ran for 4 frames (basic checks).
+2025-05-11 20:12:49 [WARNING] [networking_tester.analysis.protocol_analyzer] [analyze_packet:30] ProtocolAnalyzer received a MagicMock packet directly. Providing enhanced mock data.
+2025-05-11 20:12:49 [WARNING] [networking_tester.analysis.protocol_analyzer] [analyze_packet:30] ProtocolAnalyzer received a MagicMock packet directly. Providing enhanced mock data.
+2025-05-11 20:12:49 [WARNING] [networking_tester.analysis.protocol_analyzer] [analyze_packet:30] ProtocolAnalyzer received a MagicMock packet directly. Providing enhanced mock data.
+2025-05-11 20:12:49 [INFO   ] [networking_tester   ] [test_protocol_analysis:202] Analyzed 3 protocol packets successfully
+2025-05-11 20:12:49 [INFO   ] [networking_tester   ] [test_qos_extraction:241] QoS extraction from 32 IP packets successful
+2025-05-11 20:12:49 [INFO   ] [networking_tester   ] [test_qos_extraction:280] QoS extraction from 8 WiFi QoS frames successful
+2025-05-11 20:12:49 [WARNING] [networking_tester.analysis.protocol_analyzer] [analyze_packet:30] ProtocolAnalyzer received a MagicMock packet directly. Providing enhanced mock data.
+2025-05-11 20:12:49 [WARNING] [networking_tester.analysis.protocol_analyzer] [analyze_packet:30] ProtocolAnalyzer received a MagicMock packet directly. Providing enhanced mock data.
+2025-05-11 20:12:49 [INFO   ] [networking_tester   ] [test_security_analysis:315] Security analysis of 2 IP packets successful
+2025-05-11 20:12:49 [INFO   ] [networking_tester   ] [test_wifi_frame_analysis:149] Analyzed 3 WiFi frames successfully
+2025-05-11 20:14:56 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-11 20:14:56 [INFO   ] [__main__            ] [setUp:51] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmppxbpyhox\test_capture.pcap
+2025-05-11 20:14:56 [INFO   ] [__main__            ] [tearDown:63] Test cleanup complete
+2025-05-11 20:14:56 [INFO   ] [__main__            ] [setUp:51] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmpurm54r5s\test_capture.pcap
+2025-05-11 20:14:56 [INFO   ] [__main__            ] [tearDown:63] Test cleanup complete
+2025-05-11 20:14:57 [INFO   ] [__main__            ] [setUp:51] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmp8ev_pk4x\test_capture.pcap
+2025-05-11 20:14:57 [INFO   ] [__main__            ] [tearDown:63] Test cleanup complete
+2025-05-11 20:14:57 [INFO   ] [__main__            ] [setUp:51] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmpt90dulc4\test_capture.pcap
+2025-05-11 20:14:57 [INFO   ] [__main__            ] [tearDown:63] Test cleanup complete
+2025-05-11 20:14:57 [INFO   ] [__main__            ] [setUp:51] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmpanlpalxb\test_capture.pcap
+2025-05-11 20:14:57 [INFO   ] [__main__            ] [tearDown:63] Test cleanup complete
+2025-05-11 20:14:57 [INFO   ] [__main__            ] [setUp:51] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmp79o54mub\test_capture.pcap
+2025-05-11 20:14:57 [INFO   ] [__main__            ] [test_packet_processing_callback_usage:136] Packet processing callback usage is tested via other methods like test_read_from_pcap and test_async_capture.
+2025-05-11 20:14:57 [INFO   ] [__main__            ] [tearDown:63] Test cleanup complete
+2025-05-11 20:14:57 [INFO   ] [__main__            ] [setUp:51] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmpv7_bmq_4\test_capture.pcap
+2025-05-11 20:14:57 [INFO   ] [__main__            ] [tearDown:63] Test cleanup complete
+2025-05-11 20:14:57 [INFO   ] [__main__            ] [setUp:51] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmpgti7xysn\test_capture.pcap
+2025-05-11 20:14:57 [INFO   ] [__main__            ] [tearDown:63] Test cleanup complete
+2025-05-11 20:14:57 [INFO   ] [__main__            ] [setUp:51] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmp6w8msfax\test_capture.pcap
+2025-05-11 20:14:57 [INFO   ] [__main__            ] [tearDown:63] Test cleanup complete
+2025-05-11 20:19:39 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-11 20:19:39 [INFO   ] [__main__            ] [setUp:49] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmpyawxcmuz\test_capture.pcap
+2025-05-11 20:19:39 [INFO   ] [networking_tester.capture.frame_capture] [start_async_capture:98] Starting asynchronous capture on interface eth0 (filter='tcp')
+2025-05-11 20:19:39 [INFO   ] [networking_tester.capture.frame_capture] [start_async_capture:107] Asynchronous capture started on eth0.
+2025-05-11 20:19:40 [INFO   ] [networking_tester.capture.frame_capture] [stop_async_capture:118] Asynchronous capture stopped.
+2025-05-11 20:19:40 [INFO   ] [__main__            ] [test_async_capture:261] Async capture test successful (adapted)
+2025-05-11 20:19:40 [INFO   ] [__main__            ] [tearDown:63] Test cleanup complete
+2025-05-11 20:19:40 [INFO   ] [__main__            ] [setUp:49] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmpchr4nooa\test_capture.pcap
+2025-05-11 20:19:40 [INFO   ] [__main__            ] [test_capture_statistics:215] Capture statistics test successful (verified absence of stats attributes)
+2025-05-11 20:19:40 [INFO   ] [__main__            ] [tearDown:63] Test cleanup complete
+2025-05-11 20:19:40 [INFO   ] [__main__            ] [setUp:49] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmpx8fxd6az\test_capture.pcap
+2025-05-11 20:19:40 [INFO   ] [networking_tester.capture.frame_capture] [start_capture:45] Starting synchronous capture on interface eth0 (count=5, timeout=None, filter='tcp port 80')
+2025-05-11 20:19:40 [INFO   ] [networking_tester.capture.frame_capture] [start_capture:59] Synchronous capture finished on eth0.
+2025-05-11 20:19:40 [INFO   ] [__main__            ] [test_capture_with_filter:158] Capture with filter test successful (adapted, checks filter pass-through)
+2025-05-11 20:19:40 [INFO   ] [__main__            ] [tearDown:63] Test cleanup complete
+2025-05-11 20:19:40 [INFO   ] [__main__            ] [setUp:49] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmp4waiyqts\test_capture.pcap
+2025-05-11 20:19:40 [INFO   ] [__main__            ] [test_error_handling_async_start_fail:208] Error handling for async start failure test successful
+2025-05-11 20:19:40 [INFO   ] [__main__            ] [tearDown:63] Test cleanup complete
+2025-05-11 20:19:40 [INFO   ] [__main__            ] [setUp:49] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmpq6kokp_j\test_capture.pcap
+2025-05-11 20:19:40 [INFO   ] [__main__            ] [test_error_handling_read_pcap_non_existent:179] Error handling for read_pcap (non-existent file) test successful
+2025-05-11 20:19:40 [INFO   ] [__main__            ] [tearDown:63] Test cleanup complete
+2025-05-11 20:19:40 [INFO   ] [__main__            ] [setUp:49] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmpxwl8xxk0\test_capture.pcap
+2025-05-11 20:19:40 [INFO   ] [__main__            ] [test_error_handling_write_pcap_fail:194] Error handling for write_pcap (failure) test successful
+2025-05-11 20:19:40 [INFO   ] [__main__            ] [tearDown:63] Test cleanup complete
+2025-05-11 20:19:40 [INFO   ] [__main__            ] [setUp:49] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmp84ufainf\test_capture.pcap
+2025-05-11 20:19:40 [INFO   ] [networking_tester.capture.frame_capture] [start_capture:45] Starting synchronous capture on interface eth0 (count=3, timeout=10, filter='None')
+2025-05-11 20:19:40 [INFO   ] [networking_tester.capture.frame_capture] [start_capture:59] Synchronous capture finished on eth0.
+2025-05-11 20:19:40 [INFO   ] [__main__            ] [test_live_capture:99] Live capture test successful (adapted for sync capture)
+2025-05-11 20:19:40 [INFO   ] [__main__            ] [tearDown:63] Test cleanup complete
+2025-05-11 20:19:40 [INFO   ] [__main__            ] [setUp:49] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmpqp9sqxla\test_capture.pcap
+2025-05-11 20:19:40 [INFO   ] [__main__            ] [test_packet_processing_callback_usage:165] Packet processing callback usage is tested via other methods.
+2025-05-11 20:19:40 [INFO   ] [__main__            ] [tearDown:63] Test cleanup complete
+2025-05-11 20:19:40 [INFO   ] [__main__            ] [setUp:49] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmpvdazoxnr\test_capture.pcap
+2025-05-11 20:19:40 [INFO   ] [__main__            ] [test_print_capture_summary:225] Print capture summary test successful (verified absence of summary method)
+2025-05-11 20:19:40 [INFO   ] [__main__            ] [tearDown:63] Test cleanup complete
+2025-05-11 20:19:40 [INFO   ] [__main__            ] [setUp:49] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmp7adamluk\test_capture.pcap
+2025-05-11 20:19:40 [INFO   ] [networking_tester.capture.frame_capture] [read_pcap:68] Reading packets from C:\Users\juanc\AppData\Local\Temp\tmp7adamluk\test_capture.pcap
+2025-05-11 20:19:40 [INFO   ] [networking_tester.capture.frame_capture] [read_pcap:79] Read and processed 5 packets from C:\Users\juanc\AppData\Local\Temp\tmp7adamluk\test_capture.pcap
+2025-05-11 20:19:40 [INFO   ] [__main__            ] [tearDown:63] Test cleanup complete
+2025-05-11 20:19:40 [INFO   ] [__main__            ] [setUp:49] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmpdzuib4fd\test_capture.pcap
+2025-05-11 20:19:40 [INFO   ] [networking_tester.capture.frame_capture] [write_pcap:87] Writing 5 packets to C:\Users\juanc\AppData\Local\Temp\tmpdzuib4fd\output_test.pcap
+2025-05-11 20:19:40 [INFO   ] [networking_tester.capture.frame_capture] [write_pcap:90] Successfully wrote packets to C:\Users\juanc\AppData\Local\Temp\tmpdzuib4fd\output_test.pcap
+2025-05-11 20:19:40 [INFO   ] [__main__            ] [test_write_to_pcap:132] PCAP writing test successful (adapted)
+2025-05-11 20:19:40 [INFO   ] [__main__            ] [tearDown:63] Test cleanup complete
+2025-05-11 20:22:09 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-11 20:22:09 [INFO   ] [__main__            ] [main:20] Starting Networking Tester v0.2.0
+2025-05-11 20:22:09 [INFO   ] [networking_tester.core.engine] [__init__:19] Initializing AnalysisEngine...
+2025-05-11 20:22:09 [INFO   ] [networking_tester.core.engine] [_load_analyzers:42] Loaded 4 analyzers: ['ProtocolAnalyzer', 'IEEE802_11_Analyzer', 'FlowAnalyzer', 'AnomalyDetector']
+2025-05-11 20:22:09 [INFO   ] [networking_tester.storage.database_handler] [__init__:26] DatabaseHandler is disabled by configuration.
+2025-05-11 20:22:09 [INFO   ] [networking_tester.core.engine] [run_live_capture:93] Starting live capture run: interface=auto, count=0, timeout=None, filter='None'
+2025-05-11 20:22:09 [INFO   ] [networking_tester.core.engine] [run_live_capture:101] No specific interface provided, Scapy will attempt to choose one.
+2025-05-11 20:22:09 [INFO   ] [networking_tester.capture.frame_capture] [start_capture:45] Starting synchronous capture on interface None (count=0, timeout=None, filter='None')
+2025-05-11 20:23:04 [INFO   ] [networking_tester.capture.frame_capture] [start_capture:59] Synchronous capture finished on None.
+2025-05-11 20:23:04 [INFO   ] [networking_tester.core.engine] [run_live_capture:109] Live capture run finished.
+2025-05-11 20:23:04 [INFO   ] [networking_tester.core.engine] [_finalize_run:127] Finalizing run...
+2025-05-11 20:23:04 [INFO   ] [networking_tester.reporting.report_generator] [generate_report:53] Report generated and saved to C:\Users\juanc\Documents\Proyectos Personales\networking_tester\reports\capture_report_20250511_202304.json
+2025-05-11 20:23:04 [CRITICAL] [__main__            ] [main:59] An unhandled error occurred: 'str' object has no attribute 'isoformat'
+Traceback (most recent call last):
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\main.py", line 46, in main
+    engine.run_live_capture(
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\networking_tester\core\engine.py", line 110, in run_live_capture
+    self._finalize_run()
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\networking_tester\core\engine.py", line 137, in _finalize_run
+    final_stats = self.stats_collector.get_statistics()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\networking_tester\analysis\statistics_collector.py", line 70, in get_statistics
+    "start_time": self.start_time.isoformat() if self.start_time else None,
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'isoformat'. Did you mean: 'format'?
+2025-05-11 20:23:04 [INFO   ] [networking_tester.core.engine] [shutdown:155] Shutting down AnalysisEngine...
+2025-05-11 20:23:04 [INFO   ] [networking_tester.core.engine] [shutdown:160] AnalysisEngine shut down.
+2025-05-11 20:23:04 [INFO   ] [__main__            ] [main:62] Networking Tester finished.
+2025-05-11 20:23:12 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-11 20:23:12 [INFO   ] [__main__            ] [main:20] Starting Networking Tester v0.2.0
+2025-05-11 20:23:12 [INFO   ] [networking_tester.core.engine] [__init__:19] Initializing AnalysisEngine...
+2025-05-11 20:23:12 [INFO   ] [networking_tester.core.engine] [_load_analyzers:42] Loaded 4 analyzers: ['ProtocolAnalyzer', 'IEEE802_11_Analyzer', 'FlowAnalyzer', 'AnomalyDetector']
+2025-05-11 20:23:12 [INFO   ] [networking_tester.storage.database_handler] [__init__:26] DatabaseHandler is disabled by configuration.
+2025-05-11 20:23:12 [INFO   ] [networking_tester.core.engine] [run_live_capture:93] Starting live capture run: interface=auto, count=0, timeout=None, filter='None'
+2025-05-11 20:23:12 [INFO   ] [networking_tester.core.engine] [run_live_capture:101] No specific interface provided, Scapy will attempt to choose one.
+2025-05-11 20:23:12 [INFO   ] [networking_tester.capture.frame_capture] [start_capture:45] Starting synchronous capture on interface None (count=0, timeout=None, filter='None')
+2025-05-11 20:28:04 [INFO   ] [networking_tester.capture.frame_capture] [start_capture:59] Synchronous capture finished on None.
+2025-05-11 20:28:04 [INFO   ] [networking_tester.core.engine] [run_live_capture:109] Live capture run finished.
+2025-05-11 20:28:04 [INFO   ] [networking_tester.core.engine] [_finalize_run:127] Finalizing run...
+2025-05-11 20:28:04 [INFO   ] [networking_tester.reporting.report_generator] [generate_report:53] Report generated and saved to C:\Users\juanc\Documents\Proyectos Personales\networking_tester\reports\capture_report_20250511_202804.json
+2025-05-11 20:28:04 [CRITICAL] [__main__            ] [main:59] An unhandled error occurred: 'str' object has no attribute 'isoformat'
+Traceback (most recent call last):
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\main.py", line 46, in main
+    engine.run_live_capture(
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\networking_tester\core\engine.py", line 110, in run_live_capture
+    self._finalize_run()
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\networking_tester\core\engine.py", line 137, in _finalize_run
+    final_stats = self.stats_collector.get_statistics()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\networking_tester\analysis\statistics_collector.py", line 70, in get_statistics
+    "start_time": self.start_time.isoformat() if self.start_time else None,
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'isoformat'. Did you mean: 'format'?
+2025-05-11 20:28:04 [INFO   ] [networking_tester.core.engine] [shutdown:155] Shutting down AnalysisEngine...
+2025-05-11 20:28:04 [INFO   ] [networking_tester.core.engine] [shutdown:160] AnalysisEngine shut down.
+2025-05-11 20:28:04 [INFO   ] [__main__            ] [main:62] Networking Tester finished.
+2025-05-11 20:34:35 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-11 20:34:35 [INFO   ] [__main__            ] [main:20] Starting Networking Tester v0.2.0
+2025-05-11 20:34:35 [INFO   ] [networking_tester.core.engine] [__init__:19] Initializing AnalysisEngine...
+2025-05-11 20:34:35 [INFO   ] [networking_tester.core.engine] [_load_analyzers:42] Loaded 4 analyzers: ['ProtocolAnalyzer', 'IEEE802_11_Analyzer', 'FlowAnalyzer', 'AnomalyDetector']
+2025-05-11 20:34:35 [INFO   ] [networking_tester.storage.database_handler] [__init__:26] DatabaseHandler is disabled by configuration.
+2025-05-11 20:34:35 [INFO   ] [networking_tester.core.engine] [run_live_capture:93] Starting live capture run: interface=auto, count=0, timeout=None, filter='None'
+2025-05-11 20:34:35 [INFO   ] [networking_tester.core.engine] [run_live_capture:101] No specific interface provided, Scapy will attempt to choose one.
+2025-05-11 20:34:35 [INFO   ] [networking_tester.capture.frame_capture] [start_capture:45] Starting synchronous capture on interface None (count=0, timeout=None, filter='None')
+2025-05-11 20:35:04 [INFO   ] [networking_tester.capture.frame_capture] [start_capture:59] Synchronous capture finished on None.
+2025-05-11 20:35:04 [INFO   ] [networking_tester.core.engine] [run_live_capture:109] Live capture run finished.
+2025-05-11 20:35:04 [INFO   ] [networking_tester.core.engine] [_finalize_run:127] Finalizing run...
+2025-05-11 20:35:04 [INFO   ] [networking_tester.reporting.report_generator] [generate_report:53] Report generated and saved to C:\Users\juanc\Documents\Proyectos Personales\networking_tester\reports\capture_report_20250511_203504.json
+2025-05-11 20:35:04 [INFO   ] [networking_tester.core.engine] [_finalize_run:138] Final Statistics:
+2025-05-11 20:35:04 [INFO   ] [networking_tester.core.engine] [_finalize_run:145]   total_packets: 0
+2025-05-11 20:35:04 [INFO   ] [networking_tester.core.engine] [_finalize_run:145]   start_time: None
+2025-05-11 20:35:04 [INFO   ] [networking_tester.core.engine] [_finalize_run:145]   end_time: None
+2025-05-11 20:35:04 [INFO   ] [networking_tester.core.engine] [_finalize_run:145]   duration_seconds: 0
+2025-05-11 20:35:04 [INFO   ] [networking_tester.core.engine] [_finalize_run:145]   packets_per_second: 0
+2025-05-11 20:35:04 [INFO   ] [networking_tester.core.engine] [_finalize_run:141]   protocol_distribution:
+2025-05-11 20:35:04 [INFO   ] [networking_tester.core.engine] [_finalize_run:141]   top_source_ips:
+2025-05-11 20:35:04 [INFO   ] [networking_tester.core.engine] [_finalize_run:141]   top_destination_ips:
+2025-05-11 20:35:04 [INFO   ] [networking_tester.core.engine] [_finalize_run:141]   top_source_ports:
+2025-05-11 20:35:04 [INFO   ] [networking_tester.core.engine] [_finalize_run:141]   top_destination_ports:
+2025-05-11 20:35:04 [INFO   ] [networking_tester.core.engine] [_finalize_run:145]   error_count: 0
+2025-05-11 20:35:04 [INFO   ] [networking_tester.core.engine] [_finalize_run:151] Run finalized.
+2025-05-11 20:35:04 [INFO   ] [networking_tester.core.engine] [shutdown:155] Shutting down AnalysisEngine...
+2025-05-11 20:35:04 [INFO   ] [networking_tester.core.engine] [shutdown:160] AnalysisEngine shut down.
+2025-05-11 20:35:04 [INFO   ] [__main__            ] [main:62] Networking Tester finished.
+2025-05-11 20:35:31 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-11 20:35:31 [INFO   ] [__main__            ] [main:20] Starting Networking Tester v0.2.0
+2025-05-11 20:35:31 [INFO   ] [networking_tester.core.engine] [__init__:19] Initializing AnalysisEngine...
+2025-05-11 20:35:31 [INFO   ] [networking_tester.core.engine] [_load_analyzers:42] Loaded 4 analyzers: ['ProtocolAnalyzer', 'IEEE802_11_Analyzer', 'FlowAnalyzer', 'AnomalyDetector']
+2025-05-11 20:35:31 [INFO   ] [networking_tester.storage.database_handler] [__init__:26] DatabaseHandler is disabled by configuration.
+2025-05-11 20:35:31 [INFO   ] [networking_tester.core.engine] [run_live_capture:93] Starting live capture run: interface=auto, count=0, timeout=None, filter='None'
+2025-05-11 20:35:31 [INFO   ] [networking_tester.core.engine] [run_live_capture:101] No specific interface provided, Scapy will attempt to choose one.
+2025-05-11 20:35:31 [INFO   ] [networking_tester.capture.frame_capture] [start_capture:45] Starting synchronous capture on interface None (count=0, timeout=None, filter='None')
+2025-05-11 20:36:33 [INFO   ] [networking_tester.capture.frame_capture] [start_capture:59] Synchronous capture finished on None.
+2025-05-11 20:36:33 [INFO   ] [networking_tester.core.engine] [run_live_capture:109] Live capture run finished.
+2025-05-11 20:36:33 [INFO   ] [networking_tester.core.engine] [_finalize_run:127] Finalizing run...
+2025-05-11 20:36:33 [INFO   ] [networking_tester.reporting.report_generator] [generate_report:53] Report generated and saved to C:\Users\juanc\Documents\Proyectos Personales\networking_tester\reports\capture_report_20250511_203633.json
+2025-05-11 20:36:33 [INFO   ] [networking_tester.core.engine] [_finalize_run:138] Final Statistics:
+2025-05-11 20:36:33 [INFO   ] [networking_tester.core.engine] [_finalize_run:145]   total_packets: 6
+2025-05-11 20:36:33 [INFO   ] [networking_tester.core.engine] [_finalize_run:145]   start_time: 2025-05-11T20:35:34.599243
+2025-05-11 20:36:33 [INFO   ] [networking_tester.core.engine] [_finalize_run:145]   end_time: 2025-05-11T20:36:15.226011
+2025-05-11 20:36:33 [INFO   ] [networking_tester.core.engine] [_finalize_run:145]   duration_seconds: 40.626768
+2025-05-11 20:36:33 [INFO   ] [networking_tester.core.engine] [_finalize_run:145]   packets_per_second: 0.15
+2025-05-11 20:36:33 [INFO   ] [networking_tester.core.engine] [_finalize_run:141]   protocol_distribution:
+2025-05-11 20:36:33 [INFO   ] [networking_tester.core.engine] [_finalize_run:143]     UDP: 4
+2025-05-11 20:36:33 [INFO   ] [networking_tester.core.engine] [_finalize_run:143]     OTHER: 2
+2025-05-11 20:36:33 [INFO   ] [networking_tester.core.engine] [_finalize_run:141]   top_source_ips:
+2025-05-11 20:36:33 [INFO   ] [networking_tester.core.engine] [_finalize_run:143]     26.185.177.52: 4
+2025-05-11 20:36:33 [INFO   ] [networking_tester.core.engine] [_finalize_run:141]   top_destination_ips:
+2025-05-11 20:36:33 [INFO   ] [networking_tester.core.engine] [_finalize_run:143]     26.255.255.255: 2
+2025-05-11 20:36:33 [INFO   ] [networking_tester.core.engine] [_finalize_run:143]     224.0.0.251: 1
+2025-05-11 20:36:33 [INFO   ] [networking_tester.core.engine] [_finalize_run:143]     239.255.255.250: 1
+2025-05-11 20:36:33 [INFO   ] [networking_tester.core.engine] [_finalize_run:141]   top_source_ports:
+2025-05-11 20:36:33 [INFO   ] [networking_tester.core.engine] [_finalize_run:143]     57621: 2
+2025-05-11 20:36:33 [INFO   ] [networking_tester.core.engine] [_finalize_run:143]     5353: 1
+2025-05-11 20:36:33 [INFO   ] [networking_tester.core.engine] [_finalize_run:143]     57487: 1
+2025-05-11 20:36:33 [INFO   ] [networking_tester.core.engine] [_finalize_run:141]   top_destination_ports:
+2025-05-11 20:36:33 [INFO   ] [networking_tester.core.engine] [_finalize_run:143]     57621: 2
+2025-05-11 20:36:33 [INFO   ] [networking_tester.core.engine] [_finalize_run:143]     5353: 1
+2025-05-11 20:36:33 [INFO   ] [networking_tester.core.engine] [_finalize_run:143]     1900: 1
+2025-05-11 20:36:33 [INFO   ] [networking_tester.core.engine] [_finalize_run:145]   error_count: 2
+2025-05-11 20:36:33 [INFO   ] [networking_tester.core.engine] [_finalize_run:151] Run finalized.
+2025-05-11 20:36:33 [INFO   ] [networking_tester.core.engine] [shutdown:155] Shutting down AnalysisEngine...
+2025-05-11 20:36:33 [INFO   ] [networking_tester.core.engine] [shutdown:160] AnalysisEngine shut down.
+2025-05-11 20:36:33 [INFO   ] [__main__            ] [main:62] Networking Tester finished.

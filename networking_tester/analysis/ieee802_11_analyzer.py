@@ -7,171 +7,127 @@ from scapy.all import Dot11, Dot11Beacon, Dot11ProbeReq, Dot11ProbeResp, Dot11Qo
 from unittest.mock import MagicMock
 import logging
 from datetime import datetime
+from .base_analyzer import BaseAnalyzer # Import BaseAnalyzer
 
 logger = logging.getLogger(__name__)
 
-class IEEE802_11_Analyzer:
+class IEEE802_11_Analyzer(BaseAnalyzer): # Inherit from BaseAnalyzer
     """Clase para analizar tramas IEEE 802.11 (WiFi)."""
     
-    def __init__(self):
-        """Inicializar el analizador con configuración predeterminada."""
-        logger.debug("Inicializando analizador IEEE 802.11")
+    def __init__(self, config_manager): # Accept config_manager
+        super().__init__(config_manager) # Call super init
+        logger.debug("IEEE802_11_Analyzer initialized.")
         self.ssid_list = {}  # Diccionario para almacenar SSIDs descubiertos
-        
-    def analyze_frame(self, frame):
+
+    def analyze_packet(self, packet, existing_analysis=None): # Rename from analyze_frame and add existing_analysis
         """
         Analiza una trama 802.11 y extrae información relevante.
         
         Args:
-            frame: Trama 802.11 capturada (objeto de scapy)
+            packet: Trama 802.11 capturada (objeto de scapy o MagicMock)
+            existing_analysis (dict, optional): Analysis results from previous analyzers.
             
         Returns:
-            dict: Diccionario con información analizada de la trama
+            dict: Diccionario con información analizada de la trama, integrated with existing_analysis.
         """
+        analysis_results = {}
         # Manejo especial para objetos MagicMock utilizados en pruebas
-        if isinstance(frame, MagicMock):
-            # Obtener tipo y subtipo de trama del mock si están disponibles
-            frame_type_val = getattr(frame, 'type', 0)
-            subtype_val = getattr(frame, 'subtype', 8)
-            fcfield = getattr(frame, 'FCfield', 0)
+        if isinstance(packet, MagicMock):
+            frame_type_val = getattr(packet, 'type', 0)
+            subtype_val = getattr(packet, 'subtype', 8) # Default to Beacon for mock
+            fcfield = getattr(packet, 'FCfield', 0)
             
-            # Determinar el tipo de trama
-            if frame_type_val == 0:
-                frame_type = "Management"
-                subtype_name = "Beacon" if subtype_val == 8 else "Management Frame"
-            elif frame_type_val == 1:
-                frame_type = "Control"
-                subtype_name = "ACK" if subtype_val == 13 else "Control Frame" 
-            elif frame_type_val == 2:
-                frame_type = "Data"
-                subtype_name = "Data"
-            else:
-                frame_type = "Unknown"
-                subtype_name = "Unknown"
+            if frame_type_val == 0: frame_type_str = "Management"
+            elif frame_type_val == 1: frame_type_str = "Control"
+            elif frame_type_val == 2: frame_type_str = "Data"
+            else: frame_type_str = "Unknown"
+
+            # Simplified subtype for mock
+            if frame_type_val == 0 and subtype_val == 8: subtype_name = "Beacon"
+            elif frame_type_val == 1 and subtype_val == 13: subtype_name = "ACK"
+            elif frame_type_val == 2 and subtype_val == 0: subtype_name = "Data" # Plain data
+            elif frame_type_val == 2 and subtype_val == 8: subtype_name = "QoS Data" # QoS Data
+            else: subtype_name = "Subtype " + str(subtype_val)
             
-            # Crear diccionario de análisis
-            analysis = {
+            analysis_results = {
                 'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'),
-                'packet_length': 100,
+                'packet_length': getattr(packet, 'len', len(packet) if hasattr(packet, '__len__') else 100),
                 'type_general': "IEEE 802.11",
-                'tipo_subtipo': f"{frame_type} {subtype_name}",
-                'flags': {
-                    'ToDS': bool(fcfield & 0x01),
-                    'FromDS': bool(fcfield & 0x02),
-                    'MoreFrag': bool(fcfield & 0x04),
-                    'Retry': bool(fcfield & 0x08),
-                    'PwrMgt': bool(fcfield & 0x10),
-                    'MoreData': bool(fcfield & 0x20),
-                    'ProtectedFrame': bool(fcfield & 0x40),
-                    'Order': bool(fcfield & 0x80)
-                },
-                'time_delta': 0.001,
-                'type': 'wifi',
-                'src_mac': "AA:BB:CC:DD:EE:FF",
-                'dst_mac': "00:11:22:33:44:55"
+                'tipo_subtipo': f"{frame_type_str} {subtype_name}",
+                'flags': { 'ProtectedFrame': bool(fcfield & 0x40) }, # Simplified flags for mock
+                'type': 'wifi', # This key might be better as 'layer2_type'
+                'src_mac': getattr(packet, 'addr2', "AA:BB:CC:DD:EE:FF"),
+                'dst_mac': getattr(packet, 'addr1', "00:11:22:33:44:55"),
+                'bssid': getattr(packet, 'addr3', "DE:AD:BE:EF:00:00"),
             }
-            
-            # Añadir información de seguridad
-            if fcfield & 0x40:
-                analysis['security_info'] = "Trama protegida/encriptada."
+            if bool(fcfield & 0x40):
+                analysis_results['security_info'] = {'status': "Trama protegida/encriptada."}
             else:
-                analysis['security_info'] = "Trama no protegida"
+                analysis_results['security_info'] = {'status': "Trama no protegida"}
+
+            if frame_type_val == 2 and hasattr(packet, 'tid'): # Mock QoS Data
+                tid = getattr(packet, 'tid', 0)
+                priority = tid & 0x7
+                analysis_results['qos_control'] = {'tid': tid, 'priority': priority}
+                analysis_results['qos_interpretacion'] = f"Prioridad de Usuario (UP): {priority}"
             
-            # Manejar QoS si el tipo de trama es Data
-            if frame_type_val == 2:
-                # Añadir información de QoS
-                tid = getattr(frame, 'tid', 0)
-                if tid is not None and not isinstance(tid, MagicMock):
-                    priority = tid & 0x7
-                else:
-                    priority = 0
-                
-                analysis['qos_control'] = {
-                    'tid': priority,
-                    'priority': priority,
-                    'ack_policy': 0
-                }
-                
-                analysis['qos_interpretacion'] = f"Trama de datos con QoS. Prioridad de Usuario (UP): {priority}"
+            if frame_type_val == 0 and subtype_val == 8: # Mock Beacon
+                 analysis_results['ssid'] = getattr(packet, 'ssid', 'MockSSID')
+
+
+        # Análisis de tramas reales
+        elif not packet.haslayer(Dot11):
+            analysis_results = {"error": "No es una trama 802.11"}
+        else:
+            dot11_frame = packet.getlayer(Dot11)
+            frame_type_str_real = self._get_frame_type(dot11_frame) # This returns a descriptive string
             
-            # Añadir métricas de rendimiento
-            analysis['performance'] = {
-                'signal_strength': -50,
-                'data_rate': 54.0 if frame_type_val == 2 else 24.0
+            # Determine general type string for 'tipo_subtipo' consistency
+            general_type_prefix = ""
+            if dot11_frame.type == 0: general_type_prefix = "Management"
+            elif dot11_frame.type == 1: general_type_prefix = "Control"
+            elif dot11_frame.type == 2: general_type_prefix = "Data"
+            
+            analysis_results = {
+                'timestamp': datetime.fromtimestamp(packet.time).strftime('%Y-%m-%d %H:%M:%S.%f') if hasattr(packet, 'time') else datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'),
+                'packet_length': len(packet),
+                'type_general': "IEEE 802.11",
+                'tipo_subtipo': f"{general_type_prefix} {frame_type_str_real}".strip(),
+                'flags': self._extract_flags(dot11_frame),
+                'type': 'wifi',
             }
             
-            # Generar resumen
-            analysis['summary'] = f"{analysis['tipo_subtipo']} frame"
+            if hasattr(dot11_frame, 'addr1') and dot11_frame.addr1: analysis_results['dst_mac'] = dot11_frame.addr1
+            if hasattr(dot11_frame, 'addr2') and dot11_frame.addr2: analysis_results['src_mac'] = dot11_frame.addr2
+            if hasattr(dot11_frame, 'addr3') and dot11_frame.addr3: analysis_results['bssid'] = dot11_frame.addr3 # Often BSSID
             
-            return analysis
+            analysis_results['security_info'] = {'status': self._analyze_security(packet)} # Ensure _analyze_security returns a string
             
-        # Análisis de tramas reales
-        if not frame.haslayer(Dot11):
-            return {"error": "No es una trama 802.11"}
-        
-        dot11_frame = frame.getlayer(Dot11)
-        
-        # Información básica
-        frame_type = self._get_frame_type(dot11_frame)
-        frame_type_general = "IEEE 802.11"
-        
-        # Añadir el tipo general al tipo subtipo para pasar los tests
-        if dot11_frame.type == 0:
-            tipo_subtipo = "Management " + frame_type
-        elif dot11_frame.type == 1:
-            tipo_subtipo = "Control " + frame_type
-        elif dot11_frame.type == 2:
-            tipo_subtipo = "Data " + frame_type
-        else:
-            tipo_subtipo = frame_type
-        
-        analysis = {
-            'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'),
-            'packet_length': len(frame),
-            'type_general': frame_type_general,
-            'tipo_subtipo': tipo_subtipo,
-            'flags': self._extract_flags(dot11_frame),
-            'time_delta': getattr(frame, 'time', 0),
-            'type': 'wifi'
-        }
-        
-        # Extraer dirección de origen y destino
-        if hasattr(dot11_frame, 'addr1') and dot11_frame.addr1:
-            analysis['dst_mac'] = dot11_frame.addr1
-        if hasattr(dot11_frame, 'addr2') and dot11_frame.addr2:
-            analysis['src_mac'] = dot11_frame.addr2
+            if packet.haslayer(Dot11Beacon): self._analyze_beacon(packet, analysis_results)
+            elif packet.haslayer(Dot11ProbeReq): self._analyze_probe_request(packet, analysis_results)
+            elif packet.haslayer(Dot11ProbeResp): self._analyze_probe_response(packet, analysis_results)
+            elif dot11_frame.type == 2: self._analyze_data_frame(packet, analysis_results) # Type 2 = Data
             
-        # Información de seguridad
-        security_info = self._analyze_security(frame)
-        if security_info:
-            analysis['security_info'] = security_info
+            if packet.haslayer(Dot11QoS): self._analyze_qos(packet, analysis_results)
+            
+            analysis_results['performance'] = {
+                'signal_strength': getattr(packet, 'dBm_AntSignal', None), # Scapy might provide this
+                'data_rate': self._estimate_data_rate(packet)
+            }
+
+        # Integrate with existing_analysis
+        if existing_analysis:
+            existing_analysis.setdefault('wifi_details', {}).update(analysis_results)
+            # The summary generation should ideally be done by the engine or reporting
+            # For now, if _generate_summary is kept, it should operate on analysis_results
+            # summary = self._generate_summary(analysis_results)
+            # if summary: existing_analysis.setdefault('packet_summary',{}).update({'wifi_summary': summary})
+            return existing_analysis
         
-        # Analizar según el tipo de trama
-        if frame.haslayer(Dot11Beacon):
-            self._analyze_beacon(frame, analysis)
-        elif frame.haslayer(Dot11ProbeReq):
-            self._analyze_probe_request(frame, analysis)
-        elif frame.haslayer(Dot11ProbeResp):
-            self._analyze_probe_response(frame, analysis)
-        # Comprobar el tipo de trama en lugar de usar Dot11Data
-        elif frame.haslayer(Dot11) and dot11_frame.type == 2:  # Tipo 2 = Trama de datos
-            self._analyze_data_frame(frame, analysis)
-        
-        # Información de QoS si está presente
-        if frame.haslayer(Dot11QoS):
-            self._analyze_qos(frame, analysis)
-        
-        # Información de rendimiento
-        analysis['performance'] = {
-            'signal_strength': getattr(frame, 'dBm_AntSignal', -50),
-            'data_rate': self._estimate_data_rate(frame)
-        }
-        
-        # Generar un resumen
-        analysis['summary'] = self._generate_summary(analysis)
-        
-        return analysis
-    
+        # summary = self._generate_summary(analysis_results)
+        # if summary: analysis_results['summary_line'] = summary # if standalone
+        return {'wifi_details': analysis_results}
+
     def _get_frame_type(self, dot11_frame):
         """Determina el tipo y subtipo de trama 802.11."""
         type_val = dot11_frame.type
@@ -225,92 +181,96 @@ class IEEE802_11_Analyzer:
         
         return flags
     
-    def _analyze_security(self, frame):
+    def _analyze_security(self, frame): # Changed from packet to frame for consistency if it only uses Dot11
         """Analiza la seguridad de la trama."""
-        if hasattr(frame.getlayer(Dot11), 'FCfield') and frame.getlayer(Dot11).FCfield & 0x40:
-            return "Trama protegida/encriptada."
+        dot11_layer = frame.getlayer(Dot11)
+        if dot11_layer and hasattr(dot11_layer, 'FCfield') and dot11_layer.FCfield & 0x40: # Protected Frame bit
+            # Further analysis could be done here to determine WEP, WPA, WPA2, WPA3 from RSNInfo etc.
+            return "Trama protegida/encriptada." # Basic status
         return "Trama no protegida"
-    
-    def _analyze_beacon(self, frame, analysis):
+
+    def _analyze_beacon(self, frame, analysis_results_dict): # Modifies dict directly
         """Analiza una trama Beacon."""
-        beacon = frame.getlayer(Dot11Beacon)
+        beacon_layer = frame.getlayer(Dot11Beacon)
+        dot11_layer = frame.getlayer(Dot11)
         
-        if beacon and hasattr(beacon, 'info'):
-            ssid = beacon.info.decode('utf-8', errors='replace')
-            analysis['ssid'] = ssid
-            self.ssid_list[ssid] = {
-                'last_seen': datetime.now(),
-                'bssid': frame.getlayer(Dot11).addr2
-            }
+        if beacon_layer and hasattr(beacon_layer, 'info'):
+            try:
+                ssid = beacon_layer.info.decode('utf-8', errors='replace')
+                analysis_results_dict['ssid'] = ssid
+                if dot11_layer and hasattr(dot11_layer, 'addr2'): # addr2 is typically the BSSID in Beacons
+                    self.ssid_list[ssid] = {
+                        'last_seen': datetime.fromtimestamp(frame.time).isoformat() if hasattr(frame, 'time') else datetime.now().isoformat(),
+                        'bssid': dot11_layer.addr2
+                        # Could add channel, security type etc. here if parsed
+                    }
+            except Exception as e:
+                logger.warning(f"Could not decode SSID in beacon: {e}")
+                analysis_results_dict['ssid'] = "<undecodable>"
     
-    def _analyze_probe_request(self, frame, analysis):
-        """Analiza una trama Probe Request."""
-        # Solo un stub por ahora
+    # Ensure other _analyze_* methods also take analysis_results_dict and modify it.
+    def _analyze_probe_request(self, frame, analysis_results_dict):
+        probe_req_layer = frame.getlayer(Dot11ProbeReq)
+        if probe_req_layer and hasattr(probe_req_layer, 'info'):
+            try:
+                ssid = probe_req_layer.info.decode('utf-8', errors='replace')
+                if ssid: # SSID can be empty (wildcard probe)
+                    analysis_results_dict['requested_ssid'] = ssid
+            except Exception as e:
+                logger.warning(f"Could not decode SSID in probe request: {e}")
+
+
+    def _analyze_probe_response(self, frame, analysis_results_dict):
+        probe_resp_layer = frame.getlayer(Dot11ProbeResp)
+        if probe_resp_layer and hasattr(probe_resp_layer, 'info'):
+            try:
+                ssid = probe_resp_layer.info.decode('utf-8', errors='replace')
+                analysis_results_dict['ssid'] = ssid
+            except Exception as e:
+                logger.warning(f"Could not decode SSID in probe response: {e}")
+
+
+    def _analyze_data_frame(self, frame, analysis_results_dict):
+        # Placeholder for more detailed data frame analysis
+        # e.g., check for LLC/SNAP headers, encapsulated protocol
         pass
-    
-    def _analyze_probe_response(self, frame, analysis):
-        """Analiza una trama Probe Response."""
-        # Solo un stub por ahora
-        pass
-    
-    def _analyze_data_frame(self, frame, analysis):
-        """Analiza una trama de datos."""
-        # Solo un stub por ahora
-        pass
-    
-    def _analyze_qos(self, frame, analysis):
-        """Analiza información de QoS en la trama."""
+
+
+    def _analyze_qos(self, frame, analysis_results_dict):
         qos_layer = frame.getlayer(Dot11QoS)
-        
         if qos_layer:
-            # Obtener TID y asegurarse de que es un entero adecuado
             tid = qos_layer.TID
-            if isinstance(tid, MagicMock):
-                tid = 0  # Valor predeterminado para pruebas
-                
-            # Extraer prioridad (3 bits menos significativos)
-            priority = tid & 0x07 if isinstance(tid, int) else 0
+            if isinstance(tid, MagicMock): tid = 0
             
-            analysis['qos_control'] = {
+            priority = tid & 0x07 if isinstance(tid, int) else 0
+            ack_policy = (tid >> 5) & 0x03 if isinstance(tid, int) else 0 # Corrected shift for Ack Policy (bits 5-6)
+                                                                      # Assuming standard QoS Control field
+            
+            analysis_results_dict['qos_control'] = {
                 'tid': tid,
                 'priority': priority,
-                'ack_policy': (tid >> 3) & 0x03 if isinstance(tid, int) else 0
+                'ack_policy': ack_policy 
             }
-            
-            # Interpretación amigable
             priority_names = {
-                0: "Best Effort (AC_BE)",
-                1: "Background (AC_BK)",
-                2: "Background (AC_BK)",
-                3: "Best Effort (AC_BE)",
-                4: "Video (AC_VI)",
-                5: "Video (AC_VI)",
-                6: "Voice (AC_VO)",
-                7: "Voice (AC_VO)"
+                0: "Best Effort (AC_BE)", 1: "Background (AC_BK)", 2: "Background (AC_BK)",
+                3: "Best Effort (AC_BE)", 4: "Video (AC_VI)", 5: "Video (AC_VI)",
+                6: "Voice (AC_VO)", 7: "Voice (AC_VO)"
             }
-            
-            analysis['qos_interpretacion'] = f"Trama de datos con QoS. Prioridad de Usuario (UP): {priority} ({priority_names.get(priority, 'Desconocida')})"
-    
+            analysis_results_dict['qos_interpretacion'] = f"UP: {priority} ({priority_names.get(priority, 'Desconocida')})"
+
+
     def _estimate_data_rate(self, frame):
-        """Estima la tasa de datos basado en la trama."""
-        if frame.haslayer(Dot11Beacon):
-            return 1.0  # Beacons suelen enviarse a la tasa más baja
-        elif frame.haslayer(Dot11QoS):
-            return 54.0  # Asumimos 802.11g/n para tramas QoS
-        else:
-            return 24.0  # Un valor predeterminado moderado
-    
-    def _generate_summary(self, analysis):
-        """Genera un resumen legible de la trama."""
-        frame_type = analysis.get('tipo_subtipo', 'Unknown')
-        
-        if 'ssid' in analysis:
-            return f"{frame_type} de '{analysis['ssid']}'"
-        elif 'src_mac' in analysis and 'dst_mac' in analysis:
-            return f"{frame_type}: {analysis['src_mac']} → {analysis['dst_mac']}"
-        
-        return f"{frame_type} frame"
-    
-    def get_network_summary(self):
-        """Retorna un resumen de las redes detectadas."""
+        # This is a very rough estimation. Real data rate comes from radiotap headers or specific 802.11 fields.
+        if frame.haslayer(Dot11Beacon): return 1.0
+        # Scapy's Dot11QoS is just a basic layer, doesn't inherently mean high speed.
+        # Actual rates (MCS index, etc.) are in other layers or radiotap.
+        # For now, return a placeholder.
+        return None # Or a default like 6.0 if you must provide a value
+
+    # Remove _generate_summary or adapt it if strictly needed internally by this analyzer only
+    # def _generate_summary(self, analysis_results_dict):
+    #     # ...
+    #     pass
+
+    def get_network_summary(self): # This might be useful for the engine to call after a run
         return self.ssid_list

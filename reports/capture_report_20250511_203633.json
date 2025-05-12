@@ -1,0 +1,270 @@
+[
+    {
+        "capture_timestamp": "2025-05-11T20:35:34.599243",
+        "raw_packet_length": 86,
+        "protocol_details": {
+            "timestamp": "2025-05-11 20:35:34.599243",
+            "src_ip": "26.185.177.52",
+            "dst_ip": "26.255.255.255",
+            "ttl": 128,
+            "length": 52,
+            "protocol_num": 17,
+            "protocol": "UDP",
+            "src_port": 57621,
+            "dst_port": 57621,
+            "protocol_info": "UDP 57621 -> 57621",
+            "qos": {
+                "dscp": 0,
+                "ecn": 0,
+                "priority": 0,
+                "tos_value": 0
+            },
+            "performance": {
+                "packet_size": 86,
+                "header_overhead": 28
+            },
+            "summary": "UDP 26.185.177.52:57621 -> 26.255.255.255:57621"
+        },
+        "wifi_details": {
+            "error": "No es una trama 802.11"
+        },
+        "flow_analysis": {},
+        "anomaly_analysis": {
+            "detected_anomalies": []
+        },
+        "packet_summary": {
+            "summary_line": "26.185.177.52:57621 -> 26.255.255.255:57621 Proto: UDP",
+            "timestamp": "2025-05-11 20:35:34.599243",
+            "src_ip": "26.185.177.52",
+            "dst_ip": "26.255.255.255",
+            "ttl": 128,
+            "length": 52,
+            "protocol_num": 17,
+            "protocol": "UDP",
+            "src_port": 57621,
+            "dst_port": 57621,
+            "protocol_info": "UDP 57621 -> 57621",
+            "qos": {
+                "dscp": 0,
+                "ecn": 0,
+                "priority": 0,
+                "tos_value": 0
+            },
+            "performance": {
+                "packet_size": 86,
+                "header_overhead": 28
+            },
+            "summary": "UDP 26.185.177.52:57621 -> 26.255.255.255:57621"
+        }
+    },
+    {
+        "capture_timestamp": "2025-05-11T20:36:04.613716",
+        "raw_packet_length": 86,
+        "protocol_details": {
+            "timestamp": "2025-05-11 20:36:04.614448",
+            "src_ip": "26.185.177.52",
+            "dst_ip": "26.255.255.255",
+            "ttl": 128,
+            "length": 52,
+            "protocol_num": 17,
+            "protocol": "UDP",
+            "src_port": 57621,
+            "dst_port": 57621,
+            "protocol_info": "UDP 57621 -> 57621",
+            "qos": {
+                "dscp": 0,
+                "ecn": 0,
+                "priority": 0,
+                "tos_value": 0
+            },
+            "performance": {
+                "packet_size": 86,
+                "header_overhead": 28
+            },
+            "summary": "UDP 26.185.177.52:57621 -> 26.255.255.255:57621"
+        },
+        "wifi_details": {
+            "error": "No es una trama 802.11"
+        },
+        "flow_analysis": {},
+        "anomaly_analysis": {
+            "detected_anomalies": []
+        },
+        "packet_summary": {
+            "summary_line": "26.185.177.52:57621 -> 26.255.255.255:57621 Proto: UDP",
+            "timestamp": "2025-05-11 20:36:04.614448",
+            "src_ip": "26.185.177.52",
+            "dst_ip": "26.255.255.255",
+            "ttl": 128,
+            "length": 52,
+            "protocol_num": 17,
+            "protocol": "UDP",
+            "src_port": 57621,
+            "dst_port": 57621,
+            "protocol_info": "UDP 57621 -> 57621",
+            "qos": {
+                "dscp": 0,
+                "ecn": 0,
+                "priority": 0,
+                "tos_value": 0
+            },
+            "performance": {
+                "packet_size": 86,
+                "header_overhead": 28
+            },
+            "summary": "UDP 26.185.177.52:57621 -> 26.255.255.255:57621"
+        }
+    },
+    {
+        "capture_timestamp": "2025-05-11T20:36:13.930549",
+        "raw_packet_length": 87,
+        "protocol_details": {
+            "timestamp": "2025-05-11 20:36:13.930549",
+            "src_ip": "26.185.177.52",
+            "dst_ip": "224.0.0.251",
+            "ttl": 255,
+            "length": 53,
+            "protocol_num": 17,
+            "protocol": "UDP",
+            "src_port": 5353,
+            "dst_port": 5353,
+            "protocol_info": "UDP 5353 -> 5353",
+            "qos": {
+                "dscp": 0,
+                "ecn": 0,
+                "priority": 0,
+                "tos_value": 0
+            },
+            "performance": {
+                "packet_size": 87,
+                "header_overhead": 28
+            },
+            "summary": "UDP 26.185.177.52:5353 -> 224.0.0.251:5353"
+        },
+        "wifi_details": {
+            "error": "No es una trama 802.11"
+        },
+        "flow_analysis": {},
+        "anomaly_analysis": {
+            "detected_anomalies": []
+        },
+        "packet_summary": {
+            "summary_line": "26.185.177.52:5353 -> 224.0.0.251:5353 Proto: UDP",
+            "timestamp": "2025-05-11 20:36:13.930549",
+            "src_ip": "26.185.177.52",
+            "dst_ip": "224.0.0.251",
+            "ttl": 255,
+            "length": 53,
+            "protocol_num": 17,
+            "protocol": "UDP",
+            "src_port": 5353,
+            "dst_port": 5353,
+            "protocol_info": "UDP 5353 -> 5353",
+            "qos": {
+                "dscp": 0,
+                "ecn": 0,
+                "priority": 0,
+                "tos_value": 0
+            },
+            "performance": {
+                "packet_size": 87,
+                "header_overhead": 28
+            },
+            "summary": "UDP 26.185.177.52:5353 -> 224.0.0.251:5353"
+        }
+    },
+    {
+        "capture_timestamp": "2025-05-11T20:36:13.931551",
+        "raw_packet_length": 107,
+        "protocol_details": {
+            "error": "No es un paquete IP"
+        },
+        "wifi_details": {
+            "error": "No es una trama 802.11"
+        },
+        "flow_analysis": {},
+        "anomaly_analysis": {
+            "detected_anomalies": []
+        },
+        "packet_summary": {
+            "summary_line": "N/A:N/A -> N/A:N/A Proto: N/A",
+            "error": "No es un paquete IP"
+        }
+    },
+    {
+        "capture_timestamp": "2025-05-11T20:36:13.932053",
+        "raw_packet_length": 107,
+        "protocol_details": {
+            "error": "No es un paquete IP"
+        },
+        "wifi_details": {
+            "error": "No es una trama 802.11"
+        },
+        "flow_analysis": {},
+        "anomaly_analysis": {
+            "detected_anomalies": []
+        },
+        "packet_summary": {
+            "summary_line": "N/A:N/A -> N/A:N/A Proto: N/A",
+            "error": "No es un paquete IP"
+        }
+    },
+    {
+        "capture_timestamp": "2025-05-11T20:36:15.226011",
+        "raw_packet_length": 167,
+        "protocol_details": {
+            "timestamp": "2025-05-11 20:36:15.226011",
+            "src_ip": "26.185.177.52",
+            "dst_ip": "239.255.255.250",
+            "ttl": 255,
+            "length": 133,
+            "protocol_num": 17,
+            "protocol": "UDP",
+            "src_port": 57487,
+            "dst_port": 1900,
+            "protocol_info": "UDP 57487 -> 1900",
+            "qos": {
+                "dscp": 0,
+                "ecn": 0,
+                "priority": 0,
+                "tos_value": 0
+            },
+            "performance": {
+                "packet_size": 167,
+                "header_overhead": 28
+            },
+            "summary": "UDP 26.185.177.52:57487 -> 239.255.255.250:1900"
+        },
+        "wifi_details": {
+            "error": "No es una trama 802.11"
+        },
+        "flow_analysis": {},
+        "anomaly_analysis": {
+            "detected_anomalies": []
+        },
+        "packet_summary": {
+            "summary_line": "26.185.177.52:57487 -> 239.255.255.250:1900 Proto: UDP",
+            "timestamp": "2025-05-11 20:36:15.226011",
+            "src_ip": "26.185.177.52",
+            "dst_ip": "239.255.255.250",
+            "ttl": 255,
+            "length": 133,
+            "protocol_num": 17,
+            "protocol": "UDP",
+            "src_port": 57487,
+            "dst_port": 1900,
+            "protocol_info": "UDP 57487 -> 1900",
+            "qos": {
+                "dscp": 0,
+                "ecn": 0,
+                "priority": 0,
+                "tos_value": 0
+            },
+            "performance": {
+                "packet_size": 167,
+                "header_overhead": 28
+            },
+            "summary": "UDP 26.185.177.52:57487 -> 239.255.255.250:1900"
+        }
+    }
+]

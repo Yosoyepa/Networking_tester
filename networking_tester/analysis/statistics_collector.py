@@ -27,9 +27,28 @@ class StatisticsCollector:
         Updates statistics based on the analyzed packet data.
         analysis_data is the rich dictionary from the analysis engine.
         """
+        # Ensure timestamps are datetime objects
+        raw_timestamp_from_data = analysis_data.get('capture_timestamp')
+        
+        current_dt_timestamp = None
+        if isinstance(raw_timestamp_from_data, str):
+            try:
+                current_dt_timestamp = datetime.fromisoformat(raw_timestamp_from_data)
+            except ValueError:
+                logger.warning(f"Malformed ISO timestamp string '{raw_timestamp_from_data}' in analysis_data. Using current time.")
+                current_dt_timestamp = datetime.now()
+        elif isinstance(raw_timestamp_from_data, datetime):
+            current_dt_timestamp = raw_timestamp_from_data
+        else: # None or other unexpected type
+            if raw_timestamp_from_data is not None: # Log if it was some other type
+                 logger.warning(f"Unexpected type for 'capture_timestamp': {type(raw_timestamp_from_data)}. Using current time.")
+            current_dt_timestamp = datetime.now() # Fallback to current time
+
         if self.start_time is None:
-            self.start_time = analysis_data.get('capture_timestamp', datetime.now())
-        self.end_time = analysis_data.get('capture_timestamp', datetime.now())
+            self.start_time = current_dt_timestamp # Now self.start_time is a datetime object
+        
+        # Always update end_time with the current packet's timestamp (or current time if not available)
+        self.end_time = current_dt_timestamp # Now self.end_time is a datetime object
 
         self.total_packets += 1
         
@@ -55,9 +74,10 @@ class StatisticsCollector:
     def get_statistics(self):
         duration_seconds = 0
         if self.start_time and self.end_time:
-            # Ensure start_time and end_time are datetime objects
-            st = self.start_time if isinstance(self.start_time, datetime) else datetime.fromisoformat(self.start_time)
-            et = self.end_time if isinstance(self.end_time, datetime) else datetime.fromisoformat(self.end_time)
+            # self.start_time and self.end_time are now guaranteed to be datetime objects (or None)
+            # So, direct assignment is safe.
+            st = self.start_time
+            et = self.end_time
             duration = et - st
             duration_seconds = duration.total_seconds()
 
@@ -67,8 +87,8 @@ class StatisticsCollector:
 
         return {
             "total_packets": self.total_packets,
-            "start_time": self.start_time.isoformat() if self.start_time else None,
-            "end_time": self.end_time.isoformat() if self.end_time else None,
+            "start_time": self.start_time.isoformat() if self.start_time else None, # This will now work
+            "end_time": self.end_time.isoformat() if self.end_time else None,       # This will now work
             "duration_seconds": duration_seconds,
             "packets_per_second": packets_per_second,
             "protocol_distribution": dict(self.protocol_counts),

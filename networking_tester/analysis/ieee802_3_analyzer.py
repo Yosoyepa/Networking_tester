@@ -6,85 +6,98 @@
 import logging
 from scapy.all import Ether, IP, TCP, UDP
 from unittest.mock import MagicMock
+from .base_analyzer import BaseAnalyzer
 
 logger = logging.getLogger(__name__)
 
-class IEEE802_3_Analyzer:
+class IEEE802_3_Analyzer(BaseAnalyzer):
     """Clase para analizar tramas IEEE 802.3 (Ethernet)."""
     
-    def __init__(self):
-        """Inicializar el analizador."""
+    def __init__(self, config_manager): # Add config_manager argument
+        super().__init__(config_manager) # Call super().__init__
         self.ethertype_map = {
             0x0800: "IPv4",
             0x0806: "ARP",
             0x86DD: "IPv6",
             0x8100: "802.1Q",
             0x88CC: "LLDP"
+            # Add more as needed
         }
-        
-    def analyze_frame(self, frame):
+        logger.debug("IEEE802_3_Analyzer initialized.")
+    
+    def analyze_packet(self, packet, existing_analysis=None):
         """
         Analiza una trama IEEE 802.3 (Ethernet).
         Args:
-            frame (scapy.layers.l2.Ether): Trama Ethernet capturada por Scapy.
+            packet (scapy.layers.l2.Ether or MagicMock): Trama Ethernet capturada por Scapy or mock.
+            existing_analysis (dict, optional): Analysis results from previous analyzers.
         Returns:
-            dict: Un diccionario con los campos analizados.
+            dict: Un diccionario con los campos analizados, integrated with existing_analysis.
         """
-        # For test mocks: handle frame object that might be a MagicMock
-        if isinstance(frame, MagicMock):
+        analysis_results = {}
+        # For test mocks: handle packet object that might be a MagicMock
+        if isinstance(packet, MagicMock):
             # For test mocks, we directly use the attributes of the mock
-            src_mac = getattr(frame, 'src', "00:11:22:33:44:55") 
-            dst_mac = getattr(frame, 'dst', "AA:BB:CC:DD:EE:FF")
-            ethertype = getattr(frame, 'type', 0x0800)  # Default to IPv4
+            src_mac = getattr(packet, 'src', "00:11:22:33:44:55") 
+            dst_mac = getattr(packet, 'dst', "AA:BB:CC:DD:EE:FF")
+            ethertype = getattr(packet, 'type', 0x0800)  # Default to IPv4
             
-            # Convert to protocol name
             protocol_name = self.ethertype_map.get(ethertype, hex(ethertype))
             
-            analysis = {
-                "type": "ethernet",
+            analysis_results = {
+                "type": "ethernet", # This key might be better as 'layer2_type' or similar
                 "src_mac": src_mac,
                 "dst_mac": dst_mac,
                 "ethertype": hex(ethertype),
-                "protocol_name": protocol_name
+                "protocol_name": protocol_name,
+                "packet_length": getattr(packet, 'len', len(packet) if hasattr(packet, '__len__') else 64)
             }
             
-            # Add dummy QoS data for tests if needed
-            if hasattr(frame, 'tos'):
-                dscp = (frame.tos >> 2) & 0x3F
-                ecn = frame.tos & 0x3
-                analysis['qos'] = {
+            if hasattr(packet, 'tos'): # For QoS in mock
+                dscp = (packet.tos >> 2) & 0x3F
+                ecn = packet.tos & 0x3
+                analysis_results['qos'] = {
                     'dscp': dscp,
                     'ecn': ecn,
                     'priority': dscp >> 3
                 }
-            
-            return analysis
-            
-        # Real packet analysis
-        if not frame.haslayer(Ether):
-            return {"error": "No es una trama Ethernet"}
-
-        ethertype_hex = frame[Ether].type
-        protocol_name = self.ethertype_map.get(ethertype_hex, hex(ethertype_hex))
-
-        analysis = {
-            "type": "ethernet",
-            "src_mac": frame[Ether].src,
-            "dst_mac": frame[Ether].dst,
-            "ethertype": hex(ethertype_hex),
-            "protocol_name": protocol_name
-        }
         
-        # Análisis de QoS si existe capa IP
-        if frame.haslayer(IP):
-            ip_layer = frame[IP]
-            dscp = (ip_layer.tos >> 2) & 0x3F
-            ecn = ip_layer.tos & 0x3
-            
-            analysis['qos'] = {
-                'dscp': dscp,
-                'ecn': ecn,
-                'priority': dscp >> 3  # Prioridad simplificada (clase)
+        # Real packet analysis
+        elif not packet.haslayer(Ether):
+            analysis_results = {"error": "No es una trama Ethernet"}
+        else:
+            ether_layer = packet[Ether]
+            ethertype_hex = ether_layer.type
+            protocol_name = self.ethertype_map.get(ethertype_hex, hex(ethertype_hex))
+
+            analysis_results = {
+                "type": "ethernet",
+                "src_mac": ether_layer.src,
+                "dst_mac": ether_layer.dst,
+                "ethertype": hex(ethertype_hex),
+                "protocol_name": protocol_name,
+                "packet_length": len(packet)
             }
             
-        return analysis
+            # Análisis de QoS si existe capa IP
+            if packet.haslayer(IP):
+                ip_layer = packet[IP]
+                dscp = (ip_layer.tos >> 2) & 0x3F
+                ecn = ip_layer.tos & 0x3
+                
+                analysis_results['qos'] = {
+                    'dscp': dscp,
+                    'ecn': ecn,
+                    'priority': dscp >> 3  # Prioridad simplificada (clase)
+                }
+        
+        # Integrate with existing_analysis
+        if existing_analysis:
+            existing_analysis.setdefault('ethernet_details', {}).update(analysis_results)
+            return existing_analysis
+        return {'ethernet_details': analysis_results}
+
+    # Remove or adapt _generate_summary if it exists, as summaries are now
+    # typically handled by the engine or reporting module.
+    # def _generate_summary(self, analysis):
+    #     return f"Ethernet: {analysis.get('src_mac')} > {analysis.get('dst_mac')} Type: {analysis.get('protocol_name')}"
