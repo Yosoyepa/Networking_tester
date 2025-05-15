@@ -19,11 +19,11 @@ from scapy.layers.l2 import Ether
 from scapy.layers.inet import IP
 from scapy.layers.dot11 import Dot11
 
-from networking_tester.analysis.ieee802_3_analyzer import IEEE802_3_Analyzer
-from networking_tester.analysis.ieee802_11_analyzer import IEEE802_11_Analyzer
-from networking_tester.analysis.protocol_analyzer import ProtocolAnalyzer
-from networking_tester.utils import logging_config
-from networking_tester.utils.config_manager import ConfigManager # Import ConfigManager
+from src.analysis.ieee802_3_analyzer import IEEE802_3_Analyzer
+from src.analysis.ieee802_11_analyzer import IEEE802_11_Analyzer
+from src.analysis.protocol_analyzer import ProtocolAnalyzer
+from src.utils import logging_config
+from src.utils.config_manager import ConfigManager # Import ConfigManager
 
 # Configure logging - reads from ConfigManager now
 logger = logging_config.setup_logging()

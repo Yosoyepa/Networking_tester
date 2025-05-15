@@ -16,8 +16,8 @@ from io import StringIO
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 # Import the modules to test
-from networking_tester.capture.frame_capture import FrameCapture
-from networking_tester.utils import logging_config
+from src.capture.frame_capture import FrameCapture
+from src.utils import logging_config
 # ConfigManager is not directly used by FrameCapture constructor anymore
 # from networking_tester.utils.config_manager import ConfigManager 
 

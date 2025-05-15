@@ -16,12 +16,12 @@ from unittest.mock import patch, MagicMock
 # Add project root to path to allow imports
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from networking_tester.ai_monitoring.network_monitor_ai import NetworkAIMonitor
-from networking_tester.analysis.ieee802_3_analyzer import IEEE802_3_Analyzer # Note: This analyzer might need updates post-refactor
-from networking_tester.analysis.ieee802_11_analyzer import IEEE802_11_Analyzer # Note: This analyzer might need updates post-refactor
-from networking_tester.capture.frame_capture import FrameCapture # Changed from frame_capturer import FrameCapturer
-from networking_tester.utils import logging_config
-from networking_tester.utils.config_manager import ConfigManager # Import ConfigManager if you need to set test-specific log levels
+from src.ai_monitoring.network_monitor_ai import NetworkAIMonitor
+from src.analysis.ieee802_3_analyzer import IEEE802_3_Analyzer # Note: This analyzer might need updates post-refactor
+from src.analysis.ieee802_11_analyzer import IEEE802_11_Analyzer # Note: This analyzer might need updates post-refactor
+from src.capture.frame_capture import FrameCapture # Changed from frame_capturer import FrameCapturer
+from src.utils import logging_config
+from src.utils.config_manager import ConfigManager # Import ConfigManager if you need to set test-specific log levels
 
 # If you need to ensure DEBUG level for this test, and it's not the default in settings.yaml,
 # you might need to temporarily adjust the config before setup_logging is called.

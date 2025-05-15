@@ -6,9 +6,9 @@
 import argparse
 import logging
 import sys
-from networking_tester.utils.logging_config import setup_logging # Uses ConfigManager internally
-from networking_tester.core.engine import AnalysisEngine
-from networking_tester.utils.config_manager import ConfigManager # To access version or other general config
+from src.utils.logging_config import setup_logging # Uses ConfigManager internally
+from src.core.engine import AnalysisEngine
+from src.utils.config_manager import ConfigManager # To access version or other general config
 
 def main():
     # Setup logging first, as it now reads from config
