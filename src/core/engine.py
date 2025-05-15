@@ -26,7 +26,12 @@ class AnalysisEngine:
         self.analyzers = []
         self._load_analyzers() # Dynamically load or register analyzers
 
-        self.frame_capturer = FrameCapture(packet_processing_callback=self._process_packet_from_capture)
+        # This list will store packets if writing to PCAP is requested
+        self.live_capture_packets_to_write = []
+        self.current_output_pcap_path = None
+
+        # Pass a new callback to FrameCapture that can also store packets for writing
+        self.frame_capturer = FrameCapture(packet_processing_callback=self._process_and_store_packet)
         self.stats_collector = StatisticsCollector(self.config)
         self.report_generator = ReportGenerator() # Uses ConfigManager internally
         self.db_handler = DatabaseHandler() # Uses ConfigManager internally
@@ -48,28 +53,37 @@ class AnalysisEngine:
         loaded_analyzer_names = [analyzer.__class__.__name__ for analyzer in self.analyzers.values()]
         logger.info(f"Loaded {len(self.analyzers)} analyzers: {loaded_analyzer_names}")
 
-    def _process_packet_from_capture(self, packet):
-        """Callback function passed to FrameCapture to process each raw packet."""
+    # def _process_packet_from_capture(self, packet): # OLD METHOD - will be replaced by _process_and_store_packet
+    #     """Callback function passed to FrameCapture to process each raw packet."""
+    #     # ... (previous content of _process_packet_from_capture)
+
+    def _process_and_store_packet(self, packet):
+        """Processes a single packet and stores it if PCAP writing is enabled for the current run."""
+        if self.current_output_pcap_path:
+            self.live_capture_packets_to_write.append(packet)
+        
+        # Call the original processing logic (which was in _process_packet_from_capture)
+        self._process_packet_core_logic(packet)
+
+    def _process_packet_core_logic(self, packet):
+        """The core logic for processing a single packet, previously in _process_packet_from_capture."""
         if not self.is_running: # Stop processing if engine run is complete
             return
 
         current_analysis = {
-            'capture_timestamp': datetime.now().isoformat(), # Central timestamp
+            'capture_timestamp': datetime.now().isoformat(),
             'raw_packet_length': len(packet),
-            # 'raw_packet_hex': packet.hexraw() # Optional, can be large
         }
 
-        # Perform detailed analysis using the dedicated method
         try:
             detailed_analysis_results = self._determine_packet_type_and_analyze(packet)
             current_analysis.update(detailed_analysis_results)
         except Exception as e:
             logger.error(f"Critical error in _determine_packet_type_and_analyze for packet: {e}", exc_info=True)
             current_analysis['analysis_error'] = f"Core analysis failed: {e}"
-            # Ensure essential keys exist for downstream processing even if analysis fails
             current_analysis.setdefault('protocol_details', {"error": "Core analysis failed due to exception"})
-            current_analysis.setdefault('ethernet_details', {"error": "Core analysis failed due to exception"}) # if applicable
-            current_analysis.setdefault('wifi_details', {"error": "Core analysis failed due to exception"}) # if applicable
+            current_analysis.setdefault('ethernet_details', {"error": "Core analysis failed due to exception"})
+            current_analysis.setdefault('wifi_details', {"error": "Core analysis failed due to exception"})
             current_analysis.setdefault('flow_analysis', {"error": "Core analysis failed due to exception"})
             current_analysis.setdefault('anomaly_analysis', {"detected_anomalies": [], "error": "Core analysis failed due to exception"})
         
@@ -113,12 +127,14 @@ class AnalysisEngine:
                 else:
                     logger.warning(f"Malformed anomaly data item: {anomaly_item}")
 
-    def run_live_capture(self, interface=None, count=0, timeout=None, bpf_filter=None):
-        logger.info(f"Starting live capture run: interface={interface}, count={count}, timeout={timeout}, filter='{bpf_filter}'")
+    def run_live_capture(self, interface=None, count=0, timeout=None, bpf_filter=None, output_pcap_path=None): # Added output_pcap_path
+        logger.info(f"Starting live capture run: interface={interface}, count={count}, timeout={timeout}, filter='{bpf_filter}', write_to='{output_pcap_path}'")
         self.is_running = True
         self.stats_collector.reset()
         self.all_analyzed_data = []
-        
+        self.live_capture_packets_to_write = [] # Reset for this run
+        self.current_output_pcap_path = output_pcap_path # Store for the callback
+
         if interface == "auto" or interface is None:
             interface = self.config.get('capture.default_interface', None)
             if interface == "auto" or interface is None: # Scapy will try to pick one if None
@@ -126,10 +142,19 @@ class AnalysisEngine:
                  interface = None # Pass None to Scapy
         
         self.frame_capturer.start_capture(interface, count, timeout, bpf_filter)
-        # Capture is synchronous and calls _process_packet_from_capture for each packet.
-        # When start_capture returns, capture is done or timed out.
+        # Capture is synchronous and calls _process_and_store_packet for each packet.
         
         self.is_running = False # Mark processing as complete
+        
+        if self.current_output_pcap_path: # Check if a path was intended for writing
+            if self.live_capture_packets_to_write: # Check if there are packets to write
+                logger.info(f"Writing {len(self.live_capture_packets_to_write)} captured packets to {self.current_output_pcap_path}")
+                self.frame_capturer.write_pcap(self.live_capture_packets_to_write, self.current_output_pcap_path)
+            else:
+                # Added warning if no packets were captured to write
+                logger.warning(f"No packets were captured. PCAP file '{self.current_output_pcap_path}' will not be written because there is no data.")
+        
+        self.current_output_pcap_path = None # Clear after use
         logger.info("Live capture run finished.")
         self._finalize_run()
 
@@ -138,9 +163,16 @@ class AnalysisEngine:
         self.is_running = True
         self.stats_collector.reset()
         self.all_analyzed_data = []
+        self.live_capture_packets_to_write = [] # Not used for pcap read, but good to reset
+        self.current_output_pcap_path = None 
 
+        # For reading PCAP, we don't write out, so the callback just processes.
+        # We can reuse _process_packet_core_logic directly if FrameCapture's read_pcap is adapted
+        # or ensure FrameCapture uses the _process_and_store_packet callback which will simply not store.
+        # The current FrameCapture.read_pcap calls self.packet_processor, which is now _process_and_store_packet.
+        # This is fine as current_output_pcap_path will be None.
         self.frame_capturer.read_pcap(pcap_file_path)
-        # read_pcap now calls _process_packet_from_capture for each packet.
+        # read_pcap now calls _process_and_store_packet for each packet.
 
         self.is_running = False
         logger.info(f"PCAP file run finished for {pcap_file_path}.")
