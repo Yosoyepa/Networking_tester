@@ -1,78 +1,117 @@
 import logging
 import time
 from datetime import datetime
+import os
 
-from src.analysis.statistics_collector import StatisticsCollector
-from ..utils.config_manager import ConfigManager
-from ..utils.alerter import Alerter
-from scapy.all import Ether, IP, TCP, UDP, ICMP, DNS, ARP, Dot11, Raw # Added Ether
+import pandas as pd
+from scapy.all import Ether, IP, TCP, UDP, ICMP, DNS, ARP, Dot11, Raw, rdpcap # Added rdpcap
+
+from src.utils.config_manager import ConfigManager
+from src.utils.alerter import Alerter
 
 from src.capture.frame_capture import FrameCapture
 from src.analysis.protocol_analyzer import ProtocolAnalyzer
 from src.analysis.ieee802_11_analyzer import IEEE802_11_Analyzer
-from src.analysis.ieee802_3_analyzer import IEEE802_3_Analyzer # Import IEEE802_3_Analyzer
+from src.analysis.ieee802_3_analyzer import IEEE802_3_Analyzer
 from src.analysis.flow_analyzer import FlowAnalyzer
-from src.analysis.anomaly_detector import AnomalyDetector
+from src.analysis.rule_based_anomaly_detector import RuleBasedAnomalyDetector # Corrected import
+from src.analysis.statistics_collector import StatisticsCollector # Added missing import
 from src.reporting.report_generator import ReportGenerator
-from ..storage.database_handler import DatabaseHandler
+from src.storage.database_handler import DatabaseHandler
+
+# AI Monitoring Imports
+from src.ai_monitoring.feature_extractor import PacketFeatureExtractor
+from src.ai_monitoring import AnomalyDetector as AIAnomalyDetector
+from src.ai_monitoring import QoSMLAnalyzer
+from src.ai_monitoring import PerformanceMLAnalyzer
 
 logger = logging.getLogger(__name__)
 
 class AnalysisEngine:
     def __init__(self):
         logger.info("Initializing AnalysisEngine...")
-        self.config = ConfigManager # Direct access to ConfigManager class methods
+        self.config = ConfigManager
         
-        self.analyzers = []
-        self._load_analyzers() # Dynamically load or register analyzers
+        self.analyzers = {} 
+        self._load_analyzers()
 
-        # This list will store packets if writing to PCAP is requested
         self.live_capture_packets_to_write = []
         self.current_output_pcap_path = None
 
-        # Pass a new callback to FrameCapture that can also store packets for writing
         self.frame_capturer = FrameCapture(packet_processing_callback=self._process_and_store_packet)
-        self.stats_collector = StatisticsCollector(self.config)
-        self.report_generator = ReportGenerator() # Uses ConfigManager internally
-        self.db_handler = DatabaseHandler() # Uses ConfigManager internally
+        self.stats_collector = StatisticsCollector(self.config) # Now defined
+        self.report_generator = ReportGenerator()
+        self.db_handler = DatabaseHandler()
         self.alerter = Alerter(self.config)
 
-        self.all_analyzed_data = [] # Stores results of all processed packets
+        self.all_analyzed_data = []
         self.is_running = False
 
+        # AI Components
+        self.feature_extractor = PacketFeatureExtractor()
+        # self.ai_anomaly_detector = AIAnomalyDetector() # Deferred initialization or re-initialization in _load_ai_model if needed
+        self.qos_ml_analyzer = QoSMLAnalyzer()
+        self.performance_ml_analyzer = PerformanceMLAnalyzer()
+
+        # Define model and scaler paths
+        _default_model_file_path = os.path.join(os.getcwd(), 'data', 'models', 'ai_anomaly_detector.joblib')
+        self.ai_model_path = self.config.get('ai_monitoring.model_save_path', _default_model_file_path)
+
+        model_path_base, model_ext = os.path.splitext(self.ai_model_path)
+        self.ai_scaler_path = f"{model_path_base}_scaler{model_ext}"
+        
+        # Initialize AIAnomalyDetector here, it can be empty and loaded by _load_ai_model
+        self.ai_anomaly_detector = AIAnomalyDetector() 
+
+        self._load_ai_model()
+
     def _load_analyzers(self):
-        """Carga y configura los analizadores de paquetes."""
+        """Loads and configures packet analyzers."""
         self.analyzers = {
-            "protocol": ProtocolAnalyzer(self.config), # Use self.config
-            "wifi": IEEE802_11_Analyzer(self.config), # Use self.config
-            "ethernet": IEEE802_3_Analyzer(self.config), # Use self.config
-            "flow": FlowAnalyzer(self.config), # Use self.config
-            "anomaly": AnomalyDetector(self.config) # Use self.config
+            "protocol": ProtocolAnalyzer(self.config),
+            "wifi": IEEE802_11_Analyzer(self.config),
+            "ethernet": IEEE802_3_Analyzer(self.config),
+            "flow": FlowAnalyzer(self.config),
+            "rule_anomaly": RuleBasedAnomalyDetector(self.config)
         }
-        # Log the names of the loaded analyzer classes for clarity
         loaded_analyzer_names = [analyzer.__class__.__name__ for analyzer in self.analyzers.values()]
-        logger.info(f"Loaded {len(self.analyzers)} analyzers: {loaded_analyzer_names}")
+        logger.info(f"Loaded {len(self.analyzers)} standard analyzers: {loaded_analyzer_names}")
 
-    # def _process_packet_from_capture(self, packet): # OLD METHOD - will be replaced by _process_and_store_packet
-    #     """Callback function passed to FrameCapture to process each raw packet."""
-    #     # ... (previous content of _process_packet_from_capture)
+    def _ensure_model_dir_exists(self):
+        model_dir = os.path.dirname(self.ai_model_path)
+        if not os.path.exists(model_dir):
+            os.makedirs(model_dir, exist_ok=True)
+            logger.info(f"Created directory for AI model: {model_dir}")
 
+    def _load_ai_model(self):
+        """Loads the pre-trained AI anomaly detection model if it exists."""
+        self._ensure_model_dir_exists() # Ensure directory exists first
+        try:
+            if os.path.exists(self.ai_model_path) and os.path.getsize(self.ai_model_path) > 0:
+                # Pass both model and scaler paths to the load_model method
+                self.ai_anomaly_detector.load_model(self.ai_model_path, self.ai_scaler_path)
+                logger.info(f"AI Anomaly Detection model and scaler loaded from {self.ai_model_path} and {self.ai_scaler_path}")
+            else:
+                logger.info(f"No pre-trained AI Anomaly Detection model found at {self.ai_model_path} or model file is empty. Model will need training.")
+        except Exception as e:
+            logger.error(f"Error loading AI model from {self.ai_model_path}: {e}", exc_info=True)
+    
     def _process_and_store_packet(self, packet):
         """Processes a single packet and stores it if PCAP writing is enabled for the current run."""
         if self.current_output_pcap_path:
             self.live_capture_packets_to_write.append(packet)
         
-        # Call the original processing logic (which was in _process_packet_from_capture)
         self._process_packet_core_logic(packet)
 
     def _process_packet_core_logic(self, packet):
-        """The core logic for processing a single packet, previously in _process_packet_from_capture."""
-        if not self.is_running: # Stop processing if engine run is complete
+        """The core logic for processing a single packet."""
+        if not self.is_running: 
             return
 
         current_analysis = {
             'capture_timestamp': datetime.now().isoformat(),
             'raw_packet_length': len(packet),
+            'original_packet': packet # Store the original Scapy packet
         }
 
         try:
@@ -81,17 +120,14 @@ class AnalysisEngine:
         except Exception as e:
             logger.error(f"Critical error in _determine_packet_type_and_analyze for packet: {e}", exc_info=True)
             current_analysis['analysis_error'] = f"Core analysis failed: {e}"
-            current_analysis.setdefault('protocol_details', {"error": "Core analysis failed due to exception"})
-            current_analysis.setdefault('ethernet_details', {"error": "Core analysis failed due to exception"})
-            current_analysis.setdefault('wifi_details', {"error": "Core analysis failed due to exception"})
-            current_analysis.setdefault('flow_analysis', {"error": "Core analysis failed due to exception"})
-            current_analysis.setdefault('anomaly_analysis', {"detected_anomalies": [], "error": "Core analysis failed due to exception"})
+            current_analysis.setdefault('protocol_details', {"error": "Core analysis failed"})
+            current_analysis.setdefault('ethernet_details', {"error": "Core analysis failed"})
+            current_analysis.setdefault('wifi_details', {"error": "Core analysis failed"})
+            current_analysis.setdefault('flow_analysis', {"error": "Core analysis failed"})
+            current_analysis.setdefault('anomaly_analysis', {'detected_anomalies': [], "error": "Rule-based anomaly detection failed"})
         
-        # Generate a summary line
-        # _determine_packet_type_and_analyze ensures 'protocol_details' exists.
         summary_details = current_analysis.get('protocol_details', {})
         
-        # Robustly get details for summary, handling cases where summary_details might not be a dict (e.g., if analysis failed badly)
         src_ip = summary_details.get('src_ip', 'N/A') if isinstance(summary_details, dict) else 'N/A'
         src_port = summary_details.get('src_port', 'N/A') if isinstance(summary_details, dict) else 'N/A'
         dst_ip = summary_details.get('dst_ip', 'N/A') if isinstance(summary_details, dict) else 'N/A'
@@ -100,234 +136,371 @@ class AnalysisEngine:
         
         summary_line = f"{src_ip}:{src_port} -> {dst_ip}:{dst_port} Proto: {protocol}"
         
-        packet_summary_content = {'summary_line': summary_line}
-        if isinstance(summary_details, dict): # only spread if it's a dict and not an error string/object
-            packet_summary_content.update(summary_details)
-        current_analysis['packet_summary'] = packet_summary_content
+        current_analysis['packet_summary'] = {'summary_line': summary_line, **(summary_details if isinstance(summary_details, dict) else {})}
 
-        # Update statistics
         self.stats_collector.process_packet_analysis(current_analysis)
-
-        # Store for reporting
         self.all_analyzed_data.append(current_analysis)
 
-        # Save to database if enabled
         if self.db_handler.is_enabled:
             self.db_handler.save_analysis(current_analysis)
 
-        # Check for alerts from anomaly detector
-        # _determine_packet_type_and_analyze ensures 'anomaly_analysis' exists.
         anomaly_info = current_analysis.get('anomaly_analysis', {})
         if isinstance(anomaly_info, dict) and anomaly_info.get('detected_anomalies'):
             for anomaly_item in anomaly_info['detected_anomalies']:
-                if isinstance(anomaly_item, dict): # Ensure anomaly_item is a dict before .get
-                    self.alerter.send_alert(anomaly_item.get('message', 'Unknown Anomaly'), 
-                                            severity="WARNING", 
-                                            details=anomaly_item)
+                if isinstance(anomaly_item, dict):
+                    self.alerter.send_alert(anomaly_item.get('message', 'Unknown Rule-Based Anomaly'), 
+                                            severity="WARNING", details=anomaly_item)
                 else:
-                    logger.warning(f"Malformed anomaly data item: {anomaly_item}")
+                    logger.warning(f"Malformed rule-based anomaly data item: {anomaly_item}")
 
-    def run_live_capture(self, interface=None, count=0, timeout=None, bpf_filter=None, output_pcap_path=None): # Added output_pcap_path
+    def _determine_packet_type_and_analyze(self, packet):
+        """Determines packet type and runs relevant standard analyzers."""
+        analysis_results = {}
+        analysis_results['protocol_details'] = self.analyzers["protocol"].analyze_packet(packet)
+
+        if packet.haslayer(Dot11):
+            analysis_results['wifi_details'] = self.analyzers["wifi"].analyze_packet(packet, analysis_results)
+        elif packet.haslayer(Ether):
+            analysis_results['ethernet_details'] = self.analyzers["ethernet"].analyze_packet(packet, analysis_results)
+        else:
+            analysis_results.setdefault('ethernet_details', {"info": "Not Ethernet"})
+            analysis_results.setdefault('wifi_details', {"info": "Not Wi-Fi"})
+            
+        analysis_results['flow_analysis'] = self.analyzers["flow"].analyze_packet(packet, analysis_results)
+        analysis_results['anomaly_analysis'] = self.analyzers["rule_anomaly"].analyze_packet(packet, analysis_results)
+        return analysis_results
+
+    def run_live_capture(self, interface=None, count=0, timeout=None, bpf_filter=None, output_pcap_path=None):
         logger.info(f"Starting live capture run: interface={interface}, count={count}, timeout={timeout}, filter='{bpf_filter}', write_to='{output_pcap_path}'")
         self.is_running = True
         self.stats_collector.reset()
         self.all_analyzed_data = []
-        self.live_capture_packets_to_write = [] # Reset for this run
-        self.current_output_pcap_path = output_pcap_path # Store for the callback
+        self.live_capture_packets_to_write = []
+        self.current_output_pcap_path = output_pcap_path
 
         if interface == "auto" or interface is None:
             interface = self.config.get('capture.default_interface', None)
-            if interface == "auto" or interface is None: # Scapy will try to pick one if None
+            if interface == "auto" or interface is None:
                  logger.info("No specific interface provided, Scapy will attempt to choose one.")
-                 interface = None # Pass None to Scapy
+                 interface = None
         
         self.frame_capturer.start_capture(interface, count, timeout, bpf_filter)
-        # Capture is synchronous and calls _process_and_store_packet for each packet.
+        self.is_running = False
         
-        self.is_running = False # Mark processing as complete
-        
-        if self.current_output_pcap_path: # Check if a path was intended for writing
-            if self.live_capture_packets_to_write: # Check if there are packets to write
-                logger.info(f"Writing {len(self.live_capture_packets_to_write)} captured packets to {self.current_output_pcap_path}")
-                self.frame_capturer.write_pcap(self.live_capture_packets_to_write, self.current_output_pcap_path)
-            else:
-                # Added warning if no packets were captured to write
-                logger.warning(f"No packets were captured. PCAP file '{self.current_output_pcap_path}' will not be written because there is no data.")
-        
-        self.current_output_pcap_path = None # Clear after use
+        if self.current_output_pcap_path and self.live_capture_packets_to_write:
+            logger.info(f"Writing {len(self.live_capture_packets_to_write)} captured packets to {self.current_output_pcap_path}")
+            self.frame_capturer.write_pcap(self.live_capture_packets_to_write, self.current_output_pcap_path)
+        elif self.current_output_pcap_path:
+             logger.warning(f"No packets were captured. PCAP file '{self.current_output_pcap_path}' will not be written.")
+        self.current_output_pcap_path = None
         logger.info("Live capture run finished.")
         self._finalize_run()
 
     def run_from_pcap(self, pcap_file_path):
         logger.info(f"Starting PCAP file run: {pcap_file_path}")
+        if not os.path.exists(pcap_file_path):
+            logger.error(f"PCAP file not found: {pcap_file_path}")
+            print(f"Error: PCAP file '{pcap_file_path}' not found.")
+            return
         self.is_running = True
         self.stats_collector.reset()
         self.all_analyzed_data = []
-        self.live_capture_packets_to_write = [] # Not used for pcap read, but good to reset
+        self.live_capture_packets_to_write = [] 
         self.current_output_pcap_path = None 
-
-        # For reading PCAP, we don't write out, so the callback just processes.
-        # We can reuse _process_packet_core_logic directly if FrameCapture's read_pcap is adapted
-        # or ensure FrameCapture uses the _process_and_store_packet callback which will simply not store.
-        # The current FrameCapture.read_pcap calls self.packet_processor, which is now _process_and_store_packet.
-        # This is fine as current_output_pcap_path will be None.
-        self.frame_capturer.read_pcap(pcap_file_path)
-        # read_pcap now calls _process_and_store_packet for each packet.
-
+        self.frame_capturer.read_pcap(pcap_file_path) # This calls _process_and_store_packet internally
         self.is_running = False
         logger.info(f"PCAP file run finished for {pcap_file_path}.")
         self._finalize_run()
 
-    def _finalize_run(self):
+    def _finalize_run(self, ai_results=None): # Added ai_results parameter
         """Common tasks after a capture/pcap run is complete."""
         logger.info("Finalizing run...")
-        
-        # Generate and print/save reports
-        report_format = self.config.get('reporting.default_format', 'console')
-        if report_format == 'console':
-            self.report_generator.print_to_console(self.all_analyzed_data)
-        else:
-            self.report_generator.generate_report(self.all_analyzed_data, report_format)
-
-        # Print statistics to console
         final_stats = self.stats_collector.get_statistics()
-        logger.info("Final Statistics:")
+        report_format_config = self.config.get('reporting.default_format', 'console')
+        report_formats = report_format_config if isinstance(report_format_config, list) else [report_format_config]
+
+        for report_format in report_formats:
+            if report_format == 'console':
+                # Pass stats and ai_results to print_to_console
+                self.report_generator.print_to_console(self.all_analyzed_data, final_stats, ai_results=ai_results)
+            else:
+                # Pass stats and ai_results to generate_report
+                self.report_generator.generate_report(self.all_analyzed_data, report_format, final_stats, ai_results=ai_results)
+
+        logger.info("Final Statistics (also included in reports):")
         for key, value in final_stats.items():
+            logger.info(f"  {key}: {value}" if not isinstance(value, dict) else f"  {key}:")
             if isinstance(value, dict):
-                logger.info(f"  {key}:")
                 for sub_key, sub_value in value.items():
                     logger.info(f"    {sub_key}: {sub_value}")
-            else:
-                logger.info(f"  {key}: {value}")
+        print("\nRun finalized. Reports generated and stats logged.")
+        if ai_results and not ai_results.get("error"):
+            print("AI Analysis results have also been included in the reports.")
+        elif ai_results and ai_results.get("error"):
+            print(f"AI Analysis was attempted but resulted in an error: {ai_results.get('error')}")
+        print(f"Total packets processed: {final_stats.get('total_packets_processed', 0)}")
 
-        # Close database connection
-        if self.db_handler:
-            self.db_handler.close()
+    def run_ai_analysis_on_session_data(self, generate_report_after=False):
+        """Runs AI-powered analysis on the currently loaded session data.
+        Returns a dictionary with structured AI analysis results.
+        If generate_report_after is True, it will also trigger report generation.
+        """
+        ai_results = {
+            "security_analysis": None,
+            "qos_analysis": None,
+            "performance_analysis": None
+        }
+
+        if not self.all_analyzed_data:
+            logger.warning("No session data available for AI analysis.")
+            # print("No session data to analyze. Please run a capture or load a PCAP first.")
+            return {"error": "No session data to analyze. Please run a capture or load a PCAP first."}
+
+        logger.info(f"Starting AI analysis on {len(self.all_analyzed_data)} processed packets' original data.")
+        original_packets = [entry['original_packet'] for entry in self.all_analyzed_data if 'original_packet' in entry and entry['original_packet'] is not None]
         
-        logger.info("Run finalized.")
+        if not original_packets:
+            logger.warning("No valid original packets found for AI feature extraction.")
+            # print("Could not extract features for AI: no raw packet data found in session.")
+            return {"error": "Could not extract features for AI: no raw packet data found in session."}
+
+        logger.info(f"Extracting features from {len(original_packets)} packets for AI...")
+        features_df = self.feature_extractor.extract_features_to_dataframe(original_packets)
+
+        if features_df.empty:
+            logger.warning("Feature extraction for AI resulted in an empty DataFrame.")
+            # print("Feature extraction for AI yielded no data.")
+            return {"error": "Feature extraction for AI yielded no data."}
+
+        logger.info(f"AI Feature extraction complete. Shape: {features_df.shape}")
+        # print(f"\\n--- AI Analysis Results ---") # Moved to menu_handler
+
+        # 1. AI Security Anomaly Detection
+        # print("\\n[AI Security Anomaly Detection]") # Moved to menu_handler
+        model_name_sec = self.ai_anomaly_detector.model.__class__.__name__ if self.ai_anomaly_detector.model else 'N/A'
+        sec_desc = f"Uses an {model_name_sec} model to identify outliers."
+        # print(f"Description: {sec_desc}") # Moved to menu_handler
+        
+        sec_analysis_result = {
+            "description": sec_desc,
+            "model_name": model_name_sec,
+            "status": "Not run",
+            "packets_analyzed": 0,
+            "anomalies_detected": 0,
+            "quality_value": 0.0,
+            "anomaly_details_sample": "N/A"
+        }
+
+        if not self.ai_anomaly_detector.is_trained():
+            # print("AI Anomaly Detector is not trained. Training on current data (assumed normal)...") # Moved
+            # print("For production, train with 'Train AI Model' option using clean normal traffic.") # Moved
+            sec_analysis_result["status"] = "Model not trained. Attempting on-the-fly training."
+            try:
+                self.ai_anomaly_detector.train(features_df)
+                # print(f"AI Detector temporarily trained on current session data.") # Moved
+                sec_analysis_result["status"] = "Model temporarily trained on current session data."
+            except Exception as e:
+                logger.error(f"On-the-fly AI model training failed: {e}", exc_info=True)
+                # print(f"Error training AI model on current data: {e}. Skipping AI anomaly detection.") # Moved
+                sec_analysis_result["status"] = f"Error training model on current data: {e}"
+
+        if self.ai_anomaly_detector.is_trained():
+            try:
+                predictions = self.ai_anomaly_detector.predict(features_df)
+                anomalies_mask = predictions == -1
+                num_anomalies = anomalies_mask.sum()
+                total_analyzed = len(features_df)
+                quality_value_security = (1 - (num_anomalies / total_analyzed)) * 100 if total_analyzed > 0 else 100.0
+                
+                sec_analysis_result.update({
+                    "status": "Completed",
+                    "packets_analyzed": total_analyzed,
+                    "anomalies_detected": int(num_anomalies), # Ensure it's a Python int
+                    "quality_value": float(quality_value_security), # Ensure it's a Python float
+                })
+                # print(f"Packets analyzed by AI: {total_analyzed}") # Moved
+                # print(f"Potential anomalies by AI: {num_anomalies}") # Moved
+                # print(f"AI Security Quality Value: {quality_value_security:.2f}%") # Moved
+
+                if num_anomalies > 0:
+                    # print(f"Details of {min(num_anomalies, 5)} AI anomalies (features):") # Moved
+                    sample_anomalies_df = features_df[anomalies_mask].head()
+                    # Convert DataFrame to a more serializable format if needed for reports (e.g., list of dicts or string)
+                    sec_analysis_result["anomaly_details_sample"] = sample_anomalies_df.to_dict(orient='records')
+                    # print(features_df[anomalies_mask].head().to_string()) # Moved
+            except Exception as e:
+                logger.error(f"AI anomaly prediction error: {e}", exc_info=True)
+                # print(f"Error during AI anomaly prediction: {e}") # Moved
+                sec_analysis_result["status"] = f"Error during prediction: {e}"
+        else:
+            # print("AI Anomaly Detector not trained. Skipping AI anomaly detection.") # Moved
+             if sec_analysis_result["status"] not in ["Model not trained. Attempting on-the-fly training.", "Model temporarily trained on current session data."]:
+                sec_analysis_result["status"] = "Model not trained and on-the-fly training failed or was not attempted."
+        
+        ai_results["security_analysis"] = sec_analysis_result
+
+        # 2. AI QoS Analysis
+        # print("\\n[AI QoS Analysis]") # Moved
+        qos_desc = self.qos_ml_analyzer.get_description()
+        # print(f"Description: {qos_desc}") # Moved
+        qos_analysis_result = {
+            "description": qos_desc,
+            "summary": "N/A",
+            "quality_value": 0.0,
+            "details_sample": [],
+            "status": "Not run"
+        }
+        try:
+            qos_raw_results = self.qos_ml_analyzer.analyze_qos_features(features_df.copy())
+            if isinstance(qos_raw_results, dict):
+                qos_analysis_result.update({
+                    "summary": qos_raw_results.get('summary', "No QoS summary."),
+                    "quality_value": float(qos_raw_results.get('quality_value', 0.0)),
+                    "details_sample": qos_raw_results.get('details', [])[:5], # Take first 5
+                    "status": "Completed"
+                })
+                # print(qos_analysis_result["summary"]) # Moved
+                # if 'quality_value' in qos_raw_results: print(f"AI QoS Quality Value: {qos_analysis_result['quality_value']:.2f}%") # Moved
+                # if qos_analysis_result['details_sample']: # Moved
+                #     print("AI QoS Details (sample):") # Moved
+                #     for detail in qos_analysis_result['details_sample']: print(f"  - {detail}") # Moved
+            else:
+                qos_analysis_result["summary"] = str(qos_raw_results)
+                qos_analysis_result["status"] = "Completed (raw output)"
+                # print(str(qos_raw_results)) # Moved
+        except Exception as e:
+            logger.error(f"AI QoS analysis error: {e}", exc_info=True)
+            # print(f"Error in AI QoS analysis: {e}") # Moved
+            qos_analysis_result["status"] = f"Error: {e}"
+        ai_results["qos_analysis"] = qos_analysis_result
+
+        # 3. AI Performance Analysis
+        # print("\\n[AI Performance Analysis]") # Moved
+        perf_desc = self.performance_ml_analyzer.get_description()
+        # print(f"Description: {perf_desc}") # Moved
+        perf_analysis_result = {
+            "description": perf_desc,
+            "summary": "N/A",
+            "quality_value": 0.0,
+            "details_sample": [],
+            "status": "Not run"
+        }
+        try:
+            perf_raw_results = self.performance_ml_analyzer.analyze_performance_features(features_df.copy())
+            if isinstance(perf_raw_results, dict):
+                perf_analysis_result.update({
+                    "summary": perf_raw_results.get('summary', "No Performance summary."),
+                    "quality_value": float(perf_raw_results.get('quality_value', 0.0)),
+                    "details_sample": perf_raw_results.get('details', [])[:5], # Take first 5
+                    "status": "Completed"
+                })
+                # print(perf_analysis_result["summary"]) # Moved
+                # if 'quality_value' in perf_raw_results: print(f"AI Performance Quality Value: {perf_analysis_result['quality_value']:.2f}%") # Moved
+                # if perf_analysis_result['details_sample']: # Moved
+                #     print("AI Performance Details (sample):") # Moved
+                #     for detail in perf_analysis_result['details_sample']: print(f"  - {detail}") # Moved
+            else:
+                perf_analysis_result["summary"] = str(perf_raw_results)
+                perf_analysis_result["status"] = "Completed (raw output)"
+                # print(str(perf_raw_results)) # Moved
+        except Exception as e:
+            logger.error(f"AI performance analysis error: {e}", exc_info=True)
+            # print(f"Error in AI performance analysis: {e}") # Moved
+            perf_analysis_result["status"] = f"Error: {e}"
+        ai_results["performance_analysis"] = perf_analysis_result
+        
+        logger.info("AI analysis on session data completed and results structured.")
+        # print("\\n--- End of AI Analysis Results ---") # Moved to menu_handler or console formatter
+
+        if generate_report_after:
+            logger.info("Triggering report generation after AI analysis.")
+            # Call _finalize_run with ai_results to include them in the standard reports
+            self._finalize_run(ai_results=ai_results)
+        
+        return ai_results
+
+    def _read_packets_for_training(self, pcap_filepath):
+        """Helper to read packets directly from a PCAP file for training purposes."""
+        try:
+            # Check if FrameCapture has a direct method (preferred)
+            if hasattr(self.frame_capturer, 'read_packets_from_pcap'):
+                return self.frame_capturer.read_packets_from_pcap(pcap_filepath)
+            else: # Fallback to using scapy.rdpcap directly
+                logger.info(f"Reading packets directly using rdpcap from {pcap_filepath} for training.")
+                return rdpcap(pcap_filepath)
+        except Exception as e:
+            logger.error(f"Failed to read packets from {pcap_filepath} using any method: {e}", exc_info=True)
+            print(f"Error: Could not read packets from {pcap_filepath} for training. {e}")
+            return []
+
+    def train_ai_anomaly_model(self, pcap_filepath_normal_traffic=None):
+        """Trains the AI anomaly detection model."""
+        logger.info("Starting AI anomaly model training process...")
+        print("\nStarting AI anomaly model training...")
+        features_df_normal = pd.DataFrame()
+        normal_packets = []
+
+        if pcap_filepath_normal_traffic:
+            if not os.path.exists(pcap_filepath_normal_traffic):
+                logger.error(f"PCAP for training not found: {pcap_filepath_normal_traffic}")
+                print(f"Error: PCAP file for training not found: {pcap_filepath_normal_traffic}")
+                return False
+            print(f"Loading normal traffic from PCAP: {pcap_filepath_normal_traffic}...")
+            normal_packets = self._read_packets_for_training(pcap_filepath_normal_traffic)
+            if not normal_packets:
+                 # Error already printed by _read_packets_for_training
+                if not self.all_analyzed_data: return False # Fail if no other data source
+        
+        if not normal_packets and self.all_analyzed_data:
+            logger.info("Using current session data (assumed normal) for training.")
+            print("Attempting to use current session data for training (assumed normal)...")
+            normal_packets = [entry['original_packet'] for entry in self.all_analyzed_data if 'original_packet' in entry and entry['original_packet'] is not None]
+            if not normal_packets:
+                logger.warning("No valid original packets in session data for training.")
+                print("No packet data in current session to use for training.")
+                return False
+        elif not normal_packets:
+             logger.warning("No data for training (no PCAP provided/failed, no session data).")
+             print("No data for training. Load/run capture or provide PCAP for training.")
+             return False
+
+        if normal_packets:
+            logger.info(f"Extracting features from {len(normal_packets)} packets for training.")
+            features_df_normal = self.feature_extractor.extract_features_to_dataframe(normal_packets)
+        
+        if features_df_normal.empty:
+            logger.warning("Feature extraction for training yielded no data.")
+            print("Could not extract features from provided data for training.")
+            return False
+        
+        print(f"Training AI Anomaly Detector with {len(features_df_normal)} data points...")
+        try:
+            self.ai_anomaly_detector.train_model(features_df_normal)
+            logger.info("AI Anomaly Detector trained successfully.")
+            print("AI Anomaly Detector trained successfully.")
+            
+            self._ensure_model_dir_exists()
+            self.ai_anomaly_detector.save_model(self.ai_model_path)
+            logger.info(f"AI model saved to {self.ai_model_path}")
+            print(f"Model saved to {self.ai_model_path}")
+            return True
+        except Exception as e:
+            logger.error(f"AI model training/saving error: {e}", exc_info=True)
+            print(f"Error during AI model training or saving: {e}")
+            return False
 
     def shutdown(self):
-        """Gracefully shut down the engine."""
-        logger.info("Shutting down AnalysisEngine...")
-        if self.frame_capturer.async_sniffer and self.frame_capturer.async_sniffer.running: # If async was used
-            self.frame_capturer.stop_async_capture()
-        if self.db_handler:
-            self.db_handler.close()
-        logger.info("AnalysisEngine shut down.")
+        """Gracefully shuts down the analysis engine."""
+        logger.info("Shutting down Analysis Engine...")
+        # Perform any necessary cleanup here, e.g., close resources, save state
+        if hasattr(self, 'packet_capturer') and self.packet_capturer and hasattr(self.packet_capturer, 'stop_capture') and self.packet_capturer.is_capturing():
+            logger.info("Stopping active packet capture...")
+            self.packet_capturer.stop_capture()
+            # Optionally, wait for the capture thread to finish if it's running in a separate thread
 
-    def _determine_packet_type_and_analyze(self, packet):
-        """
-        Determina el tipo de paquete y lo pasa al analizador apropiado.
-        Retorna un diccionario con los resultados del análisis de cada analizador relevante.
-        """
-        analysis_output = {}
+        # If there are other resources like database connections, close them here
+        # For example:
+        # if self.db_connection:
+        #     self.db_connection.close()
 
-        # Prioritize Ethernet analysis if it's an Ethernet frame
-        if packet.haslayer(Ether):
-            if "ethernet" in self.analyzers:
-                try:
-                    # Pass the whole packet to ethernet_analyzer
-                    # It will return a dict like {'ethernet_details': {...}}
-                    eth_analysis = self.analyzers["ethernet"].analyze_packet(packet, existing_analysis={})
-                    analysis_output.update(eth_analysis)
-                    
-                    # If ethernet_details contains ip_layer_details, use that for protocol_details
-                    # Otherwise, fallback to the main protocol analyzer for IP if Ether didn't find IP
-                    if 'ethernet_details' in eth_analysis and 'ip_layer_details' in eth_analysis['ethernet_details']:
-                        # The ProtocolAnalyzer's output is already structured as 'protocol_details'
-                        # So we can directly use the nested ip_layer_details if the structure matches.
-                        # Let's assume ip_layer_details from ethernet_analyzer is already the full protocol_details structure.
-                        analysis_output['protocol_details'] = eth_analysis['ethernet_details']['ip_layer_details']
-                    elif 'ethernet_details' in eth_analysis and 'arp_layer_details' in eth_analysis['ethernet_details']:
-                         analysis_output['protocol_details'] = eth_analysis['ethernet_details']['arp_layer_details'] # Or handle ARP differently
-                    elif packet.haslayer(IP) and "protocol" in self.analyzers: # Fallback if Ether didn't contain IP
-                        proto_analysis = self.analyzers["protocol"].analyze_packet(packet, existing_analysis={})
-                        analysis_output.update(proto_analysis)
-
-                except Exception as e:
-                    logger.error(f"Error during Ethernet analysis: {e}", exc_info=True)
-                    analysis_output['ethernet_details'] = {"error": f"Ethernet analysis failed: {e}"}
-            else:
-                logger.warning("Ethernet analyzer not loaded, but Ethernet frame detected.")
-        
-        # If not Ethernet, or if Ethernet analyzer didn't handle IP, try general protocol analyzer for IP
-        elif packet.haslayer(IP) and "protocol" in self.analyzers:
-            try:
-                # The ProtocolAnalyzer returns a dict like {'protocol_details': {...}}
-                proto_analysis = self.analyzers["protocol"].analyze_packet(packet, existing_analysis={})
-                analysis_output.update(proto_analysis)
-            except Exception as e:
-                logger.error(f"Error during IP Protocol analysis: {e}", exc_info=True)
-                analysis_output['protocol_details'] = {"error": f"IP Protocol analysis failed: {e}"}
-
-        # WiFi analysis (can be independent or complementary)
-        if packet.haslayer(Dot11) and "wifi" in self.analyzers:
-            try:
-                # The IEEE802_11_Analyzer returns a dict like {'wifi_details': {...}}
-                wifi_analysis = self.analyzers["wifi"].analyze_packet(packet, existing_analysis={})
-                analysis_output.update(wifi_analysis)
-            except Exception as e:
-                logger.error(f"Error during WiFi analysis: {e}", exc_info=True)
-                analysis_output['wifi_details'] = {"error": f"WiFi analysis failed: {e}"}
-        else: # Ensure wifi_details error is present if not Dot11
-             if 'wifi_details' not in analysis_output : # Avoid overwriting if already set by an error above
-                analysis_output['wifi_details'] = {"error": "No es una trama 802.11"}
-
-
-        # Flow analysis (can use details from previous analyses)
-        if "flow" in self.analyzers:
-            try:
-                # FlowAnalyzer might need access to IP/port details, ensure they are passed if available
-                # It returns a dict like {'flow_analysis': {...}}
-                flow_input = analysis_output.get('protocol_details', {}) # Pass IP/L4 details to flow analyzer
-                if flow_input: # Only run if there are some protocol details
-                     flow_res = self.analyzers["flow"].analyze_packet(packet, existing_analysis=flow_input)
-                     analysis_output['flow_analysis'] = flow_res.get('flow_details', {}) # Assuming it adds 'flow_details'
-                else:
-                    analysis_output['flow_analysis'] = {"info": "Skipped, no L3/L4 details for flow."}
-
-            except Exception as e:
-                logger.error(f"Error during Flow analysis: {e}", exc_info=True)
-                analysis_output['flow_analysis'] = {"error": f"Flow analysis failed: {e}"}
-        
-        # Anomaly detection (can use details from previous analyses)
-        if "anomaly" in self.analyzers and self.config.get('analysis.anomaly_detection.enabled', False):
-            try:
-                # AnomalyDetector might need access to various details
-                # It returns a dict like {'anomaly_analysis': {...}}
-                anomaly_input = analysis_output.get('protocol_details', {})
-                if anomaly_input:
-                    anomaly_res = self.analyzers["anomaly"].analyze_packet(packet, existing_analysis=anomaly_input)
-                    analysis_output['anomaly_analysis'] = anomaly_res.get('anomaly_details', {})
-                else:
-                    analysis_output['anomaly_analysis'] = {"info": "Skipped, no L3/L4 details for anomaly detection."}
-
-            except Exception as e:
-                logger.error(f"Error during Anomaly detection: {e}", exc_info=True)
-                analysis_output['anomaly_analysis'] = {"error": f"Anomaly detection failed: {e}"}
-        else:
-            analysis_output['anomaly_analysis'] = {"detected_anomalies": []} # Default if disabled or no input
-
-        # Ensure 'protocol_details' exists, even if empty or error, for consistent report structure
-        if 'protocol_details' not in analysis_output:
-            analysis_output['protocol_details'] = {"info": "No L3/L4 protocol details extracted."}
-            if packet.haslayer(IP): # If it was IP but no analyzer ran or errored
-                 analysis_output['protocol_details']['error'] = "IP packet detected but no L3/L4 analysis performed."
-            elif not packet.haslayer(Ether) and not packet.haslayer(Dot11): # Truly unknown
-                 analysis_output['protocol_details']['error'] = "Packet is not Ethernet, WiFi, or IP."
-
-
-        return analysis_output
-
-    def _process_packet(self, packet):
-        """Processa un único paquete, determinando su tipo y aplicando los análisis correspondientes."""
-        if not self.is_running:
-            logger.warning("AnalysisEngine is not running. Packet processing skipped.")
-            return {"error": "Engine not running"}
-
-        # Primero, intentamos determinar el tipo de paquete y realizar análisis preliminares
-        analysis_results = self._determine_packet_type_and_analyze(packet)
-
-        # Aquí podríamos agregar pasos adicionales de procesamiento si es necesario
-
-        return analysis_results
+        logger.info("Analysis Engine shut down successfully.")

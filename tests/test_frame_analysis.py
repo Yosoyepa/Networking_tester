@@ -71,24 +71,24 @@ class TestFrameAnalysis(unittest.TestCase):
             result = self.ethernet_analyzer.analyze_packet(mock_frame, {}) 
             
             self.assertIsInstance(result, dict)
-            self.assertIn('ethernet_details', result)
-            ethernet_details = result['ethernet_details']
+            # self.assertIn('ethernet_details', result) # Removed: result is now flat
+            # ethernet_details = result['ethernet_details'] # Removed: use result directly
 
-            self.assertEqual(ethernet_details.get('type'), 'ethernet (mock)') # Expect '(mock)' suffix
-            self.assertIn('src_mac', ethernet_details)
-            self.assertIn('dst_mac', ethernet_details)
-            self.assertIn('ethertype', ethernet_details)
+            self.assertEqual(result.get('type'), 'ethernet (mock)') # Expect '(mock)' suffix
+            self.assertIn('src_mac', result)
+            self.assertIn('dst_mac', result)
+            self.assertIn('ethertype', result)
             
             # Additional verification based on frame type
             # These assertions now expect the "(mock)" suffix for protocol_name
             if hasattr(mock_frame, 'type'):
                 expected_protocol_name_base = self.ethernet_analyzer.ethertype_map.get(mock_frame.type, f"Unknown ({hex(mock_frame.type)})")
                 expected_protocol_name = f"{expected_protocol_name_base} (mock)"
-                self.assertEqual(ethernet_details.get('protocol_name'), expected_protocol_name)
+                self.assertEqual(result.get('protocol_name'), expected_protocol_name)
             else: # Default case if mock_frame has no 'type' (analyzer defaults to 0x0800 for mocks)
                 # This case assumes getattr(packet, 'type', 0x0800) in analyzer results in 0x0800
                 expected_protocol_name_base = self.ethernet_analyzer.ethertype_map.get(0x0800, "Unknown (0x0800)")
-                self.assertEqual(ethernet_details.get('protocol_name'), f"{expected_protocol_name_base} (mock)")
+                self.assertEqual(result.get('protocol_name'), f"{expected_protocol_name_base} (mock)")
         
         if mock_frames: # Avoid logging if mock_frames is empty
             logger.info(f"Analyzed {len(mock_frames)} Ethernet frames successfully")

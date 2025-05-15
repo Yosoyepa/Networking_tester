@@ -20,13 +20,9 @@ class ProtocolAnalyzer(BaseAnalyzer): # Inherit from BaseAnalyzer
         self.known_ports = self.config_manager.get('analysis.known_ports', {})
         # logger.debug("Inicializando analizador de protocolos") # Done by BaseAnalyzer
 
-    def analyze_packet(self, packet, existing_analysis=None):
-        """
-        Analiza un paquete IP y extrae información de protocolos.
-        Appends results to 'protocol_analysis' key in existing_analysis or a new dict.
-        """
+    def analyze_packet(self, packet, existing_analysis=None): # existing_analysis is not used by engine for this
         analysis_results = {}
-        if isinstance(packet, MagicMock): # Keep for tests if they directly instantiate this
+        if isinstance(packet, MagicMock):
             logger.warning("ProtocolAnalyzer received a MagicMock packet directly. Providing enhanced mock data.")
             # Attempt to get some common attributes from the mock if tests set them
             mock_src_ip = getattr(packet, 'src', '192.168.0.1') # Default mock src
@@ -75,11 +71,11 @@ class ProtocolAnalyzer(BaseAnalyzer): # Inherit from BaseAnalyzer
                 analysis_results['protocol_info'] = f'MockProto-{mock_proto_num}'
 
 
-            if existing_analysis:
-                existing_analysis.setdefault('protocol_details', {}).update(analysis_results)
-                return existing_analysis
-            return {'protocol_details': analysis_results}
-
+            # Ensure mock data is structured correctly if it was previously nested
+            # For example, if it returned {'protocol_details': mock_data_dict}
+            # it should now just return mock_data_dict
+            # Based on current mock logic, it seems to build a flat dict already.
+            return analysis_results # Return mock results directly
 
         if not packet.haslayer(IP):
             analysis_results = {"error": "No es un paquete IP"}
@@ -110,24 +106,31 @@ class ProtocolAnalyzer(BaseAnalyzer): # Inherit from BaseAnalyzer
             analysis_results['qos'] = {
                 'dscp': dscp,
                 'ecn': ecn,
-                'priority': dscp >> 3,
+                'priority': dscp >> 3, # Simplified priority; consider IETF RFC 4594 for detailed mapping
                 'tos_value': ip_layer.tos
             }
             
             # Performance metrics
+            header_overhead = ip_layer.ihl * 4 # IP header length in bytes
+            if analysis_results.get('protocol') == 'TCP' and packet.haslayer(TCP):
+                header_overhead += packet[TCP].dataofs * 4 if packet[TCP].dataofs else 20 # TCP header length
+            elif analysis_results.get('protocol') == 'UDP' and packet.haslayer(UDP):
+                header_overhead += 8 # UDP header is fixed 8 bytes
+            elif analysis_results.get('protocol') == 'ICMP' and packet.haslayer(ICMP):
+                # ICMP header length varies, but common part is 8 bytes
+                # This is a simplification; specific ICMP types have different header structures.
+                header_overhead += 8 
+
             analysis_results['performance'] = {
-                'packet_size': len(packet),
-                'header_overhead': 20 + (20 if ip_layer.proto == 6 else (8 if ip_layer.proto == 17 else 0))
+                'packet_size': len(packet), # This is the total length of the frame as captured
+                'ip_payload_size': ip_layer.len - (ip_layer.ihl * 4), # IP Total Length - IP Header Length
+                'header_overhead': header_overhead # Sum of IP and Transport header lengths
             }
             
             # Generate summary
             analysis_results['summary'] = self._generate_summary(analysis_results)
         
-        # Integrate with existing_analysis
-        if existing_analysis:
-            existing_analysis.setdefault('protocol_details', {}).update(analysis_results)
-            return existing_analysis
-        return {'protocol_details': analysis_results}
+        return analysis_results # Return the populated dictionary directly
 
     def _analyze_tcp(self, packet, tcp=None):
         """Analyze TCP protocol information."""

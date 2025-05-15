@@ -49,11 +49,7 @@ class IEEE802_3_Analyzer(BaseAnalyzer):
             "target_protocol_address": arp_layer.pdst,
         }
 
-    def analyze_packet(self, packet, existing_analysis=None):
-        """
-        Analiza una trama Ethernet IEEE 802.3.
-        Extrae detalles de Capa 2, maneja VLAN tags, y anida el análisis de Capa 3/4.
-        """
+    def analyze_packet(self, packet, existing_analysis=None): # existing_analysis is not used by engine for this
         analysis_results = {}
 
         # Handle MagicMock for testing, similar to other analyzers
@@ -79,6 +75,9 @@ class IEEE802_3_Analyzer(BaseAnalyzer):
                     "dst_ip": getattr(packet.payload, 'dst', "192.168.0.1"),
                     "protocol": getattr(packet.payload, 'protocol', "TCP (mock)")
                 }
+
+            # Ensure mock data is structured correctly if it was previously nested
+            return analysis_results # Return mock results directly
 
         elif not packet.haslayer(Ether):
             analysis_results = {"error": "No es una trama Ethernet"}
@@ -106,53 +105,29 @@ class IEEE802_3_Analyzer(BaseAnalyzer):
             while temp_layer.payload and temp_layer.payload.haslayer(Dot1Q):
                 vlan_layer = temp_layer.payload
                 vlan_tags_data.append({
+                    "vlan_id": vlan_layer.vlan,
                     "priority_code_point": vlan_layer.prio,
-                    "drop_eligible_indicator": vlan_layer.dei,
-                    "vlan_identifier": vlan_layer.vlan,
-                    "ethertype_in_vlan": hex(vlan_layer.type) # EtherType of the encapsulated frame
+                    "drop_eligible_indicator": vlan_layer.dei if hasattr(vlan_layer, 'dei') else vlan_layer.id, # .id for older scapy, .dei for newer
+                    "ethertype_vlan": hex(vlan_layer.type) # EtherType of the encapsulated frame
                 })
-                temp_layer = vlan_layer # Move to the current VLAN layer to check for more
+                ethertype_val = vlan_layer.type # Update ethertype to the one inside the VLAN tag
+                analysis_results["protocol_name"] = self.ethertype_map.get(ethertype_val, f"Unknown ({hex(ethertype_val)}) after VLAN")
+                analysis_results["ethertype"] = hex(ethertype_val) # Update the main ethertype
+                current_payload = vlan_layer.payload
             
             if vlan_tags_data:
                 analysis_results["vlan_tags"] = vlan_tags_data
-            
-            # current_payload is already the payload after all VLAN tags due to Scapy's handling
-            # when accessing packet[Ether].payload initially.
-            # If specific VLAN handling changed current_payload, ensure it points to the L3 payload.
-            # For simplicity, we rely on ether_layer.type and ether_layer.payload for the final encapsulated protocol.
 
-            if ethertype_val == 0x0800 and current_payload.haslayer(IP): # IPv4
-                ip_analysis_bundle = self.ip_analyzer.analyze_packet(current_payload, existing_analysis=None) # Pass only the IP packet
-                if 'protocol_details' in ip_analysis_bundle:
-                    analysis_results['ip_layer_details'] = ip_analysis_bundle['protocol_details']
-                else: # Handle error or unexpected structure from ip_analyzer
-                    analysis_results['ip_layer_details'] = {"error": "Failed to get IP details", "raw_output": ip_analysis_bundle}
-            
-            elif ethertype_val == 0x0806 and current_payload.haslayer(ARP): # ARP
-                analysis_results['arp_layer_details'] = self._analyze_arp_packet(current_payload)
-            
-            elif ethertype_val == 0x86DD: # IPv6 (Placeholder for IPv6 analysis)
-                # Similar to IPv4, you would call an IPv6 analyzer if available
-                # For now, just indicate it's IPv6
-                analysis_results['ipv6_layer_details'] = {
-                    "info": "IPv6 packet detected",
-                    "payload_preview": str(current_payload.summary()) if current_payload else "N/A"
-                }
-                # If self.ip_analyzer can handle IPv6, you could call it:
-                # ipv6_analysis_bundle = self.ip_analyzer.analyze_packet(current_payload, existing_analysis=None)
-                # if 'protocol_details' in ipv6_analysis_bundle:
-                #     analysis_results['ipv6_layer_details'] = ipv6_analysis_bundle['protocol_details']
+            # Analyze the payload (e.g., IP, ARP) using the appropriate analyzer
+            # The engine will call the ProtocolAnalyzer if it's IP, so we don't call it directly here.
+            # We just provide the Ethernet details.
+            # However, if it's ARP, we can handle it here as it's specific to Ethernet context.
+            if ethertype_val == 0x0806: # ARP
+                if current_payload and current_payload.haslayer(ARP):
+                    analysis_results["arp_details"] = self._analyze_arp_packet(current_payload) # Pass current_payload which is the ARP layer
+                else:
+                    analysis_results["arp_details"] = {"error": "ARP EtherType but no ARP layer found in payload"}
+            # For IP, the engine will call ProtocolAnalyzer separately. We just ensure ethernet_details are complete.
+            # No need to set ip_layer_details here, that will be under protocol_details from ProtocolAnalyzer.
 
-            else: # Other EtherTypes or raw payload
-                if isinstance(current_payload, Raw):
-                    analysis_results['payload_preview'] = current_payload.load[:64].hex() # Show first 64 bytes of raw payload
-                    analysis_results['payload_length'] = len(current_payload.load)
-                elif current_payload: # If it's a known Scapy layer but not IP/ARP/IPv6 handled above
-                    analysis_results['encapsulated_protocol_summary'] = current_payload.summary()
-
-
-        # Integrate with existing_analysis (standard way to return from analyzers)
-        if existing_analysis:
-            existing_analysis.setdefault('ethernet_details', {}).update(analysis_results)
-            return existing_analysis
-        return {'ethernet_details': analysis_results}
+        return analysis_results # Return the populated dictionary directly

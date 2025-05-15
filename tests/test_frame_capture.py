@@ -118,9 +118,14 @@ class TestFrameCapture(unittest.TestCase):
 
         logger.info("PCAP reading test successful (verified callback calls and return)")
     
+    @patch('src.capture.frame_capture.os.path.getsize')
+    @patch('src.capture.frame_capture.os.path.exists')
     @patch('src.capture.frame_capture.wrpcap') # Patch scapy's wrpcap used by FrameCapture
-    def test_write_to_pcap(self, mock_scapy_wrpcap):
+    def test_write_to_pcap(self, mock_scapy_wrpcap, mock_os_path_exists, mock_os_path_getsize):
         """Test writing packets to a PCAP file."""
+        mock_os_path_exists.return_value = True
+        mock_os_path_getsize.return_value = 100 # Simulate non-empty file
+
         output_pcap = os.path.join(self.test_dir, "output_test.pcap")
         capture = FrameCapture() # Callback not needed for writing
         
@@ -128,6 +133,8 @@ class TestFrameCapture(unittest.TestCase):
         
         self.assertTrue(success)
         mock_scapy_wrpcap.assert_called_once_with(output_pcap, self.sample_packets)
+        mock_os_path_exists.assert_any_call(output_pcap) # Changed from assert_called_once_with
+        mock_os_path_getsize.assert_called_once_with(output_pcap)
             
         logger.info("PCAP writing test successful (adapted)")
     

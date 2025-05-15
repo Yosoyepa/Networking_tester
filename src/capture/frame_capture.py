@@ -77,7 +77,7 @@ class FrameCapture:
         """Writes a list of Scapy packets to a PCAP file."""
         if not packets:
             logger.warning("No packets to write.")
-            return
+            return False # Ensure boolean return
 
         try:
             # Ensure the directory exists
@@ -96,11 +96,14 @@ class FrameCapture:
                 logger.info(f"PCAP file {output_file} size: {file_size} bytes.")
                 if file_size == 0:
                     logger.warning(f"PCAP file {output_file} was created but is empty.")
+                    return False # File is empty
+                return True # File exists and is not empty
             else:
                 logger.error(f"PCAP file {output_file} was NOT created after wrpcap call.")
-
+                return False # File not created
         except Exception as e:
             logger.error(f"Error writing PCAP file {output_file}: {e}", exc_info=True)
+            return False # Exception occurred
 
     def start_async_capture(self, interface=None, filter_str=None):
         """Starts asynchronous packet capture."""

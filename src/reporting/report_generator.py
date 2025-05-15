@@ -20,14 +20,16 @@ class ReportGenerator:
         self.output_dir = project_root / self.output_dir_str
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
-    def generate_report(self, analyzed_data_list, report_format=None):
+    def generate_report(self, analyzed_data_list, report_format=None, stats=None, ai_results=None):
         """
-        Generates a report from the list of analyzed packet data.
+        Generates a report from the list of analyzed packet data, stats, and AI results.
 
         Args:
             analyzed_data_list (list): A list of dictionaries, where each dict is an analysis result for a packet.
             report_format (str, optional): The desired format ('json', 'csv', 'console'). 
                                            Defaults to config or 'console'.
+            stats (dict, optional): Overall statistics dictionary.
+            ai_results (dict, optional): Dictionary containing AI analysis results.
 
         Returns:
             str: The formatted report string.
@@ -41,11 +43,19 @@ class ReportGenerator:
             formatter = self.formatters["console"]
             report_format = "console" # Ensure filename uses correct format
 
-        formatted_string = formatter.format(analyzed_data_list)
+        # Pass stats and ai_results to the formatter
+        formatted_string = formatter.format(analyzed_data_list, stats=stats, ai_results=ai_results)
 
         if report_format != "console":
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            filename = self.filename_template.format(timestamp=timestamp, format=report_format)
+            # Modify filename if AI results are present to distinguish the report
+            base_filename_part = "capture_report"
+            if ai_results and not ai_results.get("error"):
+                base_filename_part = "ai_analysis_report"
+            
+            filename = self.filename_template.replace("capture_report", base_filename_part)\
+                                            .format(timestamp=timestamp, format=report_format)
+            
             filepath = self.output_dir / filename
             try:
                 with open(filepath, 'w', encoding='utf-8') as f:
@@ -56,7 +66,8 @@ class ReportGenerator:
         
         return formatted_string
 
-    def print_to_console(self, analyzed_data_list):
-        """Prints a console-formatted report directly."""
+    def print_to_console(self, analyzed_data_list, stats=None, ai_results=None):
+        """Prints a console-formatted report directly, including stats and AI results."""
         console_formatter = self.formatters["console"]
-        print(console_formatter.format(analyzed_data_list))
+        # Pass stats and ai_results to the console formatter
+        print(console_formatter.format(analyzed_data_list, stats=stats, ai_results=ai_results))

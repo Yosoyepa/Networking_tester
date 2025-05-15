@@ -76,7 +76,9 @@ def display_main_menu_and_get_choice():
     print("3. Help (Show command options)")
     print("4. Show Examples")
     print("5. Exit")
-    choice = input("Select an option (1-5): ")
+    print("6. Analyze Session with AI")
+    print("7. Train AI Anomaly Model") # New option
+    choice = input("Select an option (1-7): ") # Updated range
     return choice
 
 def _create_arg_parser(project_name, version, for_live_capture=True):
@@ -259,6 +261,137 @@ def handle_pcap_analysis(engine, project_name, version):
     except Exception as e:
         logger.error(f"Error during PCAP analysis: {e}", exc_info=True)
 
+def handle_user_choice(choice, engine, project_name, version):
+    """Handles the user's menu choice."""
+    if choice == '1':
+        handle_live_capture(engine, project_name, version)
+    elif choice == '2':
+        handle_pcap_analysis(engine, project_name, version)
+    elif choice == '3':
+        # Help is now handled by the general parser in the main loop
+        print("Use -h or --help within 'Start Live Capture' or 'Analyze PCAP File' for detailed options.")
+        print("Option 4 shows command-line examples.")
+        pass 
+    elif choice == '4':
+        print_project_examples(project_name)
+    elif choice == '5':
+        print("Exiting...")
+        return False # Signal to exit the loop
+    elif choice == '6': # New choice for AI Analysis
+        if not engine.all_analyzed_data:
+            print("No session data to analyze. Please run a capture or analyze a PCAP file first.")
+        else:
+            print("\\nStarting AI analysis on current session data...")
+            ai_results = engine.run_ai_analysis_on_session_data() # New engine method
+
+            print("\\n--- AI Analysis Results ---")
+
+            if isinstance(ai_results, dict) and "error" in ai_results:
+                print(f"Error during AI analysis: {ai_results['error']}")
+                print("--- End of AI Analysis Results ---")
+                return True
+
+            # 1. AI Security Anomaly Detection
+            print("\\n[AI Security Anomaly Detection]")
+            sec_analysis = ai_results.get("security_analysis")
+            if sec_analysis:
+                print(f"  Description: {sec_analysis.get('description', 'N/A')}")
+                print(f"  Model Name: {sec_analysis.get('model_name', 'N/A')}")
+                print(f"  Status: {sec_analysis.get('status', 'N/A')}")
+                if sec_analysis.get("status", "").startswith("Completed"):
+                    print(f"  Packets Analyzed by AI: {sec_analysis.get('packets_analyzed', 0)}")
+                    print(f"  Potential Anomalies Detected by AI: {sec_analysis.get('anomalies_detected', 0)}")
+                    print(f"  AI Security Quality Value: {sec_analysis.get('quality_value', 0.0):.2f}%")
+                    
+                    anomaly_sample = sec_analysis.get("anomaly_details_sample")
+                    if anomaly_sample and anomaly_sample != "N/A":
+                        print(f"  Details of up to {len(anomaly_sample)} AI Anomaly Samples (Features):")
+                        if isinstance(anomaly_sample, list): # Expected: list of dicts
+                            for i, sample_dict in enumerate(anomaly_sample):
+                                print(f"    Sample {i+1}:")
+                                for key, val in sample_dict.items():
+                                    print(f"      {key}: {val}")
+                        else: # Fallback if it's a string or other format
+                            print(f"    {anomaly_sample}")
+            else:
+                print("  Security analysis data not available.")
+
+            # 2. AI QoS Analysis
+            print("\\n[AI QoS Analysis]")
+            qos_analysis = ai_results.get("qos_analysis")
+            if qos_analysis:
+                print(f"  Description: {qos_analysis.get('description', 'N/A')}")
+                print(f"  Status: {qos_analysis.get('status', 'N/A')}")
+                if qos_analysis.get("status", "").startswith("Completed"):
+                    print(f"  Summary: {qos_analysis.get('summary', 'N/A')}")
+                    print(f"  AI QoS Quality Value: {qos_analysis.get('quality_value', 0.0):.2f}%")
+                    qos_details_sample = qos_analysis.get("details_sample")
+                    if qos_details_sample:
+                        print("  AI QoS Details (Sample):")
+                        for detail in qos_details_sample:
+                            print(f"    - {detail}")
+            else:
+                print("  QoS analysis data not available.")
+
+            # 3. AI Performance Analysis
+            print("\\n[AI Performance Analysis]")
+            perf_analysis = ai_results.get("performance_analysis")
+            if perf_analysis:
+                print(f"  Description: {perf_analysis.get('description', 'N/A')}")
+                print(f"  Status: {perf_analysis.get('status', 'N/A')}")
+                if perf_analysis.get("status", "").startswith("Completed"):
+                    print(f"  Summary: {perf_analysis.get('summary', 'N/A')}")
+                    print(f"  AI Performance Quality Value: {perf_analysis.get('quality_value', 0.0):.2f}%")
+                    perf_details_sample = perf_analysis.get("details_sample")
+                    if perf_details_sample:
+                        print("  AI Performance Details (Sample):")
+                        for detail in perf_details_sample:
+                            print(f"    - {detail}")
+            else:
+                print("  Performance analysis data not available.")
+            
+            print("\\n--- End of AI Analysis Results ---")
+
+    elif choice == '7': # New choice for AI Model Training
+        print("\n--- Train AI Anomaly Model ---")
+        pcap_path_input = input("Enter path to PCAP file with normal traffic (or press Enter to use current session data, if any): ").strip()
+        
+        pcap_path_final_for_training = None
+        proceed_with_training = False
+
+        if pcap_path_input:
+            project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))            
+            # Check if it's a simple filename (no directory components)
+            if not os.path.isabs(pcap_path_input) and not os.path.dirname(pcap_path_input):
+                default_capture_dir_abs = os.path.join(project_root, "data", "captures")
+                pcap_path_final_for_training = os.path.join(default_capture_dir_abs, pcap_path_input)
+                logger.info(f"Attempting to use PCAP from default location for training: {pcap_path_final_for_training}")
+            else:
+                # User provided a path (could be relative to CWD or absolute)
+                pcap_path_final_for_training = os.path.abspath(pcap_path_input)
+                logger.info(f"Attempting to use PCAP from specified location for training: {pcap_path_final_for_training}")
+
+            if not os.path.exists(pcap_path_final_for_training):
+                print(f"Error: PCAP file not found at '{pcap_path_final_for_training}'. Please check the path.")
+            else:
+                proceed_with_training = True
+        elif engine.all_analyzed_data:
+            print("Using current session data for training (assumed to be normal traffic).")
+            # No specific file path needed, engine will use its session data
+            proceed_with_training = True
+        else:
+            print("No PCAP file provided and no current session data available for training.")
+            print("Please run a capture or analyze a PCAP file first if you want to use session data, or provide a valid PCAP file path.")
+
+        if proceed_with_training:
+            if pcap_path_final_for_training: # Only pass the path if one was resolved and exists
+                engine.train_ai_anomaly_model(pcap_filepath_normal_traffic=pcap_path_final_for_training)
+            else: # This means we are using session data
+                engine.train_ai_anomaly_model() 
+    else:
+        print("Invalid choice. Please try again.")
+    return True # Signal to continue
+
 def run_main_loop():
     """Runs the main interactive menu loop."""
     project_name = ConfigManager.get('general.project_name', 'Networking Tester')
@@ -286,21 +419,8 @@ def run_main_loop():
     try:
         while True:
             choice = display_main_menu_and_get_choice()
-
-            if choice == '1': # Start Live Capture
-                handle_live_capture(engine, project_name, version)
-            elif choice == '2': # Analyze PCAP File
-                handle_pcap_analysis(engine, project_name, version)
-            elif choice == '3': # Help
-                help_parser.print_help()
-            elif choice == '4': # Examples
-                print_project_examples(project_name)
-            elif choice == '5': # Exit
-                logger.info(f"Exiting {project_name}...")
+            if not handle_user_choice(choice, engine, project_name, version):
                 break
-            else:
-                print("Invalid option. Please try again.")
-            
             print("\\n" + "-"*30) # Separator
 
     except KeyboardInterrupt:
