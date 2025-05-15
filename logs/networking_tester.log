@@ -600,3 +600,142 @@ AttributeError: 'str' object has no attribute 'isoformat'. Did you mean: 'format
 2025-05-11 21:02:34 [INFO   ] [networking_tester   ] [test_wifi_frame_analysis:149] Analyzed 3 WiFi frames successfully
 2025-05-11 21:03:31 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
 2025-05-11 21:03:32 [WARNING] [networking_tester   ] [test_end_to_end_workflow:430] test_end_to_end_workflow in test_ai_monitoring.py needs significant refactoring due to core engine changes.
+2025-05-11 21:44:32 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-11 21:44:32 [INFO   ] [__main__            ] [main:20] Starting Networking Tester v0.2.0
+2025-05-11 21:44:32 [INFO   ] [networking_tester.core.engine] [__init__:19] Initializing AnalysisEngine...
+2025-05-11 21:44:32 [INFO   ] [networking_tester.core.engine] [_load_analyzers:42] Loaded 4 analyzers: ['ProtocolAnalyzer', 'IEEE802_11_Analyzer', 'FlowAnalyzer', 'AnomalyDetector']
+2025-05-11 21:44:32 [INFO   ] [networking_tester.storage.database_handler] [__init__:26] DatabaseHandler is disabled by configuration.
+2025-05-11 21:44:32 [INFO   ] [__main__            ] [main:39] Report format overridden by CLI: csv
+2025-05-11 21:44:32 [INFO   ] [networking_tester.core.engine] [run_live_capture:93] Starting live capture run: interface=eth0, count=0, timeout=60, filter='tcp'
+2025-05-11 21:44:32 [INFO   ] [networking_tester.capture.frame_capture] [start_capture:45] Starting synchronous capture on interface eth0 (count=0, timeout=60, filter='tcp')
+2025-05-11 21:44:32 [ERROR  ] [networking_tester.capture.frame_capture] [start_capture:63] Error during synchronous packet capture: Interface 'eth0' not found !
+Traceback (most recent call last):
+  File "C:\Users\juanc\Documents\Proyectos Personales\networking_tester\networking_tester\capture\frame_capture.py", line 56, in start_capture
+    sniff(**kwargs)
+  File "C:\Users\juanc\Documents\Proyectos Personales\venv\Lib\site-packages\scapy\sendrecv.py", line 1424, in sniff
+    sniffer._run(*args, **kwargs)
+  File "C:\Users\juanc\Documents\Proyectos Personales\venv\Lib\site-packages\scapy\sendrecv.py", line 1273, in _run
+    sniff_sockets[_RL2(iface)(type=ETH_P_ALL, iface=iface,
+                  ^^^^^^^^^^^
+  File "C:\Users\juanc\Documents\Proyectos Personales\venv\Lib\site-packages\scapy\sendrecv.py", line 1258, in <lambda>
+    _RL2 = lambda i: L2socket or resolve_iface(i).l2listen()  # type: Callable[[_GlobInterfaceType], Callable[..., SuperSocket]]  # noqa: E501
+                                 ^^^^^^^^^^^^^^^^
+  File "C:\Users\juanc\Documents\Proyectos Personales\venv\Lib\site-packages\scapy\interfaces.py", line 434, in resolve_iface
+    return resolve_iface(dev, retry=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\juanc\Documents\Proyectos Personales\venv\Lib\site-packages\scapy\interfaces.py", line 431, in resolve_iface
+    raise ValueError("Interface '%s' not found !" % dev)
+ValueError: Interface 'eth0' not found !
+2025-05-11 21:44:32 [INFO   ] [networking_tester.core.engine] [run_live_capture:109] Live capture run finished.
+2025-05-11 21:44:32 [INFO   ] [networking_tester.core.engine] [_finalize_run:127] Finalizing run...
+2025-05-11 21:44:32 [INFO   ] [networking_tester.reporting.report_generator] [generate_report:53] Report generated and saved to C:\Users\juanc\Documents\Proyectos Personales\networking_tester\reports\capture_report_20250511_214432.csv
+2025-05-11 21:44:32 [INFO   ] [networking_tester.core.engine] [_finalize_run:138] Final Statistics:
+2025-05-11 21:44:32 [INFO   ] [networking_tester.core.engine] [_finalize_run:145]   total_packets: 0
+2025-05-11 21:44:32 [INFO   ] [networking_tester.core.engine] [_finalize_run:145]   start_time: None
+2025-05-11 21:44:32 [INFO   ] [networking_tester.core.engine] [_finalize_run:145]   end_time: None
+2025-05-11 21:44:32 [INFO   ] [networking_tester.core.engine] [_finalize_run:145]   duration_seconds: 0
+2025-05-11 21:44:32 [INFO   ] [networking_tester.core.engine] [_finalize_run:145]   packets_per_second: 0
+2025-05-11 21:44:32 [INFO   ] [networking_tester.core.engine] [_finalize_run:141]   protocol_distribution:
+2025-05-11 21:44:32 [INFO   ] [networking_tester.core.engine] [_finalize_run:141]   top_source_ips:
+2025-05-11 21:44:32 [INFO   ] [networking_tester.core.engine] [_finalize_run:141]   top_destination_ips:
+2025-05-11 21:44:32 [INFO   ] [networking_tester.core.engine] [_finalize_run:141]   top_source_ports:
+2025-05-11 21:44:32 [INFO   ] [networking_tester.core.engine] [_finalize_run:141]   top_destination_ports:
+2025-05-11 21:44:32 [INFO   ] [networking_tester.core.engine] [_finalize_run:145]   error_count: 0
+2025-05-11 21:44:32 [INFO   ] [networking_tester.core.engine] [_finalize_run:151] Run finalized.
+2025-05-11 21:44:32 [INFO   ] [networking_tester.core.engine] [shutdown:155] Shutting down AnalysisEngine...
+2025-05-11 21:44:32 [INFO   ] [networking_tester.core.engine] [shutdown:160] AnalysisEngine shut down.
+2025-05-11 21:44:32 [INFO   ] [__main__            ] [main:62] Networking Tester finished.
+2025-05-11 21:46:47 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-11 21:46:47 [INFO   ] [__main__            ] [main:20] Starting Networking Tester v0.2.0
+2025-05-11 21:46:47 [INFO   ] [networking_tester.core.engine] [__init__:19] Initializing AnalysisEngine...
+2025-05-11 21:46:47 [INFO   ] [networking_tester.core.engine] [_load_analyzers:42] Loaded 4 analyzers: ['ProtocolAnalyzer', 'IEEE802_11_Analyzer', 'FlowAnalyzer', 'AnomalyDetector']
+2025-05-11 21:46:47 [INFO   ] [networking_tester.storage.database_handler] [__init__:26] DatabaseHandler is disabled by configuration.
+2025-05-11 21:46:47 [INFO   ] [__main__            ] [main:39] Report format overridden by CLI: csv
+2025-05-11 21:46:47 [INFO   ] [networking_tester.core.engine] [run_live_capture:93] Starting live capture run: interface=Ethernet, count=0, timeout=60, filter='tcp'
+2025-05-11 21:46:47 [INFO   ] [networking_tester.capture.frame_capture] [start_capture:45] Starting synchronous capture on interface Ethernet (count=0, timeout=60, filter='tcp')
+2025-05-11 21:46:47 [ERROR  ] [networking_tester.capture.frame_capture] [start_capture:63] Error during synchronous packet capture: Interface 'Ethernet' not found !
+Traceback (most recent call last):
+  File "C:\Users\juanc\Documents\Proyectos Personales\networking_tester\networking_tester\capture\frame_capture.py", line 56, in start_capture
+    sniff(**kwargs)
+  File "C:\Users\juanc\Documents\Proyectos Personales\venv\Lib\site-packages\scapy\sendrecv.py", line 1424, in sniff
+    sniffer._run(*args, **kwargs)
+  File "C:\Users\juanc\Documents\Proyectos Personales\venv\Lib\site-packages\scapy\sendrecv.py", line 1273, in _run
+    sniff_sockets[_RL2(iface)(type=ETH_P_ALL, iface=iface,
+                  ^^^^^^^^^^^
+  File "C:\Users\juanc\Documents\Proyectos Personales\venv\Lib\site-packages\scapy\sendrecv.py", line 1258, in <lambda>
+    _RL2 = lambda i: L2socket or resolve_iface(i).l2listen()  # type: Callable[[_GlobInterfaceType], Callable[..., SuperSocket]]  # noqa: E501
+                                 ^^^^^^^^^^^^^^^^
+  File "C:\Users\juanc\Documents\Proyectos Personales\venv\Lib\site-packages\scapy\interfaces.py", line 434, in resolve_iface
+    return resolve_iface(dev, retry=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\juanc\Documents\Proyectos Personales\venv\Lib\site-packages\scapy\interfaces.py", line 431, in resolve_iface
+    raise ValueError("Interface '%s' not found !" % dev)
+ValueError: Interface 'Ethernet' not found !
+2025-05-11 21:46:47 [INFO   ] [networking_tester.core.engine] [run_live_capture:109] Live capture run finished.
+2025-05-11 21:46:47 [INFO   ] [networking_tester.core.engine] [_finalize_run:127] Finalizing run...
+2025-05-11 21:46:47 [INFO   ] [networking_tester.reporting.report_generator] [generate_report:53] Report generated and saved to C:\Users\juanc\Documents\Proyectos Personales\networking_tester\reports\capture_report_20250511_214647.csv
+2025-05-11 21:46:47 [INFO   ] [networking_tester.core.engine] [_finalize_run:138] Final Statistics:
+2025-05-11 21:46:47 [INFO   ] [networking_tester.core.engine] [_finalize_run:145]   total_packets: 0
+2025-05-11 21:46:47 [INFO   ] [networking_tester.core.engine] [_finalize_run:145]   start_time: None
+2025-05-11 21:46:47 [INFO   ] [networking_tester.core.engine] [_finalize_run:145]   end_time: None
+2025-05-11 21:46:47 [INFO   ] [networking_tester.core.engine] [_finalize_run:145]   duration_seconds: 0
+2025-05-11 21:46:47 [INFO   ] [networking_tester.core.engine] [_finalize_run:145]   packets_per_second: 0
+2025-05-11 21:46:47 [INFO   ] [networking_tester.core.engine] [_finalize_run:141]   protocol_distribution:
+2025-05-11 21:46:47 [INFO   ] [networking_tester.core.engine] [_finalize_run:141]   top_source_ips:
+2025-05-11 21:46:47 [INFO   ] [networking_tester.core.engine] [_finalize_run:141]   top_destination_ips:
+2025-05-11 21:46:47 [INFO   ] [networking_tester.core.engine] [_finalize_run:141]   top_source_ports:
+2025-05-11 21:46:47 [INFO   ] [networking_tester.core.engine] [_finalize_run:141]   top_destination_ports:
+2025-05-11 21:46:47 [INFO   ] [networking_tester.core.engine] [_finalize_run:145]   error_count: 0
+2025-05-11 21:46:47 [INFO   ] [networking_tester.core.engine] [_finalize_run:151] Run finalized.
+2025-05-11 21:46:47 [INFO   ] [networking_tester.core.engine] [shutdown:155] Shutting down AnalysisEngine...
+2025-05-11 21:46:47 [INFO   ] [networking_tester.core.engine] [shutdown:160] AnalysisEngine shut down.
+2025-05-11 21:46:47 [INFO   ] [__main__            ] [main:62] Networking Tester finished.
+2025-05-11 21:48:16 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-11 21:48:16 [INFO   ] [__main__            ] [main:20] Starting Networking Tester v0.2.0
+2025-05-11 21:48:16 [INFO   ] [networking_tester.core.engine] [__init__:19] Initializing AnalysisEngine...
+2025-05-11 21:48:16 [INFO   ] [networking_tester.core.engine] [_load_analyzers:42] Loaded 4 analyzers: ['ProtocolAnalyzer', 'IEEE802_11_Analyzer', 'FlowAnalyzer', 'AnomalyDetector']
+2025-05-11 21:48:16 [INFO   ] [networking_tester.storage.database_handler] [__init__:26] DatabaseHandler is disabled by configuration.
+2025-05-11 21:48:16 [INFO   ] [__main__            ] [main:39] Report format overridden by CLI: csv
+2025-05-11 21:48:16 [INFO   ] [networking_tester.core.engine] [run_live_capture:93] Starting live capture run: interface=Ethernet 2, count=0, timeout=60, filter='tcp'
+2025-05-11 21:48:16 [INFO   ] [networking_tester.capture.frame_capture] [start_capture:45] Starting synchronous capture on interface Ethernet 2 (count=0, timeout=60, filter='tcp')
+2025-05-11 21:49:16 [INFO   ] [networking_tester.capture.frame_capture] [start_capture:59] Synchronous capture finished on Ethernet 2.
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [run_live_capture:109] Live capture run finished.
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [_finalize_run:127] Finalizing run...
+2025-05-11 21:49:16 [INFO   ] [networking_tester.reporting.report_generator] [generate_report:53] Report generated and saved to C:\Users\juanc\Documents\Proyectos Personales\networking_tester\reports\capture_report_20250511_214916.csv
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [_finalize_run:138] Final Statistics:
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [_finalize_run:145]   total_packets: 335
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [_finalize_run:145]   start_time: 2025-05-11T21:48:16.954878
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [_finalize_run:145]   end_time: 2025-05-11T21:49:16.630231
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [_finalize_run:145]   duration_seconds: 59.675353
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [_finalize_run:145]   packets_per_second: 5.61
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [_finalize_run:141]   protocol_distribution:
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [_finalize_run:143]     TCP: 335
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [_finalize_run:141]   top_source_ips:
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [_finalize_run:143]     192.168.0.5: 160
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [_finalize_run:143]     142.251.132.142: 54
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [_finalize_run:143]     13.107.5.93: 17
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [_finalize_run:143]     155.133.253.34: 12
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [_finalize_run:143]     142.251.135.170: 11
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [_finalize_run:141]   top_destination_ips:
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [_finalize_run:143]     192.168.0.5: 175
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [_finalize_run:143]     142.251.132.142: 51
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [_finalize_run:143]     155.133.253.34: 12
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [_finalize_run:143]     13.107.5.93: 12
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [_finalize_run:143]     20.189.172.32: 10
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [_finalize_run:141]   top_source_ports:
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [_finalize_run:143]     443: 162
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [_finalize_run:143]     56895: 51
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [_finalize_run:143]     53721: 12
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [_finalize_run:143]     27017: 12
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [_finalize_run:143]     57118: 12
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [_finalize_run:141]   top_destination_ports:
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [_finalize_run:143]     443: 147
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [_finalize_run:143]     56895: 54
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [_finalize_run:143]     57118: 17
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [_finalize_run:143]     27017: 12
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [_finalize_run:143]     53721: 12
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [_finalize_run:145]   error_count: 0
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [_finalize_run:151] Run finalized.
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [shutdown:155] Shutting down AnalysisEngine...
+2025-05-11 21:49:16 [INFO   ] [networking_tester.core.engine] [shutdown:160] AnalysisEngine shut down.
+2025-05-11 21:49:16 [INFO   ] [__main__            ] [main:62] Networking Tester finished.
