@@ -2606,3 +2606,113 @@ Feature names unseen at fit time:
 2025-05-15 04:04:57 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib
 2025-05-15 04:04:57 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
 2025-05-15 04:04:57 [INFO   ] [src.core.engine     ] [_load_ai_model:93] AI Anomaly Detection model and scaler loaded from C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib and C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-15 04:18:26 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 04:18:26 [INFO   ] [src.core.engine     ] [__init__:32] Initializing AnalysisEngine...
+2025-05-15 04:18:26 [INFO   ] [src.core.engine     ] [_load_analyzers:78] Loaded 5 standard analyzers: ['ProtocolAnalyzer', 'IEEE802_11_Analyzer', 'IEEE802_3_Analyzer', 'FlowAnalyzer', 'RuleBasedAnomalyDetector']
+2025-05-15 04:18:26 [INFO   ] [src.storage.database_handler] [__init__:26] DatabaseHandler is disabled by configuration.
+2025-05-15 04:18:26 [INFO   ] [src.ai_monitoring.feature_extractor] [__init__:17] PacketFeatureExtractor initialized.
+2025-05-15 04:18:26 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [__init__:60] QoSMLAnalyzer initialized.
+2025-05-15 04:18:26 [INFO   ] [src.ai_monitoring.performance_analyzer_ml_simple] [__init__:20] PerformanceMLAnalyzer initialized.
+2025-05-15 04:18:26 [WARNING] [src.ai_monitoring.anomaly_detector] [__init__:28] AnomalyDetector: Model path 'None' not provided or not found. Anomaly detection will not be performed unless a model is loaded or trained.
+2025-05-15 04:18:26 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib
+2025-05-15 04:18:26 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-15 04:18:26 [INFO   ] [src.core.engine     ] [_load_ai_model:93] AI Anomaly Detection model and scaler loaded from C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib and C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-15 04:18:32 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 04:18:34 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 04:18:35 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 04:18:35 [ERROR  ] [__main__            ] [main:116] PCAP file not found: nonexistent_file.pcap
+2025-05-15 04:18:37 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 04:18:37 [ERROR  ] [__main__            ] [main:110] --live and --file options cannot be used together
+2025-05-15 04:18:39 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 04:18:39 [INFO   ] [__main__            ] [main:120] Headless mode not fully implemented for this option
+2025-05-15 04:18:40 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 04:18:42 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 04:18:43 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 04:18:43 [INFO   ] [__main__            ] [run_feature_mismatch_test:31] Running feature mismatch test
+2025-05-15 04:18:43 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: data/models/ai_anomaly_detector.joblib
+2025-05-15 04:18:43 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: data/models/ai_anomaly_detector_scaler.joblib
+2025-05-15 04:18:43 [INFO   ] [__main__            ] [run_feature_mismatch_test:60] Feature mismatch test passed: Successfully made predictions with mismatched features
+2025-05-15 04:18:45 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 04:18:45 [INFO   ] [src.core.engine     ] [__init__:32] Initializing AnalysisEngine...
+2025-05-15 04:18:45 [INFO   ] [src.core.engine     ] [_load_analyzers:78] Loaded 5 standard analyzers: ['ProtocolAnalyzer', 'IEEE802_11_Analyzer', 'IEEE802_3_Analyzer', 'FlowAnalyzer', 'RuleBasedAnomalyDetector']
+2025-05-15 04:18:45 [INFO   ] [src.storage.database_handler] [__init__:26] DatabaseHandler is disabled by configuration.
+2025-05-15 04:18:45 [INFO   ] [src.ai_monitoring.feature_extractor] [__init__:17] PacketFeatureExtractor initialized.
+2025-05-15 04:18:45 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [__init__:60] QoSMLAnalyzer initialized.
+2025-05-15 04:18:45 [INFO   ] [src.ai_monitoring.performance_analyzer_ml_simple] [__init__:20] PerformanceMLAnalyzer initialized.
+2025-05-15 04:18:45 [WARNING] [src.ai_monitoring.anomaly_detector] [__init__:28] AnomalyDetector: Model path 'None' not provided or not found. Anomaly detection will not be performed unless a model is loaded or trained.
+2025-05-15 04:18:45 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib
+2025-05-15 04:18:45 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-15 04:18:45 [INFO   ] [src.core.engine     ] [_load_ai_model:93] AI Anomaly Detection model and scaler loaded from C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib and C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-15 04:18:51 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 04:18:53 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 04:18:54 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 04:18:54 [ERROR  ] [__main__            ] [main:116] PCAP file not found: nonexistent_file.pcap
+2025-05-15 04:18:56 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 04:18:56 [ERROR  ] [__main__            ] [main:110] --live and --file options cannot be used together
+2025-05-15 04:18:58 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 04:18:58 [INFO   ] [__main__            ] [main:120] Headless mode not fully implemented for this option
+2025-05-15 04:19:00 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 04:19:01 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 04:19:03 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 04:19:03 [INFO   ] [__main__            ] [run_feature_mismatch_test:31] Running feature mismatch test
+2025-05-15 04:19:03 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: data/models/ai_anomaly_detector.joblib
+2025-05-15 04:19:03 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: data/models/ai_anomaly_detector_scaler.joblib
+2025-05-15 04:19:03 [INFO   ] [__main__            ] [run_feature_mismatch_test:60] Feature mismatch test passed: Successfully made predictions with mismatched features
+2025-05-15 04:19:22 [INFO   ] [src.core.engine     ] [shutdown:494] Shutting down Analysis Engine...
+2025-05-15 04:19:22 [INFO   ] [src.core.engine     ] [shutdown:506] Analysis Engine shut down successfully.
+2025-05-15 04:19:22 [INFO   ] [src.ui.menu_handler ] [run_main_loop:431] Networking Tester finished.
+2025-05-15 04:19:25 [INFO   ] [src.core.engine     ] [shutdown:494] Shutting down Analysis Engine...
+2025-05-15 04:19:25 [INFO   ] [src.core.engine     ] [shutdown:506] Analysis Engine shut down successfully.
+2025-05-15 04:19:25 [INFO   ] [src.ui.menu_handler ] [run_main_loop:431] Networking Tester finished.
+2025-05-15 04:19:48 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 04:19:48 [INFO   ] [src.core.engine     ] [__init__:32] Initializing AnalysisEngine...
+2025-05-15 04:19:48 [INFO   ] [src.core.engine     ] [_load_analyzers:78] Loaded 5 standard analyzers: ['ProtocolAnalyzer', 'IEEE802_11_Analyzer', 'IEEE802_3_Analyzer', 'FlowAnalyzer', 'RuleBasedAnomalyDetector']
+2025-05-15 04:19:48 [INFO   ] [src.storage.database_handler] [__init__:26] DatabaseHandler is disabled by configuration.
+2025-05-15 04:19:48 [INFO   ] [src.ai_monitoring.feature_extractor] [__init__:17] PacketFeatureExtractor initialized.
+2025-05-15 04:19:48 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [__init__:60] QoSMLAnalyzer initialized.
+2025-05-15 04:19:48 [INFO   ] [src.ai_monitoring.performance_analyzer_ml_simple] [__init__:20] PerformanceMLAnalyzer initialized.
+2025-05-15 04:19:48 [WARNING] [src.ai_monitoring.anomaly_detector] [__init__:28] AnomalyDetector: Model path 'None' not provided or not found. Anomaly detection will not be performed unless a model is loaded or trained.
+2025-05-15 04:19:48 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib
+2025-05-15 04:19:48 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-15 04:19:48 [INFO   ] [src.core.engine     ] [_load_ai_model:93] AI Anomaly Detection model and scaler loaded from c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib and c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-15 04:19:54 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 04:19:55 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 04:19:57 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 04:19:57 [ERROR  ] [__main__            ] [main:116] PCAP file not found: nonexistent_file.pcap
+2025-05-15 04:19:58 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 04:19:58 [ERROR  ] [__main__            ] [main:110] --live and --file options cannot be used together
+2025-05-15 04:20:00 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 04:20:00 [INFO   ] [__main__            ] [main:120] Headless mode not fully implemented for this option
+2025-05-15 04:20:02 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 04:20:03 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 04:20:05 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 04:20:05 [INFO   ] [__main__            ] [run_feature_mismatch_test:31] Running feature mismatch test
+2025-05-15 04:20:05 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: data/models/ai_anomaly_detector.joblib
+2025-05-15 04:20:05 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: data/models/ai_anomaly_detector_scaler.joblib
+2025-05-15 04:20:05 [INFO   ] [__main__            ] [run_feature_mismatch_test:60] Feature mismatch test passed: Successfully made predictions with mismatched features
+2025-05-15 04:27:03 [INFO   ] [src.core.engine     ] [shutdown:494] Shutting down Analysis Engine...
+2025-05-15 04:27:03 [INFO   ] [src.core.engine     ] [shutdown:506] Analysis Engine shut down successfully.
+2025-05-15 04:27:03 [INFO   ] [src.ui.menu_handler ] [run_main_loop:431] Networking Tester finished.
+2025-05-15 04:27:05 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 04:27:05 [INFO   ] [src.core.engine     ] [__init__:32] Initializing AnalysisEngine...
+2025-05-15 04:27:05 [INFO   ] [src.core.engine     ] [_load_analyzers:78] Loaded 5 standard analyzers: ['ProtocolAnalyzer', 'IEEE802_11_Analyzer', 'IEEE802_3_Analyzer', 'FlowAnalyzer', 'RuleBasedAnomalyDetector']
+2025-05-15 04:27:05 [INFO   ] [src.storage.database_handler] [__init__:26] DatabaseHandler is disabled by configuration.
+2025-05-15 04:27:05 [INFO   ] [src.ai_monitoring.feature_extractor] [__init__:17] PacketFeatureExtractor initialized.
+2025-05-15 04:27:05 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [__init__:60] QoSMLAnalyzer initialized.
+2025-05-15 04:27:05 [INFO   ] [src.ai_monitoring.performance_analyzer_ml_simple] [__init__:20] PerformanceMLAnalyzer initialized.
+2025-05-15 04:27:05 [WARNING] [src.ai_monitoring.anomaly_detector] [__init__:28] AnomalyDetector: Model path 'None' not provided or not found. Anomaly detection will not be performed unless a model is loaded or trained.
+2025-05-15 04:27:05 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib
+2025-05-15 04:27:05 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-15 04:27:05 [INFO   ] [src.core.engine     ] [_load_ai_model:93] AI Anomaly Detection model and scaler loaded from c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib and c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-15 04:27:11 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 04:27:12 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 04:27:12 [ERROR  ] [__main__            ] [main:116] PCAP file not found: nonexistent_file.pcap
+2025-05-15 04:27:14 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 04:27:14 [ERROR  ] [__main__            ] [main:110] --live and --file options cannot be used together
+2025-05-15 04:27:15 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 04:27:15 [INFO   ] [__main__            ] [main:120] Headless mode not fully implemented for this option
+2025-05-15 04:27:17 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 04:27:17 [INFO   ] [__main__            ] [run_feature_mismatch_test:31] Running feature mismatch test
+2025-05-15 04:27:17 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: data/models/ai_anomaly_detector.joblib
+2025-05-15 04:27:17 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: data/models/ai_anomaly_detector_scaler.joblib
+2025-05-15 04:27:17 [INFO   ] [__main__            ] [run_feature_mismatch_test:60] Feature mismatch test passed: Successfully made predictions with mismatched features
