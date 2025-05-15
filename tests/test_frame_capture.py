@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-"""Tests para la funcionalidad de captura de tramas en networking_tester."""
+"""Tests para la funcionalidad de captura de tramas en src."""
 
 import sys
 import os
@@ -12,14 +12,14 @@ import logging
 from scapy.all import Ether, IP, TCP, UDP, ICMP, Dot11, wrpcap, rdpcap # Ensure rdpcap is imported
 from io import StringIO
 
-# Add the project root directory to Python path so it can find the networking_tester package
+# Add the project root directory to Python path so it can find the src package
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 # Import the modules to test
 from src.capture.frame_capture import FrameCapture
 from src.utils import logging_config
 # ConfigManager is not directly used by FrameCapture constructor anymore
-# from networking_tester.utils.config_manager import ConfigManager 
+# from src.utils.config_manager import ConfigManager 
 
 # Configure logging for tests
 logging_config.setup_logging() # Removed log_level_str argument
@@ -62,7 +62,7 @@ class TestFrameCapture(unittest.TestCase):
             
         logger.info("Test cleanup complete")
     
-    @patch('networking_tester.capture.frame_capture.sniff') 
+    @patch('src.capture.frame_capture.sniff') 
     def test_live_capture(self, mock_scapy_sniff):
         """Test capturing packets live (synchronously) from an interface."""
         
@@ -118,7 +118,7 @@ class TestFrameCapture(unittest.TestCase):
 
         logger.info("PCAP reading test successful (verified callback calls and return)")
     
-    @patch('networking_tester.capture.frame_capture.wrpcap') # Patch scapy's wrpcap used by FrameCapture
+    @patch('src.capture.frame_capture.wrpcap') # Patch scapy's wrpcap used by FrameCapture
     def test_write_to_pcap(self, mock_scapy_wrpcap):
         """Test writing packets to a PCAP file."""
         output_pcap = os.path.join(self.test_dir, "output_test.pcap")
@@ -131,7 +131,7 @@ class TestFrameCapture(unittest.TestCase):
             
         logger.info("PCAP writing test successful (adapted)")
     
-    @patch('networking_tester.capture.frame_capture.sniff') 
+    @patch('src.capture.frame_capture.sniff') 
     def test_capture_with_filter(self, mock_scapy_sniff):
         """Test capturing packets (synchronously) with a BPF filter."""
         
@@ -164,7 +164,7 @@ class TestFrameCapture(unittest.TestCase):
         self.assertTrue(True, "Callback usage tested in other methods.")
         logger.info("Packet processing callback usage is tested via other methods.")
 
-    @patch('networking_tester.capture.frame_capture.logger')
+    @patch('src.capture.frame_capture.logger')
     def test_error_handling_read_pcap_non_existent(self, mock_capture_logger):
         """Test error handling when reading a non-existent PCAP file."""
         capture = FrameCapture(packet_processing_callback=self.mock_packet_processor)
@@ -178,8 +178,8 @@ class TestFrameCapture(unittest.TestCase):
         
         logger.info("Error handling for read_pcap (non-existent file) test successful")
 
-    @patch('networking_tester.capture.frame_capture.wrpcap')
-    @patch('networking_tester.capture.frame_capture.logger')
+    @patch('src.capture.frame_capture.wrpcap')
+    @patch('src.capture.frame_capture.logger')
     def test_error_handling_write_pcap_fail(self, mock_capture_logger, mock_wrpcap_call):
         """Test error handling when writing a PCAP file fails."""
         mock_wrpcap_call.side_effect = Exception("Disk full")
@@ -193,8 +193,8 @@ class TestFrameCapture(unittest.TestCase):
         self.assertIn(f"Error writing PCAP file {output_pcap}", mock_capture_logger.error.call_args[0][0])
         logger.info("Error handling for write_pcap (failure) test successful")
 
-    @patch('networking_tester.capture.frame_capture.AsyncSniffer')
-    @patch('networking_tester.capture.frame_capture.logger')
+    @patch('src.capture.frame_capture.AsyncSniffer')
+    @patch('src.capture.frame_capture.logger')
     def test_error_handling_async_start_fail(self, mock_capture_logger, mock_async_sniffer_class):
         """Test error handling when starting asynchronous capture fails."""
         mock_async_sniffer_class.side_effect = Exception("Failed to init AsyncSniffer")
@@ -224,7 +224,7 @@ class TestFrameCapture(unittest.TestCase):
         # self.assertEqual(mock_stdout.getvalue(), "")
         logger.info("Print capture summary test successful (verified absence of summary method)")
     
-    @patch('networking_tester.capture.frame_capture.AsyncSniffer')
+    @patch('src.capture.frame_capture.AsyncSniffer')
     def test_async_capture(self, mock_async_sniffer_class):
         """Test asynchronous packet capture."""
         mock_sniffer_instance = MagicMock()

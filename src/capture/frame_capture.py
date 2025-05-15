@@ -70,14 +70,15 @@ class FrameCapture:
         try:
             # rdpcap loads all packets into memory. For very large files, consider PcapReader.
             packets = rdpcap(pcap_file)
-            if self.packet_processor:
-                for packet in packets:
-                    self.packet_processor(packet)
-            else: # If no processor, just store them for return (legacy or direct use)
-                self.captured_packets_for_pcap_read = list(packets)
+            self.captured_packets_for_pcap_read = list(packets) # Always store read packets
 
-            logger.info(f"Read and processed {len(packets)} packets from {pcap_file}")
-            return self.captured_packets_for_pcap_read # Return packets if no processor, or processed list if engine collects
+            if self.packet_processor:
+                for packet_to_process in self.captured_packets_for_pcap_read: # Iterate over the stored list
+                    self.packet_processor(packet_to_process)
+            # No 'else' needed for populating the list, as it's done above.
+
+            logger.info(f"Read and processed {len(self.captured_packets_for_pcap_read)} packets from {pcap_file}")
+            return self.captured_packets_for_pcap_read 
         except Exception as e:
             logger.error(f"Error reading PCAP file {pcap_file}: {e}", exc_info=True)
             return []
