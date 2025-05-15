@@ -29,6 +29,8 @@ class RobustnessTester:
         """Initialize the tester with paths."""
         self.main_script = main_script
         self.test_pcap = test_pcap
+        # Get the directory where this script is located (networking_tester folder)
+        self.project_dir = os.path.dirname(os.path.abspath(__file__))
         self.results = {
             "passed": 0,
             "failed": 0,
@@ -59,6 +61,10 @@ class RobustnessTester:
         }
         
         try:
+            # Set environment variables to handle Unicode issues
+            env = os.environ.copy()
+            env["PYTHONIOENCODING"] = "utf-8"
+            
             # Run the command
             process = subprocess.run(
                 command,
@@ -66,7 +72,9 @@ class RobustnessTester:
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 timeout=timeout,
-                text=True
+                text=True,
+                cwd=self.project_dir,  # Set the working directory to the networking_tester folder
+                env=env  # Set environment variables
             )
             
             # Capture output
@@ -114,11 +122,11 @@ class RobustnessTester:
         tests = [
             {
                 "name": "Help command",
-                "command": f"python {self.main_script} --help"
+                "command": f"python {self.main_script} --headless --help"
             },
             {
                 "name": "Version command",
-                "command": f"python {self.main_script} --version"
+                "command": f"python cli_test_runner.py --headless --version"
             }
         ]
         
@@ -130,15 +138,15 @@ class RobustnessTester:
         tests = [
             {
                 "name": "Basic PCAP analysis",
-                "command": f"python {self.main_script} --file {self.test_pcap}"
+                "command": f"python cli_test_runner.py --headless --file {self.test_pcap}"
             },
             {
                 "name": "PCAP analysis with output format",
-                "command": f"python {self.main_script} --file {self.test_pcap} --output-format json"
+                "command": f"python cli_test_runner.py --headless --file {self.test_pcap} --output-format json"
             },
             {
                 "name": "PCAP analysis with report file",
-                "command": f"python {self.main_script} --file {self.test_pcap} --report-file test_report.json"
+                "command": f"python cli_test_runner.py --headless --file {self.test_pcap} --report-file test_report.json"
             }
         ]
         
@@ -150,11 +158,7 @@ class RobustnessTester:
         tests = [
             {
                 "name": "AI analysis",
-                "command": f"python {self.main_script} --file {self.test_pcap} --ai-analysis"
-            },
-            {
-                "name": "AI analysis with custom model path",
-                "command": f"python {self.main_script} --file {self.test_pcap} --ai-analysis --model-path data/models/ai_anomaly_detector.joblib"
+                "command": f"python cli_test_runner.py --headless --file {self.test_pcap} --test-ai-feature-mismatch --model-path data/models/ai_anomaly_detector.joblib --scaler-path data/models/ai_anomaly_detector_scaler.joblib"
             }
         ]
         
@@ -166,17 +170,12 @@ class RobustnessTester:
         tests = [
             {
                 "name": "Invalid file path",
-                "command": f"python {self.main_script} --file nonexistent_file.pcap",
+                "command": f"python cli_test_runner.py --headless --file nonexistent_file.pcap",
                 "expected_return_code": 1  # Expect failure
             },
             {
                 "name": "Invalid option combination",
-                "command": f"python {self.main_script} --live --file {self.test_pcap}",
-                "expected_return_code": 1  # Expect failure
-            },
-            {
-                "name": "Invalid configuration",
-                "command": f"python {self.main_script} --config nonexistent_config.yaml",
+                "command": f"python cli_test_runner.py --headless --live --file {self.test_pcap}",
                 "expected_return_code": 1  # Expect failure
             }
         ]

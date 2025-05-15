@@ -2388,3 +2388,221 @@ Feature names unseen at fit time:
 2025-05-15 03:31:35 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib
 2025-05-15 03:31:35 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
 2025-05-15 03:31:35 [INFO   ] [src.core.engine     ] [_load_ai_model:93] AI Anomaly Detection model and scaler loaded from C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib and C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-15 03:34:16 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 03:34:17 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 03:34:17 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 03:34:17 [WARNING] [networking_tester   ] [test_end_to_end_workflow:430] test_end_to_end_workflow in test_ai_monitoring.py needs significant refactoring due to core engine changes.
+2025-05-15 03:34:17 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\AppData\Local\Temp\tmp7cvngez5\test_model.joblib
+2025-05-15 03:34:17 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\AppData\Local\Temp\tmp7cvngez5\test_model_scaler.joblib
+2025-05-15 03:34:17 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\AppData\Local\Temp\tmp7cvngez5\test_model.joblib
+2025-05-15 03:34:17 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\AppData\Local\Temp\tmp7cvngez5\test_model_scaler.joblib
+2025-05-15 03:34:17 [WARNING] [src.ai_monitoring.anomaly_detector] [__init__:28] AnomalyDetector: Model path 'non_existent_path.joblib' not provided or not found. Anomaly detection will not be performed unless a model is loaded or trained.
+2025-05-15 03:34:17 [WARNING] [src.ai_monitoring.anomaly_detector] [__init__:28] AnomalyDetector: Model path 'None' not provided or not found. Anomaly detection will not be performed unless a model is loaded or trained.
+2025-05-15 03:34:17 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\AppData\Local\Temp\tmpox3jy6_c\test_model.joblib
+2025-05-15 03:34:17 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\AppData\Local\Temp\tmpox3jy6_c\test_model_scaler.joblib
+2025-05-15 03:34:17 [INFO   ] [src.ai_monitoring.anomaly_detector] [interpret_prediction_results:190] --- AI Anomaly Detection Results ---
+2025-05-15 03:34:17 [INFO   ] [src.ai_monitoring.anomaly_detector] [interpret_prediction_results:207] [ANOMALY DETECTED] for: Packet 1
+2025-05-15 03:34:17 [INFO   ] [src.ai_monitoring.anomaly_detector] [interpret_prediction_results:214] Total anomalies detected in this batch: 1
+2025-05-15 03:34:17 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\AppData\Local\Temp\tmpxnshn6j6\test_model.joblib
+2025-05-15 03:34:17 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\AppData\Local\Temp\tmpxnshn6j6\test_model_scaler.joblib
+2025-05-15 03:34:17 [WARNING] [src.ai_monitoring.anomaly_detector] [__init__:28] AnomalyDetector: Model path 'None' not provided or not found. Anomaly detection will not be performed unless a model is loaded or trained.
+2025-05-15 03:34:17 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\AppData\Local\Temp\tmpxnshn6j6\test_model.joblib
+2025-05-15 03:34:17 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\AppData\Local\Temp\tmpxnshn6j6\test_model_scaler.joblib
+2025-05-15 03:34:17 [WARNING] [src.ai_monitoring.anomaly_detector] [__init__:28] AnomalyDetector: Model path 'None' not provided or not found. Anomaly detection will not be performed unless a model is loaded or trained.
+2025-05-15 03:34:17 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\AppData\Local\Temp\tmpxnshn6j6\test_model.joblib
+2025-05-15 03:34:17 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:47] Scaler loaded from default path: C:\Users\juanc\AppData\Local\Temp\tmpxnshn6j6\test_model_scaler.joblib
+2025-05-15 03:34:17 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\AppData\Local\Temp\tmpqd8h0of6\test_model.joblib
+2025-05-15 03:34:17 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\AppData\Local\Temp\tmpqd8h0of6\test_model_scaler.joblib
+2025-05-15 03:34:17 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\AppData\Local\Temp\tmpppezi9ze\test_model.joblib
+2025-05-15 03:34:17 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\AppData\Local\Temp\tmpppezi9ze\test_model_scaler.joblib
+2025-05-15 03:34:18 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\AppData\Local\Temp\tmpiugmln62\test_model.joblib
+2025-05-15 03:34:18 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\AppData\Local\Temp\tmpiugmln62\test_model_scaler.joblib
+2025-05-15 03:34:18 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\AppData\Local\Temp\tmp6y9i31qx\test_model.joblib
+2025-05-15 03:34:18 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\AppData\Local\Temp\tmp6y9i31qx\test_model_scaler.joblib
+2025-05-15 03:34:18 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\AppData\Local\Temp\tmpapyr_vcl\test_model.joblib
+2025-05-15 03:34:18 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\AppData\Local\Temp\tmpapyr_vcl\test_model_scaler.joblib
+2025-05-15 03:34:18 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\AppData\Local\Temp\tmphlslo93_\test_model.joblib
+2025-05-15 03:34:18 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\AppData\Local\Temp\tmphlslo93_\test_model_scaler.joblib
+2025-05-15 03:34:18 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\AppData\Local\Temp\tmpr8nwxwwo\test_model.joblib
+2025-05-15 03:34:18 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\AppData\Local\Temp\tmpr8nwxwwo\test_model_scaler.joblib
+2025-05-15 03:34:18 [WARNING] [src.ai_monitoring.anomaly_detector] [__init__:28] AnomalyDetector: Model path 'None' not provided or not found. Anomaly detection will not be performed unless a model is loaded or trained.
+2025-05-15 03:34:18 [INFO   ] [src.ai_monitoring.anomaly_detector] [train:253] Training anomaly detector model on-the-fly...
+2025-05-15 03:34:18 [INFO   ] [src.ai_monitoring.anomaly_detector] [train:258] On-the-fly AnomalyDetector model training completed.
+2025-05-15 03:34:18 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\AppData\Local\Temp\tmpd2goj5et\test_model.joblib
+2025-05-15 03:34:18 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\AppData\Local\Temp\tmpd2goj5et\test_model_scaler.joblib
+2025-05-15 03:34:18 [WARNING] [src.ai_monitoring.anomaly_detector] [__init__:28] AnomalyDetector: Model path 'None' not provided or not found. Anomaly detection will not be performed unless a model is loaded or trained.
+2025-05-15 03:34:18 [INFO   ] [src.ai_monitoring.anomaly_detector] [train_model:163] Training anomaly detector model...
+2025-05-15 03:34:18 [INFO   ] [src.ai_monitoring.anomaly_detector] [train_model:168] AnomalyDetector model training completed.
+2025-05-15 03:34:18 [INFO   ] [src.ai_monitoring.anomaly_detector] [train_model:176] Model saved to: C:\Users\juanc\AppData\Local\Temp\tmpd2goj5et\new_model.joblib
+2025-05-15 03:34:18 [INFO   ] [src.ai_monitoring.anomaly_detector] [train_model:182] Scaler saved to: C:\Users\juanc\AppData\Local\Temp\tmpd2goj5et\new_model_scaler.joblib
+2025-05-15 03:34:18 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\AppData\Local\Temp\tmpd2goj5et\new_model.joblib
+2025-05-15 03:34:18 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\AppData\Local\Temp\tmpd2goj5et\new_model_scaler.joblib
+2025-05-15 03:34:18 [INFO   ] [networking_tester   ] [test_ethernet_frame_analysis:94] Analyzed 3 Ethernet frames successfully
+2025-05-15 03:34:18 [INFO   ] [networking_tester   ] [test_packet_summary_generation:370] Packet summary generation test successful (assuming integrated into analyze_packet)
+2025-05-15 03:34:18 [INFO   ] [networking_tester   ] [test_performance_metrics_extraction:378] Running test_performance_metrics_extraction.
+2025-05-15 03:34:18 [INFO   ] [networking_tester   ] [test_performance_metrics_extraction:462] Performance metrics extraction test ran for 4 frames (basic checks).
+2025-05-15 03:34:18 [WARNING] [src.analysis.protocol_analyzer] [analyze_packet:26] ProtocolAnalyzer received a MagicMock packet directly. Providing enhanced mock data.
+2025-05-15 03:34:18 [WARNING] [src.analysis.protocol_analyzer] [analyze_packet:26] ProtocolAnalyzer received a MagicMock packet directly. Providing enhanced mock data.
+2025-05-15 03:34:18 [WARNING] [src.analysis.protocol_analyzer] [analyze_packet:26] ProtocolAnalyzer received a MagicMock packet directly. Providing enhanced mock data.
+2025-05-15 03:34:18 [INFO   ] [networking_tester   ] [test_protocol_analysis:200] Analyzed 3 protocol packets successfully
+2025-05-15 03:34:19 [INFO   ] [networking_tester   ] [test_qos_extraction:239] QoS extraction from 32 IP packets successful
+2025-05-15 03:34:19 [INFO   ] [networking_tester   ] [test_qos_extraction:278] QoS extraction from 8 WiFi QoS frames successful
+2025-05-15 03:34:19 [WARNING] [src.analysis.protocol_analyzer] [analyze_packet:26] ProtocolAnalyzer received a MagicMock packet directly. Providing enhanced mock data.
+2025-05-15 03:34:19 [WARNING] [src.analysis.protocol_analyzer] [analyze_packet:26] ProtocolAnalyzer received a MagicMock packet directly. Providing enhanced mock data.
+2025-05-15 03:34:19 [INFO   ] [networking_tester   ] [test_security_analysis:313] Security analysis of 2 IP packets successful
+2025-05-15 03:34:19 [INFO   ] [networking_tester   ] [test_wifi_frame_analysis:147] Analyzed 3 WiFi frames successfully
+2025-05-15 03:34:19 [INFO   ] [test_frame_capture  ] [setUp:49] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmpuk008ku1\test_capture.pcap
+2025-05-15 03:34:19 [INFO   ] [src.capture.frame_capture] [start_async_capture:110] Starting asynchronous capture on interface eth0 (filter='tcp')
+2025-05-15 03:34:19 [INFO   ] [src.capture.frame_capture] [start_async_capture:119] Asynchronous capture started on eth0.
+2025-05-15 03:34:19 [INFO   ] [src.capture.frame_capture] [stop_async_capture:130] Asynchronous capture stopped.
+2025-05-15 03:34:19 [INFO   ] [test_frame_capture  ] [test_async_capture:268] Async capture test successful (adapted)
+2025-05-15 03:34:19 [INFO   ] [test_frame_capture  ] [tearDown:63] Test cleanup complete
+2025-05-15 03:34:19 [INFO   ] [test_frame_capture  ] [setUp:49] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmp9txcusug\test_capture.pcap
+2025-05-15 03:34:19 [INFO   ] [test_frame_capture  ] [test_capture_statistics:222] Capture statistics test successful (verified absence of stats attributes)
+2025-05-15 03:34:19 [INFO   ] [test_frame_capture  ] [tearDown:63] Test cleanup complete
+2025-05-15 03:34:19 [INFO   ] [test_frame_capture  ] [setUp:49] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmp2662b8kd\test_capture.pcap
+2025-05-15 03:34:19 [INFO   ] [src.capture.frame_capture] [start_capture:42] Starting synchronous capture on interface eth0 (count=5, timeout=None, filter='tcp port 80')
+2025-05-15 03:34:19 [INFO   ] [src.capture.frame_capture] [start_capture:51] Synchronous capture finished on eth0.
+2025-05-15 03:34:19 [INFO   ] [test_frame_capture  ] [test_capture_with_filter:165] Capture with filter test successful (adapted, checks filter pass-through)
+2025-05-15 03:34:19 [INFO   ] [test_frame_capture  ] [tearDown:63] Test cleanup complete
+2025-05-15 03:34:19 [INFO   ] [test_frame_capture  ] [setUp:49] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmplree9rcv\test_capture.pcap
+2025-05-15 03:34:19 [INFO   ] [test_frame_capture  ] [test_error_handling_async_start_fail:215] Error handling for async start failure test successful
+2025-05-15 03:34:19 [INFO   ] [test_frame_capture  ] [tearDown:63] Test cleanup complete
+2025-05-15 03:34:19 [INFO   ] [test_frame_capture  ] [setUp:49] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmpgsf8prc6\test_capture.pcap
+2025-05-15 03:34:19 [INFO   ] [test_frame_capture  ] [test_error_handling_read_pcap_non_existent:186] Error handling for read_pcap (non-existent file) test successful
+2025-05-15 03:34:19 [INFO   ] [test_frame_capture  ] [tearDown:63] Test cleanup complete
+2025-05-15 03:34:19 [INFO   ] [test_frame_capture  ] [setUp:49] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmp_ao2sur8\test_capture.pcap
+2025-05-15 03:34:19 [INFO   ] [test_frame_capture  ] [test_error_handling_write_pcap_fail:201] Error handling for write_pcap (failure) test successful
+2025-05-15 03:34:19 [INFO   ] [test_frame_capture  ] [tearDown:63] Test cleanup complete
+2025-05-15 03:34:19 [INFO   ] [test_frame_capture  ] [setUp:49] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmpt7fih3ac\test_capture.pcap
+2025-05-15 03:34:19 [INFO   ] [src.capture.frame_capture] [start_capture:42] Starting synchronous capture on interface eth0 (count=3, timeout=10, filter='None')
+2025-05-15 03:34:19 [INFO   ] [src.capture.frame_capture] [start_capture:51] Synchronous capture finished on eth0.
+2025-05-15 03:34:19 [INFO   ] [test_frame_capture  ] [test_live_capture:99] Live capture test successful (adapted for sync capture)
+2025-05-15 03:34:19 [INFO   ] [test_frame_capture  ] [tearDown:63] Test cleanup complete
+2025-05-15 03:34:19 [INFO   ] [test_frame_capture  ] [setUp:49] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmp1oghb0h7\test_capture.pcap
+2025-05-15 03:34:19 [INFO   ] [test_frame_capture  ] [test_packet_processing_callback_usage:172] Packet processing callback usage is tested via other methods.
+2025-05-15 03:34:19 [INFO   ] [test_frame_capture  ] [tearDown:63] Test cleanup complete
+2025-05-15 03:34:19 [INFO   ] [test_frame_capture  ] [setUp:49] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmp6j4by6c4\test_capture.pcap
+2025-05-15 03:34:19 [INFO   ] [test_frame_capture  ] [test_print_capture_summary:232] Print capture summary test successful (verified absence of summary method)
+2025-05-15 03:34:19 [INFO   ] [test_frame_capture  ] [tearDown:63] Test cleanup complete
+2025-05-15 03:34:19 [INFO   ] [test_frame_capture  ] [setUp:49] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmp3iu5pe1i\test_capture.pcap
+2025-05-15 03:34:19 [INFO   ] [src.capture.frame_capture] [read_pcap:58] Reading packets from C:\Users\juanc\AppData\Local\Temp\tmp3iu5pe1i\test_capture.pcap
+2025-05-15 03:34:19 [INFO   ] [src.capture.frame_capture] [read_pcap:70] Read and processed 5 packets from C:\Users\juanc\AppData\Local\Temp\tmp3iu5pe1i\test_capture.pcap
+2025-05-15 03:34:19 [INFO   ] [test_frame_capture  ] [test_read_from_pcap:119] PCAP reading test successful (verified callback calls and return)
+2025-05-15 03:34:19 [INFO   ] [test_frame_capture  ] [tearDown:63] Test cleanup complete
+2025-05-15 03:34:19 [INFO   ] [test_frame_capture  ] [setUp:49] Test setup complete. Created test PCAP at C:\Users\juanc\AppData\Local\Temp\tmplrakru6n\test_capture.pcap
+2025-05-15 03:34:19 [INFO   ] [src.capture.frame_capture] [write_pcap:89] Writing 5 packets to C:\Users\juanc\AppData\Local\Temp\tmplrakru6n\output_test.pcap
+2025-05-15 03:34:19 [INFO   ] [src.capture.frame_capture] [write_pcap:91] Successfully wrote packets to C:\Users\juanc\AppData\Local\Temp\tmplrakru6n\output_test.pcap
+2025-05-15 03:34:19 [INFO   ] [src.capture.frame_capture] [write_pcap:96] PCAP file C:\Users\juanc\AppData\Local\Temp\tmplrakru6n\output_test.pcap size: 100 bytes.
+2025-05-15 03:34:19 [INFO   ] [test_frame_capture  ] [test_write_to_pcap:139] PCAP writing test successful (adapted)
+2025-05-15 03:34:19 [INFO   ] [test_frame_capture  ] [tearDown:63] Test cleanup complete
+2025-05-15 03:34:19 [INFO   ] [src.ai_monitoring.performance_analyzer_ml_simple] [__init__:20] PerformanceMLAnalyzer initialized.
+2025-05-15 03:34:19 [INFO   ] [src.ai_monitoring.performance_analyzer_ml_simple] [__init__:20] PerformanceMLAnalyzer initialized.
+2025-05-15 03:34:19 [INFO   ] [src.ai_monitoring.performance_analyzer_ml_simple] [__init__:20] PerformanceMLAnalyzer initialized.
+2025-05-15 03:34:19 [WARNING] [src.ai_monitoring.performance_analyzer_ml_simple] [analyze_performance_features:34] Performance analysis input is empty.
+2025-05-15 03:34:19 [INFO   ] [src.ai_monitoring.performance_analyzer_ml_simple] [__init__:20] PerformanceMLAnalyzer initialized.
+2025-05-15 03:34:19 [INFO   ] [src.ai_monitoring.performance_analyzer_ml_simple] [__init__:20] PerformanceMLAnalyzer initialized.
+2025-05-15 03:34:19 [INFO   ] [src.ai_monitoring.performance_analyzer_ml_simple] [__init__:20] PerformanceMLAnalyzer initialized.
+2025-05-15 03:34:19 [INFO   ] [src.ai_monitoring.performance_analyzer_ml_simple] [__init__:20] PerformanceMLAnalyzer initialized.
+2025-05-15 03:34:19 [WARNING] [src.ai_monitoring.performance_analyzer_ml_simple] [analyze_performance_features:34] Performance analysis input is empty.
+2025-05-15 03:34:19 [INFO   ] [src.ai_monitoring.performance_analyzer_ml_simple] [__init__:20] PerformanceMLAnalyzer initialized.
+2025-05-15 03:34:19 [INFO   ] [__main__            ] [run_tests:54] Tests run: 47
+2025-05-15 03:34:19 [INFO   ] [__main__            ] [run_tests:55] Errors: 0
+2025-05-15 03:34:19 [INFO   ] [__main__            ] [run_tests:56] Failures: 0
+2025-05-15 03:34:19 [INFO   ] [__main__            ] [run_tests:57] Skipped: 7
+2025-05-15 03:36:54 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 03:36:56 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 03:36:57 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 03:36:59 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 03:37:01 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 03:37:03 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 03:37:05 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 03:37:06 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 03:37:08 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 03:37:10 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 03:44:34 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 03:44:34 [INFO   ] [__main__            ] [run_feature_mismatch_test:31] Running feature mismatch test
+2025-05-15 03:44:34 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib
+2025-05-15 03:44:34 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-15 03:44:34 [INFO   ] [__main__            ] [run_feature_mismatch_test:60] Feature mismatch test passed: Successfully made predictions with mismatched features
+2025-05-15 03:44:41 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 03:44:41 [INFO   ] [src.core.engine     ] [__init__:32] Initializing AnalysisEngine...
+2025-05-15 03:44:41 [INFO   ] [src.core.engine     ] [_load_analyzers:78] Loaded 5 standard analyzers: ['ProtocolAnalyzer', 'IEEE802_11_Analyzer', 'IEEE802_3_Analyzer', 'FlowAnalyzer', 'RuleBasedAnomalyDetector']
+2025-05-15 03:44:41 [INFO   ] [src.storage.database_handler] [__init__:26] DatabaseHandler is disabled by configuration.
+2025-05-15 03:44:41 [INFO   ] [src.ai_monitoring.feature_extractor] [__init__:17] PacketFeatureExtractor initialized.
+2025-05-15 03:44:41 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [__init__:60] QoSMLAnalyzer initialized.
+2025-05-15 03:44:41 [INFO   ] [src.ai_monitoring.performance_analyzer_ml_simple] [__init__:20] PerformanceMLAnalyzer initialized.
+2025-05-15 03:44:41 [WARNING] [src.ai_monitoring.anomaly_detector] [__init__:28] AnomalyDetector: Model path 'None' not provided or not found. Anomaly detection will not be performed unless a model is loaded or trained.
+2025-05-15 03:44:41 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib
+2025-05-15 03:44:41 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-15 03:44:41 [INFO   ] [src.core.engine     ] [_load_ai_model:93] AI Anomaly Detection model and scaler loaded from C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib and C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-15 03:45:11 [INFO   ] [src.ui.menu_handler ] [run_main_loop:427] \nNetworking Tester interrupted by user (Ctrl+C). Exiting now.
+2025-05-15 03:45:11 [INFO   ] [src.core.engine     ] [shutdown:494] Shutting down Analysis Engine...
+2025-05-15 03:45:11 [INFO   ] [src.core.engine     ] [shutdown:506] Analysis Engine shut down successfully.
+2025-05-15 03:45:11 [INFO   ] [src.ui.menu_handler ] [run_main_loop:431] Networking Tester finished.
+2025-05-15 03:50:09 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 03:50:09 [INFO   ] [__main__            ] [run_feature_mismatch_test:31] Running feature mismatch test
+2025-05-15 03:50:09 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib
+2025-05-15 03:50:09 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-15 03:50:09 [INFO   ] [__main__            ] [run_feature_mismatch_test:60] Feature mismatch test passed: Successfully made predictions with mismatched features
+2025-05-15 03:50:11 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 03:50:11 [ERROR  ] [__main__            ] [main:116] PCAP file not found: nonexistent_file.pcap
+2025-05-15 03:50:13 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 03:50:13 [ERROR  ] [__main__            ] [main:110] --live and --file options cannot be used together
+2025-05-15 03:50:53 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 03:50:53 [INFO   ] [src.core.engine     ] [__init__:32] Initializing AnalysisEngine...
+2025-05-15 03:50:53 [INFO   ] [src.core.engine     ] [_load_analyzers:78] Loaded 5 standard analyzers: ['ProtocolAnalyzer', 'IEEE802_11_Analyzer', 'IEEE802_3_Analyzer', 'FlowAnalyzer', 'RuleBasedAnomalyDetector']
+2025-05-15 03:50:53 [INFO   ] [src.storage.database_handler] [__init__:26] DatabaseHandler is disabled by configuration.
+2025-05-15 03:50:53 [INFO   ] [src.ai_monitoring.feature_extractor] [__init__:17] PacketFeatureExtractor initialized.
+2025-05-15 03:50:53 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [__init__:60] QoSMLAnalyzer initialized.
+2025-05-15 03:50:53 [INFO   ] [src.ai_monitoring.performance_analyzer_ml_simple] [__init__:20] PerformanceMLAnalyzer initialized.
+2025-05-15 03:50:53 [WARNING] [src.ai_monitoring.anomaly_detector] [__init__:28] AnomalyDetector: Model path 'None' not provided or not found. Anomaly detection will not be performed unless a model is loaded or trained.
+2025-05-15 03:50:53 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib
+2025-05-15 03:50:53 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-15 03:50:53 [INFO   ] [src.core.engine     ] [_load_ai_model:93] AI Anomaly Detection model and scaler loaded from C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib and C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-15 03:50:56 [INFO   ] [src.ui.menu_handler ] [run_main_loop:427] \nNetworking Tester interrupted by user (Ctrl+C). Exiting now.
+2025-05-15 03:50:56 [INFO   ] [src.core.engine     ] [shutdown:494] Shutting down Analysis Engine...
+2025-05-15 03:50:56 [INFO   ] [src.core.engine     ] [shutdown:506] Analysis Engine shut down successfully.
+2025-05-15 03:50:56 [INFO   ] [src.ui.menu_handler ] [run_main_loop:431] Networking Tester finished.
+2025-05-15 03:51:37 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 03:51:37 [INFO   ] [src.core.engine     ] [__init__:32] Initializing AnalysisEngine...
+2025-05-15 03:51:37 [INFO   ] [src.core.engine     ] [_load_analyzers:78] Loaded 5 standard analyzers: ['ProtocolAnalyzer', 'IEEE802_11_Analyzer', 'IEEE802_3_Analyzer', 'FlowAnalyzer', 'RuleBasedAnomalyDetector']
+2025-05-15 03:51:37 [INFO   ] [src.storage.database_handler] [__init__:26] DatabaseHandler is disabled by configuration.
+2025-05-15 03:51:37 [INFO   ] [src.ai_monitoring.feature_extractor] [__init__:17] PacketFeatureExtractor initialized.
+2025-05-15 03:51:37 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [__init__:60] QoSMLAnalyzer initialized.
+2025-05-15 03:51:37 [INFO   ] [src.ai_monitoring.performance_analyzer_ml_simple] [__init__:20] PerformanceMLAnalyzer initialized.
+2025-05-15 03:51:37 [WARNING] [src.ai_monitoring.anomaly_detector] [__init__:28] AnomalyDetector: Model path 'None' not provided or not found. Anomaly detection will not be performed unless a model is loaded or trained.
+2025-05-15 03:51:37 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib
+2025-05-15 03:51:37 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-15 03:51:37 [INFO   ] [src.core.engine     ] [_load_ai_model:93] AI Anomaly Detection model and scaler loaded from C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib and C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-15 03:51:51 [INFO   ] [src.ui.menu_handler ] [run_main_loop:427] \nNetworking Tester interrupted by user (Ctrl+C). Exiting now.
+2025-05-15 03:51:51 [INFO   ] [src.core.engine     ] [shutdown:494] Shutting down Analysis Engine...
+2025-05-15 03:51:51 [INFO   ] [src.core.engine     ] [shutdown:506] Analysis Engine shut down successfully.
+2025-05-15 03:51:51 [INFO   ] [src.ui.menu_handler ] [run_main_loop:431] Networking Tester finished.
+2025-05-15 04:04:40 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 04:04:40 [INFO   ] [src.core.engine     ] [__init__:32] Initializing AnalysisEngine...
+2025-05-15 04:04:40 [INFO   ] [src.core.engine     ] [_load_analyzers:78] Loaded 5 standard analyzers: ['ProtocolAnalyzer', 'IEEE802_11_Analyzer', 'IEEE802_3_Analyzer', 'FlowAnalyzer', 'RuleBasedAnomalyDetector']
+2025-05-15 04:04:40 [INFO   ] [src.storage.database_handler] [__init__:26] DatabaseHandler is disabled by configuration.
+2025-05-15 04:04:40 [INFO   ] [src.ai_monitoring.feature_extractor] [__init__:17] PacketFeatureExtractor initialized.
+2025-05-15 04:04:40 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [__init__:60] QoSMLAnalyzer initialized.
+2025-05-15 04:04:40 [INFO   ] [src.ai_monitoring.performance_analyzer_ml_simple] [__init__:20] PerformanceMLAnalyzer initialized.
+2025-05-15 04:04:40 [WARNING] [src.ai_monitoring.anomaly_detector] [__init__:28] AnomalyDetector: Model path 'None' not provided or not found. Anomaly detection will not be performed unless a model is loaded or trained.
+2025-05-15 04:04:40 [INFO   ] [src.core.engine     ] [_ensure_model_dir_exists:84] Created directory for AI model: C:\Users\juanc\Documents\Proyectos Personales\data\models
+2025-05-15 04:04:40 [INFO   ] [src.core.engine     ] [_load_ai_model:95] No pre-trained AI Anomaly Detection model found at C:\Users\juanc\Documents\Proyectos Personales\data\models\ai_anomaly_detector.joblib or model file is empty. Model will need training.
+2025-05-15 04:04:47 [INFO   ] [src.core.engine     ] [shutdown:494] Shutting down Analysis Engine...
+2025-05-15 04:04:47 [INFO   ] [src.core.engine     ] [shutdown:506] Analysis Engine shut down successfully.
+2025-05-15 04:04:47 [INFO   ] [src.ui.menu_handler ] [run_main_loop:431] Networking Tester finished.
+2025-05-15 04:04:53 [INFO   ] [src.core.engine     ] [shutdown:494] Shutting down Analysis Engine...
+2025-05-15 04:04:53 [INFO   ] [src.core.engine     ] [shutdown:506] Analysis Engine shut down successfully.
+2025-05-15 04:04:53 [INFO   ] [src.ui.menu_handler ] [run_main_loop:431] Networking Tester finished.
+2025-05-15 04:04:57 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-15 04:04:57 [INFO   ] [src.core.engine     ] [__init__:32] Initializing AnalysisEngine...
+2025-05-15 04:04:57 [INFO   ] [src.core.engine     ] [_load_analyzers:78] Loaded 5 standard analyzers: ['ProtocolAnalyzer', 'IEEE802_11_Analyzer', 'IEEE802_3_Analyzer', 'FlowAnalyzer', 'RuleBasedAnomalyDetector']
+2025-05-15 04:04:57 [INFO   ] [src.storage.database_handler] [__init__:26] DatabaseHandler is disabled by configuration.
+2025-05-15 04:04:57 [INFO   ] [src.ai_monitoring.feature_extractor] [__init__:17] PacketFeatureExtractor initialized.
+2025-05-15 04:04:57 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [__init__:60] QoSMLAnalyzer initialized.
+2025-05-15 04:04:57 [INFO   ] [src.ai_monitoring.performance_analyzer_ml_simple] [__init__:20] PerformanceMLAnalyzer initialized.
+2025-05-15 04:04:57 [WARNING] [src.ai_monitoring.anomaly_detector] [__init__:28] AnomalyDetector: Model path 'None' not provided or not found. Anomaly detection will not be performed unless a model is loaded or trained.
+2025-05-15 04:04:57 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib
+2025-05-15 04:04:57 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-15 04:04:57 [INFO   ] [src.core.engine     ] [_load_ai_model:93] AI Anomaly Detection model and scaler loaded from C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib and C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
