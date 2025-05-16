@@ -49,6 +49,57 @@ class IEEE802_3_Analyzer(BaseAnalyzer):
             "target_protocol_address": arp_layer.pdst,
         }
 
+    def _calculate_frame_components(self, packet):
+        """
+        Analyze and return the complete frame structure components
+        including Preamble, SFD, payload, padding and FCS
+        
+        Args:
+            packet: The Ethernet packet to analyze
+            
+        Returns:
+            Dictionary with all frame components
+        """
+        ether_layer = packet[Ether]
+        total_length = len(packet)
+        
+        # Standard Ethernet header is 14 bytes (6+6+2)
+        header_length = 14
+        
+        # Determine if this is a WiFi frame by looking at the MAC prefix
+        is_wifi = False
+        if hasattr(ether_layer, 'src'):
+            src_prefix = ether_layer.src.lower()[:8]
+            if src_prefix.startswith('60:e3:2b'):  # Your specific WiFi adapter
+                is_wifi = True
+        
+        # Determine preamble based on frame type
+        if is_wifi:
+            preamble_sfd = "Variable (WiFi frame)" # WiFi has different preamble structure
+        else:
+            preamble_sfd = "55-55-55-55-55-55-55-D5" # Standard Ethernet
+            
+        # Calculate data length (excluding the 4 byte FCS which isn't in the Scapy packet)
+        data_length = total_length - header_length
+        
+        # Calculate padding (if any)
+        min_payload_size = 46  # Minimum Ethernet payload size
+        padding_size = 0
+        if data_length < min_payload_size:
+            padding_size = min_payload_size - data_length
+            
+        components = {
+            "preamble_sfd": preamble_sfd,
+            "dest_mac": ether_layer.dst,
+            "src_mac": ether_layer.src,
+            "ethertype_length": hex(ether_layer.type),
+            "data_length": data_length,
+            "padding": padding_size,  # Add padding field
+            "frame_check_sequence": self._calculate_crc32(packet)  # Renamed from fcs to be more descriptive
+        }
+        
+        return components
+        
     def analyze_packet(self, packet, existing_analysis=None): # existing_analysis is not used by engine for this
         analysis_results = {}
 
@@ -92,7 +143,17 @@ class IEEE802_3_Analyzer(BaseAnalyzer):
                 "dst_mac": ether_layer.dst,
                 "ethertype": hex(ethertype_val),
                 "protocol_name": self.ethertype_map.get(ethertype_val, f"Unknown ({hex(ethertype_val)})"),
-                "frame_length": len(packet) # Total length of the captured frame
+                "frame_length": len(packet), # Total length of the captured frame
+                
+                # Frame structure information - now using the dedicated method
+                "frame_components": self._calculate_frame_components(packet),
+                
+                # Timing information
+                "frame_timing": {
+                    "start_time": self._get_packet_time(packet),
+                    "end_time": self._get_packet_time(packet, is_end=True),
+                    "duration_ns": self._calculate_frame_duration(packet)
+                }
             }
 
             current_payload = ether_layer.payload
@@ -131,3 +192,87 @@ class IEEE802_3_Analyzer(BaseAnalyzer):
             # No need to set ip_layer_details here, that will be under protocol_details from ProtocolAnalyzer.
 
         return analysis_results # Return the populated dictionary directly
+
+    def _calculate_crc32(self, packet):
+        """
+        Calculate or retrieve the CRC-32 (FCS) value for an Ethernet frame.
+        In real Ethernet frames, this is a 4-byte field at the end of the frame.
+        
+        Args:
+            packet: The Ethernet packet to analyze
+            
+        Returns:
+            String representation of the CRC-32 value in hexadecimal format
+        """
+        import zlib
+        import binascii
+        
+        # Convert the packet to bytes, excluding any FCS field that might be present
+        # In Scapy captures, the FCS is often not included as it's validated by hardware
+        packet_bytes = bytes(packet)
+        
+        # Calculate CRC-32 on the packet bytes
+        crc = zlib.crc32(packet_bytes) & 0xFFFFFFFF
+        
+        # Convert to hexadecimal representation with 0x prefix
+        return f"0x{crc:08x}"
+        
+    def _get_packet_time(self, packet, is_end=False):
+        """
+        Get the timestamp of a packet, either start time or calculated end time.
+        
+        Args:
+            packet: The packet to get the time for
+            is_end: If True, calculate the end time based on packet size and theoretical transmission time
+            
+        Returns:
+            ISO format timestamp string
+        """
+        if not hasattr(packet, 'time'):
+            # If no timestamp available, use current time
+            return datetime.now().isoformat()
+            
+        # Get the packet's timestamp
+        try:
+            # Convert EDecimal or other timestamp format to float
+            timestamp = float(packet.time)
+            
+            if is_end:
+                # Calculate end time by adding theoretical transmission time
+                # Assuming 1Gbps Ethernet, it takes 8ns to transmit 1 byte
+                # (1 / (1000^3 bits/sec)) * (len(packet) * 8 bits) = transmission time in seconds
+                transmission_time_ns = (len(packet) * 8) / 1  # Assuming 1 bit/ns (1Gbps)
+                timestamp += (transmission_time_ns / 1_000_000_000)  # Convert ns to seconds
+                
+            # Convert timestamp to datetime and return ISO format
+            return datetime.fromtimestamp(timestamp).isoformat()
+            
+        except (TypeError, ValueError, OverflowError):
+            # If conversion fails, use current time
+            return datetime.now().isoformat()
+    
+    def _calculate_frame_duration(self, packet):
+        """
+        Calculate the theoretical transmission duration of an Ethernet frame in nanoseconds.
+        
+        Args:
+            packet: The packet to calculate the duration for
+            
+        Returns:
+            Duration in nanoseconds (int)
+        """
+        # Assuming 1Gbps Ethernet (1 bit per nanosecond)
+        # A standard Ethernet frame includes:
+        # 8 bytes preamble + SFD (not in Scapy captures)
+        # 14 bytes header (dest MAC, src MAC, EtherType)
+        # N bytes data
+        # 4 bytes FCS (not usually in Scapy captures)
+        # 12 bytes inter-frame gap (not in Scapy captures)
+        
+        # Calculate based on the wire format with all the components
+        wire_size = len(packet) + 8 + 4 + 12  # Add preamble, FCS, and inter-frame gap
+        
+        # Each bit takes 1ns at 1Gbps
+        duration_ns = wire_size * 8
+        
+        return duration_ns

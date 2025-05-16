@@ -2,7 +2,6 @@ import logging
 import time
 from datetime import datetime
 import os
-
 import pandas as pd
 from scapy.all import Ether, IP, TCP, UDP, ICMP, DNS, ARP, Dot11, Raw, rdpcap # Added rdpcap
 
@@ -134,9 +133,16 @@ class AnalysisEngine:
         dst_port = summary_details.get('dst_port', 'N/A') if isinstance(summary_details, dict) else 'N/A'
         protocol = summary_details.get('protocol', 'N/A') if isinstance(summary_details, dict) else 'N/A'
         
-        summary_line = f"{src_ip}:{src_port} -> {dst_ip}:{dst_port} Proto: {protocol}"
+        # Add a flag to identify packet type (WiFi/Ethernet/Other)
+        packet_type = "WiFi" if packet.haslayer(Dot11) else "Ethernet" if packet.haslayer(Ether) else "Other"
         
-        current_analysis['packet_summary'] = {'summary_line': summary_line, **(summary_details if isinstance(summary_details, dict) else {})}
+        summary_line = f"{src_ip}:{src_port} -> {dst_ip}:{dst_port} Proto: {protocol} Type: {packet_type}"
+        
+        current_analysis['packet_summary'] = {
+            'summary_line': summary_line, 
+            'packet_type': packet_type,
+            **(summary_details if isinstance(summary_details, dict) else {})
+        }
 
         self.stats_collector.process_packet_analysis(current_analysis)
         self.all_analyzed_data.append(current_analysis)
@@ -158,10 +164,24 @@ class AnalysisEngine:
         analysis_results = {}
         analysis_results['protocol_details'] = self.analyzers["protocol"].analyze_packet(packet)
 
+        # First check for explicit WiFi (Dot11) packets
         if packet.haslayer(Dot11):
             analysis_results['wifi_details'] = self.analyzers["wifi"].analyze_packet(packet, analysis_results)
+            # Still process ethernet if it's encapsulated
+            if packet.haslayer(Ether):
+                analysis_results['ethernet_details'] = self.analyzers["ethernet"].analyze_packet(packet, analysis_results)
+            else:
+                analysis_results.setdefault('ethernet_details', {"info": "Not Ethernet"})
         elif packet.haslayer(Ether):
+            # Process as Ethernet first
             analysis_results['ethernet_details'] = self.analyzers["ethernet"].analyze_packet(packet, analysis_results)
+            # Then try to identify as WiFi through inference
+            wifi_analysis = self.analyzers["wifi"].analyze_packet(packet, analysis_results)
+            # Check if it was successfully identified as WiFi
+            if 'wifi_details' in wifi_analysis and 'error' not in wifi_analysis['wifi_details']:
+                analysis_results['wifi_details'] = wifi_analysis['wifi_details']
+            else:
+                analysis_results.setdefault('wifi_details', {"info": "Not Wi-Fi"})
         else:
             analysis_results.setdefault('ethernet_details', {"info": "Not Ethernet"})
             analysis_results.setdefault('wifi_details', {"info": "Not Wi-Fi"})
@@ -475,14 +495,15 @@ class AnalysisEngine:
         
         print(f"Training AI Anomaly Detector with {len(features_df_normal)} data points...")
         try:
-            self.ai_anomaly_detector.train_model(features_df_normal)
+            # Ensure model directory exists before training
+            self._ensure_model_dir_exists()
+            # Pass both model_save_path and scaler_save_path to train_model
+            self.ai_anomaly_detector.train_model(features_df_normal, self.ai_model_path, self.ai_scaler_path)
+            
             logger.info("AI Anomaly Detector trained successfully.")
             print("AI Anomaly Detector trained successfully.")
-            
-            self._ensure_model_dir_exists()
-            self.ai_anomaly_detector.save_model(self.ai_model_path)
-            logger.info(f"AI model saved to {self.ai_model_path}")
             print(f"Model saved to {self.ai_model_path}")
+            print(f"Scaler saved to {self.ai_scaler_path}")
             return True
         except Exception as e:
             logger.error(f"AI model training/saving error: {e}", exc_info=True)

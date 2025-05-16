@@ -37,34 +37,29 @@ class PacketFeatureExtractor:
                 features['frame_length'] = len(pkt)
                 features['timestamp'] = float(pkt.time) # Scapy packet timestamp
 
-                # Ethernet Layer (assuming it's the base for IP, etc.)
-                # if pkt.haslayer(Ether):
-                # features['eth_src'] = pkt[Ether].src
-                # features['eth_dst'] = pkt[Ether].dst
-                # features['eth_type'] = pkt[Ether].type
-
                 # IP Layer
                 if pkt.haslayer(IP):
                     ip_layer = pkt[IP]
-                    features['ip_version'] = ip_layer.version
-                    features['ip_ihl'] = ip_layer.ihl
-                    features['ip_tos'] = ip_layer.tos
-                    features['dscp'] = ip_layer.tos >> 2 # Extract DSCP from TOS
-                    features['ip_len'] = ip_layer.len
-                    features['ip_id'] = ip_layer.id
+                    features['ip_version'] = int(ip_layer.version)
+                    features['ip_ihl'] = int(ip_layer.ihl)
+                    features['ip_tos'] = int(ip_layer.tos)
+                    features['dscp'] = int(ip_layer.tos) >> 2 # Extract DSCP from TOS
+                    features['ip_len'] = int(ip_layer.len)
+                    features['ip_id'] = int(ip_layer.id)
                     features['ip_flags'] = int(ip_layer.flags) # Convert flags to int
-                    features['ip_frag'] = ip_layer.frag
-                    features['ip_ttl'] = ip_layer.ttl
-                    features['ip_protocol'] = ip_layer.proto
-                    features['ip_src'] = ip_layer.src
-                    features['ip_dst'] = ip_layer.dst
+                    features['ip_frag'] = int(ip_layer.frag)
+                    features['ip_ttl'] = int(ip_layer.ttl)
+                    features['ip_protocol'] = int(ip_layer.proto)
+                    features['ip_src'] = str(ip_layer.src)
+                    features['ip_dst'] = str(ip_layer.dst)
                     features['is_ip'] = 1
                 else:
                     features['is_ip'] = 0
-                    # Fill with defaults if no IP layer to maintain consistent columns
-                    for col in ['ip_version', 'ip_ihl', 'ip_tos', 'dscp', 'ip_len', 'ip_id', 'ip_flags', 'ip_frag', 'ip_ttl', 'ip_protocol', 'ip_src', 'ip_dst']:
-                        features[col] = 0 if col not in ['ip_src', 'ip_dst'] else '0.0.0.0'
-
+                    # Fill with defaults if no IP layer
+                    for col in ['ip_version', 'ip_ihl', 'ip_tos', 'dscp', 'ip_len', 'ip_id', 'ip_flags', 'ip_frag', 'ip_ttl', 'ip_protocol']:
+                        features[col] = 0
+                    features['ip_src'] = '0.0.0.0'
+                    features['ip_dst'] = '0.0.0.0'
 
                 # Transport Layer (TCP/UDP/ICMP)
                 features['is_tcp'] = 1 if pkt.haslayer(TCP) else 0
@@ -73,43 +68,84 @@ class PacketFeatureExtractor:
 
                 if pkt.haslayer(TCP):
                     tcp_layer = pkt[TCP]
-                    features['src_port'] = tcp_layer.sport
-                    features['dst_port'] = tcp_layer.dport
-                    features['tcp_seq'] = tcp_layer.seq
-                    features['tcp_ack'] = tcp_layer.ack
-                    features['tcp_dataofs'] = tcp_layer.dataofs
-                    features['tcp_reserved'] = tcp_layer.reserved
-                    features['tcp_flags'] = int(tcp_layer.flags) # Convert flags to int
-                    features['tcp_window'] = tcp_layer.window
-                    features['tcp_chksum'] = tcp_layer.chksum
-                    features['tcp_urgptr'] = tcp_layer.urgptr
+                    features['src_port'] = int(tcp_layer.sport)
+                    features['dst_port'] = int(tcp_layer.dport)
+                    features['tcp_seq'] = float(tcp_layer.seq) # Use float to safely handle large sequence numbers
+                    features['tcp_ack'] = float(tcp_layer.ack) # Use float to safely handle large ACK numbers
+                    features['tcp_dataofs'] = float(tcp_layer.dataofs)
+                    features['tcp_reserved'] = float(tcp_layer.reserved)
+                    features['tcp_flags'] = float(int(tcp_layer.flags)) # Convert flags to int then float
+                    features['tcp_window'] = float(tcp_layer.window)
+                    features['tcp_chksum'] = float(tcp_layer.chksum)
+                    features['tcp_urgptr'] = float(tcp_layer.urgptr)
+                    # Set UDP and ICMP fields to 0
+                    features['udp_len'] = 0.0
+                    features['udp_chksum'] = 0.0
+                    features['icmp_type'] = 0.0
+                    features['icmp_code'] = 0.0
+                    features['icmp_chksum'] = 0.0
                 elif pkt.haslayer(UDP):
                     udp_layer = pkt[UDP]
-                    features['src_port'] = udp_layer.sport
-                    features['dst_port'] = udp_layer.dport
-                    features['udp_len'] = udp_layer.len
-                    features['udp_chksum'] = udp_layer.chksum
+                    features['src_port'] = int(udp_layer.sport)
+                    features['dst_port'] = int(udp_layer.dport)
+                    features['udp_len'] = float(udp_layer.len)
+                    features['udp_chksum'] = float(udp_layer.chksum)
+                    # Set TCP and ICMP fields to 0
+                    features['tcp_seq'] = 0.0
+                    features['tcp_ack'] = 0.0
+                    features['tcp_dataofs'] = 0.0
+                    features['tcp_reserved'] = 0.0
+                    features['tcp_flags'] = 0.0
+                    features['tcp_window'] = 0.0
+                    features['tcp_chksum'] = 0.0
+                    features['tcp_urgptr'] = 0.0
+                    features['icmp_type'] = 0.0
+                    features['icmp_code'] = 0.0
+                    features['icmp_chksum'] = 0.0
                 elif pkt.haslayer(ICMP):
                     icmp_layer = pkt[ICMP]
-                    features['icmp_type'] = icmp_layer.type
-                    features['icmp_code'] = icmp_layer.code
-                    features['icmp_chksum'] = icmp_layer.chksum
-                    # Set sport/dport to 0 for ICMP for consistent columns
+                    features['icmp_type'] = float(icmp_layer.type)
+                    features['icmp_code'] = float(icmp_layer.code)
+                    features['icmp_chksum'] = float(icmp_layer.chksum)
+                    # Set port numbers to 0 for ICMP
                     features['src_port'] = 0
                     features['dst_port'] = 0
+                    # Set TCP and UDP fields to 0
+                    features['tcp_seq'] = 0.0
+                    features['tcp_ack'] = 0.0
+                    features['tcp_dataofs'] = 0.0
+                    features['tcp_reserved'] = 0.0
+                    features['tcp_flags'] = 0.0
+                    features['tcp_window'] = 0.0
+                    features['tcp_chksum'] = 0.0
+                    features['tcp_urgptr'] = 0.0
+                    features['udp_len'] = 0.0
+                    features['udp_chksum'] = 0.0
                 else: # No TCP/UDP/ICMP
                     features['src_port'] = 0
                     features['dst_port'] = 0
-                    for col in ['tcp_seq', 'tcp_ack', 'tcp_dataofs', 'tcp_reserved', 'tcp_flags', 'tcp_window', 'tcp_chksum', 'tcp_urgptr', 'udp_len', 'udp_chksum', 'icmp_type', 'icmp_code', 'icmp_chksum']:
-                         features[col] = 0
+                    # Set all transport layer fields to 0
+                    features['tcp_seq'] = 0.0
+                    features['tcp_ack'] = 0.0
+                    features['tcp_dataofs'] = 0.0
+                    features['tcp_reserved'] = 0.0
+                    features['tcp_flags'] = 0.0
+                    features['tcp_window'] = 0.0
+                    features['tcp_chksum'] = 0.0
+                    features['tcp_urgptr'] = 0.0
+                    features['udp_len'] = 0.0
+                    features['udp_chksum'] = 0.0
+                    features['icmp_type'] = 0.0
+                    features['icmp_code'] = 0.0
+                    features['icmp_chksum'] = 0.0
 
-
-                # Wi-Fi (802.11) Layer
-                features['is_wifi'] = 1 if pkt.haslayer(Dot11) else 0
+                # Wi-Fi (802.11) Layer - Check both for Dot11 layer and our inference markers
+                has_wifi = False
                 if pkt.haslayer(Dot11):
+                    has_wifi = True
                     dot11_layer = pkt[Dot11]
-                    features['wifi_fc_type'] = dot11_layer.type
-                    features['wifi_fc_subtype'] = dot11_layer.subtype
+                    features['wifi_fc_type'] = int(dot11_layer.type)
+                    features['wifi_fc_subtype'] = int(dot11_layer.subtype)
                     features['wifi_fc_to_ds'] = 1 if dot11_layer.FCfield & 0x1 else 0
                     features['wifi_fc_from_ds'] = 1 if dot11_layer.FCfield & 0x2 else 0
                     features['wifi_fc_more_frag'] = 1 if dot11_layer.FCfield & 0x4 else 0
@@ -118,35 +154,47 @@ class PacketFeatureExtractor:
                     features['wifi_fc_more_data'] = 1 if dot11_layer.FCfield & 0x20 else 0
                     features['wifi_fc_protected'] = 1 if dot11_layer.FCfield & 0x40 else 0
                     features['wifi_fc_order'] = 1 if dot11_layer.FCfield & 0x80 else 0
-                    features['wifi_duration_id'] = dot11_layer.ID
-                    features['wifi_addr1'] = dot11_layer.addr1
-                    features['wifi_addr2'] = dot11_layer.addr2
-                    features['wifi_addr3'] = dot11_layer.addr3
-                    if dot11_layer.addr4: # addr4 is optional
-                        features['wifi_addr4'] = dot11_layer.addr4
+                    features['wifi_duration_id'] = int(dot11_layer.ID)
+                    features['wifi_addr1'] = str(dot11_layer.addr1) if hasattr(dot11_layer, 'addr1') and dot11_layer.addr1 else "00:00:00:00:00:00"
+                    features['wifi_addr2'] = str(dot11_layer.addr2) if hasattr(dot11_layer, 'addr2') and dot11_layer.addr2 else "00:00:00:00:00:00"
+                    features['wifi_addr3'] = str(dot11_layer.addr3) if hasattr(dot11_layer, 'addr3') and dot11_layer.addr3 else "00:00:00:00:00:00"
+                    features['wifi_addr4'] = str(dot11_layer.addr4) if hasattr(dot11_layer, 'addr4') and dot11_layer.addr4 else "00:00:00:00:00:00"
+                    features['wifi_tid'] = 0  # Default TID
+                # Check for inferred WiFi from our enhanced analyzer
+                elif hasattr(pkt, '_wifi_inferred') and pkt._wifi_inferred:
+                    has_wifi = True
+                    # For inferred WiFi, we set basic WiFi fields with placeholder values
+                    features['wifi_fc_type'] = 2  # Data frame
+                    features['wifi_fc_subtype'] = 0 
+                    for flag_field in ['wifi_fc_to_ds', 'wifi_fc_from_ds', 'wifi_fc_more_frag', 
+                                     'wifi_fc_retry', 'wifi_fc_pwr_mgt', 'wifi_fc_more_data',
+                                     'wifi_fc_protected', 'wifi_fc_order']:
+                        features[flag_field] = 0
+                    features['wifi_duration_id'] = 0
+                    # Use MAC addresses from Ethernet layer if available
+                    if hasattr(pkt, 'src'):
+                        features['wifi_addr2'] = str(pkt.src)  # Source is addr2 in WiFi
                     else:
-                        features['wifi_addr4'] = "00:00:00:00:00:00" # Placeholder
-
-                    # QoS Control field for TID (if present)
-                    if dot11_layer.haslayer(Raw) and hasattr(dot11_layer, 'FCfield') and dot11_layer.FCfield.subtype == 8: # QoS Data frame
-                        # This is a simplified check. Real QoS control field parsing is more complex.
-                        # Assuming TID is in the first byte of QoS control if present.
-                        # Scapy's Dot11QoS class handles this better if packets are parsed with it.
-                        # For now, a placeholder or a more robust check is needed.
-                        # This part might need refinement based on how Scapy exposes QoS TID.
-                        # Let's assume for now it might be part of a higher-level Scapy object or requires manual parsing.
-                        # For a generic Dot11, TID is not directly exposed as a simple field.
-                        # We'll add a placeholder and it can be improved.
-                        features['wifi_tid'] = 0 # Placeholder, needs better parsing
+                        features['wifi_addr2'] = "00:00:00:00:00:00"
+                    if hasattr(pkt, 'dst'):
+                        features['wifi_addr1'] = str(pkt.dst)  # Destination is addr1 in WiFi
                     else:
-                        features['wifi_tid'] = 0
-                else: # No WiFi
+                        features['wifi_addr1'] = "00:00:00:00:00:00"
+                    features['wifi_addr3'] = "00:00:00:00:00:00"
+                    features['wifi_addr4'] = "00:00:00:00:00:00"
+                    features['wifi_tid'] = 0
+                
+                # Set is_wifi based on our detection
+                features['is_wifi'] = 1 if has_wifi else 0
+                
+                # If not WiFi, populate the WiFi fields with default values
+                if not has_wifi:
                     for col in ['wifi_fc_type', 'wifi_fc_subtype', 'wifi_fc_to_ds', 'wifi_fc_from_ds',
                                 'wifi_fc_more_frag', 'wifi_fc_retry', 'wifi_fc_pwr_mgt', 'wifi_fc_more_data',
-                                'wifi_fc_protected', 'wifi_fc_order', 'wifi_duration_id', 'wifi_addr1',
-                                'wifi_addr2', 'wifi_addr3', 'wifi_addr4', 'wifi_tid']:
-                        features[col] = 0 if col not in ['wifi_addr1', 'wifi_addr2', 'wifi_addr3', 'wifi_addr4'] else "00:00:00:00:00:00"
-
+                                'wifi_fc_protected', 'wifi_fc_order', 'wifi_duration_id', 'wifi_tid']:
+                        features[col] = 0
+                    for col in ['wifi_addr1', 'wifi_addr2', 'wifi_addr3', 'wifi_addr4']:
+                        features[col] = "00:00:00:00:00:00"
 
                 # Payload features
                 if pkt.haslayer(Raw):
@@ -154,52 +202,22 @@ class PacketFeatureExtractor:
                 else:
                     features['payload_length'] = 0
                 
-                # Add more features as needed, e.g., from DNS, HTTP, etc.
-
             except Exception as e:
                 logger.error(f"Error extracting features from a packet: {e}", exc_info=True)
-                # Add empty features for this packet to maintain DataFrame structure
-                # This assumes we know all possible feature names.
-                # A more robust way is to collect all unique keys after loop and then create DataFrame.
-                # For now, we rely on the fact that most features are added conditionally.
-                # If a packet causes an error, it might have fewer features than others.
-                # This will be handled by df.fillna(0) later.
-                pass
+                # Skip this packet if extraction fails
+                continue
+            
             features_list.append(features)
 
+        if not features_list:
+            logger.warning("No valid features could be extracted from any packet.")
+            return pd.DataFrame()
+            
         df = pd.DataFrame(features_list)
         
-        # Post-processing: Ensure all expected numeric columns exist and fill NaNs
-        # Define a comprehensive list of all potential numeric columns that should default to 0
-        # and string columns that should default to an empty string or placeholder.
-        # This helps in creating a consistent DataFrame structure.
+        # Fill any NaN values with zeros
+        df = df.fillna(0)
         
-        # Example:
-        # numeric_cols_expected = ['frame_length', 'timestamp', 'ip_version', ..., 'payload_length', 'wifi_tid']
-        # string_cols_expected = ['ip_src', 'ip_dst', 'wifi_addr1', ...]
-        # for col in numeric_cols_expected:
-        #     if col not in df.columns:
-        #         df[col] = 0
-        # for col in string_cols_expected:
-        #     if col not in df.columns:
-        #         df[col] = 'N/A' # or appropriate placeholder
-
-        # For simplicity now, just fill all NaNs that might have occurred.
-        # Convert object columns that should be numeric (e.g. if some packets missed a field)
-        for col in df.columns:
-            if df[col].dtype == 'object':
-                # Attempt to convert to numeric, if it fails, it's likely a true string column (like IP addresses)
-                try:
-                    # Check if it's not an address column before trying to convert to numeric
-                    if col not in ['ip_src', 'ip_dst', 'wifi_addr1', 'wifi_addr2', 'wifi_addr3', 'wifi_addr4']:
-                        df[col] = pd.to_numeric(df[col], errors='coerce') # Coerce errors to NaN
-                except: # pylint: disable=bare-except
-                    pass # Keep as object if conversion fails (e.g. for IP addresses)
-        
-        df = df.fillna(0) # Fill any NaNs (e.g. from coerce or missing fields) with 0 for numeric features
-                         # For string features that became NaN, 0 might not be ideal, but models often need numeric input.
-                         # Proper handling would involve one-hot encoding for categorical or specific imputation.
-
         logger.info(f"Extracted features for {len(df)} packets. DataFrame shape: {df.shape}")
         return df
 

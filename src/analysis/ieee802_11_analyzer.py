@@ -18,6 +18,14 @@ class IEEE802_11_Analyzer(BaseAnalyzer): # Inherit from BaseAnalyzer
         super().__init__(config_manager) # Call super init
         logger.debug("IEEE802_11_Analyzer initialized.")
         self.ssid_list = {}  # Diccionario para almacenar SSIDs descubiertos
+        # Interfaces conocidas para WiFi (para inferir si un paquete viene de WiFi)
+        self.known_wifi_interfaces = set()
+        # Inicializar con algunos valores comunes, este conjunto puede crecer
+        common_wifi_prefixes = [
+            '60:e3:2b', # Posible prefijo de interfaz WiFi en tu contexto
+        ]
+        for prefix in common_wifi_prefixes:
+            self.known_wifi_interfaces.add(prefix.lower())
 
     def analyze_packet(self, packet, existing_analysis=None): # Rename from analyze_frame and add existing_analysis
         """
@@ -76,9 +84,7 @@ class IEEE802_11_Analyzer(BaseAnalyzer): # Inherit from BaseAnalyzer
 
 
         # Análisis de tramas reales
-        elif not packet.haslayer(Dot11):
-            analysis_results = {"error": "No es una trama 802.11"}
-        else:
+        elif packet.haslayer(Dot11):
             dot11_frame = packet.getlayer(Dot11)
             frame_type_str_real = self._get_frame_type(dot11_frame) # This returns a descriptive string
             
@@ -88,8 +94,18 @@ class IEEE802_11_Analyzer(BaseAnalyzer): # Inherit from BaseAnalyzer
             elif dot11_frame.type == 1: general_type_prefix = "Control"
             elif dot11_frame.type == 2: general_type_prefix = "Data"
             
+            # Safely convert packet.time to float before using it in datetime.fromtimestamp
+            packet_time = datetime.now()
+            if hasattr(packet, 'time'):
+                try:
+                    # Convert EDecimal to float before using it with fromtimestamp
+                    packet_time = datetime.fromtimestamp(float(packet.time))
+                except (TypeError, ValueError, OverflowError):
+                    # If conversion fails, use current time
+                    packet_time = datetime.now()
+            
             analysis_results = {
-                'timestamp': datetime.fromtimestamp(packet.time).strftime('%Y-%m-%d %H:%M:%S.%f') if hasattr(packet, 'time') else datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f'),
+                'timestamp': packet_time.strftime('%Y-%m-%d %H:%M:%S.%f'),
                 'packet_length': len(packet),
                 'type_general': "IEEE 802.11",
                 'tipo_subtipo': f"{general_type_prefix} {frame_type_str_real}".strip(),
@@ -115,17 +131,51 @@ class IEEE802_11_Analyzer(BaseAnalyzer): # Inherit from BaseAnalyzer
                 'data_rate': self._estimate_data_rate(packet)
             }
 
+        # Nuevo código: detección inferencial de tramas WiFi encapsuladas como Ethernet
+        else:
+            is_likely_wifi = self._infer_wifi_packet(packet, existing_analysis)
+            
+            if is_likely_wifi:
+                # Get safe timestamp
+                packet_time = datetime.now()
+                if hasattr(packet, 'time'):
+                    try:
+                        # Convert EDecimal to float before using it with fromtimestamp
+                        packet_time = datetime.fromtimestamp(float(packet.time))
+                    except (TypeError, ValueError, OverflowError):
+                        # If conversion fails, use current time
+                        packet_time = datetime.now()
+                        
+                # Crear un análisis simplificado para tramas WiFi encapsuladas
+                analysis_results = {
+                    'timestamp': packet_time.strftime('%Y-%m-%d %H:%M:%S.%f'),
+                    'packet_length': len(packet),
+                    'type_general': "IEEE 802.11 (inferido)",
+                    'tipo_subtipo': "Trama WiFi encapsulada",
+                    'flags': {"encapsulated": True},
+                    'type': 'wifi',
+                    'encapsulated_as': 'ethernet',
+                    'inferred_from': self._get_inference_reason(packet, existing_analysis)
+                }
+                
+                # Añadir información de MAC si está disponible
+                if hasattr(packet, 'src') and packet.src:
+                    analysis_results['src_mac'] = packet.src
+                if hasattr(packet, 'dst') and packet.dst:
+                    analysis_results['dst_mac'] = packet.dst
+                
+                # Buscar SSID en caché o intentar inferirlo
+                possible_ssid = self._infer_ssid(packet, existing_analysis)
+                if possible_ssid:
+                    analysis_results['ssid'] = possible_ssid
+            else:
+                analysis_results = {"error": "No es una trama 802.11"}
+
         # Integrate with existing_analysis
         if existing_analysis:
             existing_analysis.setdefault('wifi_details', {}).update(analysis_results)
-            # The summary generation should ideally be done by the engine or reporting
-            # For now, if _generate_summary is kept, it should operate on analysis_results
-            # summary = self._generate_summary(analysis_results)
-            # if summary: existing_analysis.setdefault('packet_summary',{}).update({'wifi_summary': summary})
             return existing_analysis
         
-        # summary = self._generate_summary(analysis_results)
-        # if summary: analysis_results['summary_line'] = summary # if standalone
         return {'wifi_details': analysis_results}
 
     def _get_frame_type(self, dot11_frame):
@@ -274,3 +324,122 @@ class IEEE802_11_Analyzer(BaseAnalyzer): # Inherit from BaseAnalyzer
 
     def get_network_summary(self): # This might be useful for the engine to call after a run
         return self.ssid_list
+    
+    def _infer_wifi_packet(self, packet, existing_analysis):
+        """
+        Infiere si un paquete es WiFi basado en características específicas
+        cuando no tiene una capa Dot11 explícita.
+        """
+        # 1. Verificar si la interfaz MAC es conocida como WiFi
+        if hasattr(packet, 'src'):
+            src_prefix = packet.src.lower()[:8]  # Primeros 3 bytes del MAC (con :)
+            if src_prefix in self.known_wifi_interfaces:
+                # Aprender este nuevo prefijo
+                self.known_wifi_interfaces.add(src_prefix)
+                # Mark the packet as WiFi for AI processing
+                packet._wifi_inferred = True
+                return True
+            
+            # Add your specific 60:e3:2b MAC prefix
+            if packet.src.lower().startswith('60:e3:2b'):
+                self.known_wifi_interfaces.add('60:e3:2b')
+                packet._wifi_inferred = True
+                return True
+        
+        # 2. Verificar si hay información de ethernet_details que sugiera WiFi
+        if existing_analysis and 'ethernet_details' in existing_analysis:
+            eth_details = existing_analysis['ethernet_details']
+            
+            # Si la MAC de origen es conocida como WiFi
+            if 'src_mac' in eth_details:
+                src_prefix = eth_details['src_mac'].lower()[:8]
+                
+                # Special case for your specific WiFi adapter
+                if eth_details['src_mac'].lower().startswith('60:e3:2b'):
+                    self.known_wifi_interfaces.add('60:e3:2b')
+                    packet._wifi_inferred = True
+                    return True
+                    
+                if src_prefix in self.known_wifi_interfaces:
+                    self.known_wifi_interfaces.add(src_prefix)
+                    packet._wifi_inferred = True
+                    return True
+            
+            # Verificar patrones específicos de WiFi en el protocolo
+            if eth_details.get('ethertype') == "0x800":  # IPv4
+                # Buscar protocolos típicos de WiFi
+                # Por ejemplo, si es multicast a una dirección típica de SSDP en WiFi
+                if 'dst_mac' in eth_details and eth_details['dst_mac'].startswith("01:00:5e:7f:ff:"):
+                    packet._wifi_inferred = True
+                    return True
+                
+        # 3. Verificar campos de protocolo específicos
+        if hasattr(packet, 'type') and getattr(packet, 'type', None) == 2:  # Data frames en WiFi
+            packet._wifi_inferred = True
+            return True
+        
+        # 4. Buscar patrones específicos en el contenido del paquete para identificar WiFi
+        # Por ejemplo, si hay un SSID visible en el contenido
+        raw_bytes = bytes(packet) if hasattr(packet, '__bytes__') else b''
+        if b'SSID=' in raw_bytes or b'SSID:' in raw_bytes:
+            packet._wifi_inferred = True
+            return True
+            
+        # Por defecto, no es WiFi si no se encontró evidencia
+        return False
+    
+    def _get_inference_reason(self, packet, existing_analysis):
+        """
+        Proporciona una razón por la que se infirió que este paquete es WiFi.
+        """
+        reasons = []
+        
+        # Verificar MAC de origen
+        if hasattr(packet, 'src'):
+            src_prefix = packet.src.lower()[:8]
+            if src_prefix in self.known_wifi_interfaces:
+                reasons.append(f"MAC de origen ({src_prefix}) corresponde a una interfaz WiFi conocida")
+        
+        # Verificar ethernet_details
+        if existing_analysis and 'ethernet_details' in existing_analysis:
+            eth_details = existing_analysis['ethernet_details']
+            if 'src_mac' in eth_details:
+                src_prefix = eth_details['src_mac'].lower()[:8]
+                if src_prefix in self.known_wifi_interfaces:
+                    reasons.append(f"MAC de origen en ethernet_details ({src_prefix}) corresponde a una interfaz WiFi conocida")
+            
+            if eth_details.get('ethertype') == "0x800" and 'dst_mac' in eth_details:
+                if eth_details['dst_mac'].startswith("01:00:5e:7f:ff:"):
+                    reasons.append("Dirección multicast característica de WiFi")
+        
+        # Si no hay razones específicas
+        if not reasons:
+            reasons.append("Basado en heurísticas generales de tráfico WiFi")
+            
+        return reasons
+
+    def _infer_ssid(self, packet, existing_analysis):
+        """
+        Intenta inferir el SSID basado en la información disponible.
+        """
+        # Si ya tenemos un SSID almacenado para alguna MAC, usarlo
+        if hasattr(packet, 'src') and packet.src:
+            for ssid, info in self.ssid_list.items():
+                if info.get('bssid') == packet.src:
+                    return ssid
+        
+        # Buscar en contenido del paquete
+        if hasattr(packet, 'load'):
+            try:
+                load_str = packet.load.decode('utf-8', errors='ignore')
+                if 'SSID=' in load_str:
+                    # Extraer SSID=valor
+                    parts = load_str.split('SSID=')
+                    if len(parts) > 1:
+                        potential_ssid = parts[1].split()[0]
+                        return potential_ssid
+            except (AttributeError, UnicodeDecodeError):
+                pass
+        
+        # No se pudo inferir
+        return None

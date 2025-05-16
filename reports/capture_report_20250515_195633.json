@@ -1,0 +1,523 @@
+{
+    "statistics": {
+        "total_packets": 10,
+        "start_time": "2025-05-15T19:56:32.371453",
+        "end_time": "2025-05-15T19:56:33.716424",
+        "duration_seconds": 1.344971,
+        "packets_per_second": 7.44,
+        "protocol_distribution": {
+            "OTHER": 10
+        },
+        "packet_type_distribution": {
+            "Ethernet": 10
+        },
+        "top_source_ips": {},
+        "top_destination_ips": {},
+        "top_source_ports": {},
+        "top_destination_ports": {},
+        "error_count": 10
+    },
+    "packet_analysis_data": [
+        {
+            "capture_timestamp": "2025-05-15T19:56:32.371453",
+            "raw_packet_length": 42,
+            "original_packet": "Ether / ARP who has 10.203.160.57 says 10.203.160.57",
+            "protocol_details": {
+                "error": "No es un paquete IP"
+            },
+            "ethernet_details": {
+                "analysis_timestamp": "2025-05-15T19:56:32.371453",
+                "type": "ethernet",
+                "src_mac": "80:e8:6f:02:c2:00",
+                "dst_mac": "ff:ff:ff:ff:ff:ff",
+                "ethertype": "0x806",
+                "protocol_name": "ARP",
+                "frame_length": 42,
+                "frame_components": {
+                    "preamble_sfd": "55-55-55-55-55-55-55-D5",
+                    "dest_mac": "ff:ff:ff:ff:ff:ff",
+                    "src_mac": "80:e8:6f:02:c2:00",
+                    "ethertype_length": "0x806",
+                    "data_length": 28,
+                    "padding": 18,
+                    "frame_check_sequence": "0x8806d6d6"
+                },
+                "frame_timing": {
+                    "start_time": "2025-05-15T19:56:32.371370",
+                    "end_time": "2025-05-15T19:56:32.371370",
+                    "duration_ns": 528
+                },
+                "arp_details": {
+                    "operation": "request",
+                    "sender_hardware_address": "e8:65:38:0c:6d:bb",
+                    "sender_protocol_address": "10.203.160.57",
+                    "target_hardware_address": "00:00:00:00:00:00",
+                    "target_protocol_address": "10.203.160.57"
+                }
+            },
+            "wifi_details": {
+                "error": "No es una trama 802.11"
+            },
+            "flow_analysis": {},
+            "anomaly_analysis": {
+                "detected_anomalies": []
+            },
+            "packet_summary": {
+                "summary_line": "N/A:N/A -> N/A:N/A Proto: N/A Type: Ethernet",
+                "packet_type": "Ethernet",
+                "error": "No es un paquete IP"
+            }
+        },
+        {
+            "capture_timestamp": "2025-05-15T19:56:32.473813",
+            "raw_packet_length": 42,
+            "original_packet": "Ether / ARP is at f0:6c:5d:d9:30:26 says 10.203.175.174",
+            "protocol_details": {
+                "error": "No es un paquete IP"
+            },
+            "ethernet_details": {
+                "analysis_timestamp": "2025-05-15T19:56:32.473813",
+                "type": "ethernet",
+                "src_mac": "80:e8:6f:02:c2:00",
+                "dst_mac": "ff:ff:ff:ff:ff:ff",
+                "ethertype": "0x806",
+                "protocol_name": "ARP",
+                "frame_length": 42,
+                "frame_components": {
+                    "preamble_sfd": "55-55-55-55-55-55-55-D5",
+                    "dest_mac": "ff:ff:ff:ff:ff:ff",
+                    "src_mac": "80:e8:6f:02:c2:00",
+                    "ethertype_length": "0x806",
+                    "data_length": 28,
+                    "padding": 18,
+                    "frame_check_sequence": "0x3924cba7"
+                },
+                "frame_timing": {
+                    "start_time": "2025-05-15T19:56:32.473850",
+                    "end_time": "2025-05-15T19:56:32.473850",
+                    "duration_ns": 528
+                },
+                "arp_details": {
+                    "operation": "reply",
+                    "sender_hardware_address": "f0:6c:5d:d9:30:26",
+                    "sender_protocol_address": "10.203.175.174",
+                    "target_hardware_address": "ff:ff:ff:ff:ff:ff",
+                    "target_protocol_address": "10.203.175.174"
+                }
+            },
+            "wifi_details": {
+                "error": "No es una trama 802.11"
+            },
+            "flow_analysis": {},
+            "anomaly_analysis": {
+                "detected_anomalies": []
+            },
+            "packet_summary": {
+                "summary_line": "N/A:N/A -> N/A:N/A Proto: N/A Type: Ethernet",
+                "packet_type": "Ethernet",
+                "error": "No es un paquete IP"
+            }
+        },
+        {
+            "capture_timestamp": "2025-05-15T19:56:32.781509",
+            "raw_packet_length": 42,
+            "original_packet": "Ether / ARP is at aa:30:57:9b:ad:0c says 10.203.185.253",
+            "protocol_details": {
+                "error": "No es un paquete IP"
+            },
+            "ethernet_details": {
+                "analysis_timestamp": "2025-05-15T19:56:32.781509",
+                "type": "ethernet",
+                "src_mac": "80:e8:6f:02:c2:00",
+                "dst_mac": "ff:ff:ff:ff:ff:ff",
+                "ethertype": "0x806",
+                "protocol_name": "ARP",
+                "frame_length": 42,
+                "frame_components": {
+                    "preamble_sfd": "55-55-55-55-55-55-55-D5",
+                    "dest_mac": "ff:ff:ff:ff:ff:ff",
+                    "src_mac": "80:e8:6f:02:c2:00",
+                    "ethertype_length": "0x806",
+                    "data_length": 28,
+                    "padding": 18,
+                    "frame_check_sequence": "0x5e6a9563"
+                },
+                "frame_timing": {
+                    "start_time": "2025-05-15T19:56:32.781423",
+                    "end_time": "2025-05-15T19:56:32.781423",
+                    "duration_ns": 528
+                },
+                "arp_details": {
+                    "operation": "reply",
+                    "sender_hardware_address": "aa:30:57:9b:ad:0c",
+                    "sender_protocol_address": "10.203.185.253",
+                    "target_hardware_address": "aa:30:57:9b:ad:0c",
+                    "target_protocol_address": "10.203.185.253"
+                }
+            },
+            "wifi_details": {
+                "error": "No es una trama 802.11"
+            },
+            "flow_analysis": {},
+            "anomaly_analysis": {
+                "detected_anomalies": []
+            },
+            "packet_summary": {
+                "summary_line": "N/A:N/A -> N/A:N/A Proto: N/A Type: Ethernet",
+                "packet_type": "Ethernet",
+                "error": "No es un paquete IP"
+            }
+        },
+        {
+            "capture_timestamp": "2025-05-15T19:56:33.090840",
+            "raw_packet_length": 42,
+            "original_packet": "Ether / ARP who has 10.203.174.243 says 10.203.174.243",
+            "protocol_details": {
+                "error": "No es un paquete IP"
+            },
+            "ethernet_details": {
+                "analysis_timestamp": "2025-05-15T19:56:33.090840",
+                "type": "ethernet",
+                "src_mac": "80:e8:6f:02:c2:00",
+                "dst_mac": "ff:ff:ff:ff:ff:ff",
+                "ethertype": "0x806",
+                "protocol_name": "ARP",
+                "frame_length": 42,
+                "frame_components": {
+                    "preamble_sfd": "55-55-55-55-55-55-55-D5",
+                    "dest_mac": "ff:ff:ff:ff:ff:ff",
+                    "src_mac": "80:e8:6f:02:c2:00",
+                    "ethertype_length": "0x806",
+                    "data_length": 28,
+                    "padding": 18,
+                    "frame_check_sequence": "0xf414b04d"
+                },
+                "frame_timing": {
+                    "start_time": "2025-05-15T19:56:33.090503",
+                    "end_time": "2025-05-15T19:56:33.090503",
+                    "duration_ns": 528
+                },
+                "arp_details": {
+                    "operation": "request",
+                    "sender_hardware_address": "ae:e9:d9:ef:55:96",
+                    "sender_protocol_address": "10.203.174.243",
+                    "target_hardware_address": "ff:ff:ff:ff:ff:ff",
+                    "target_protocol_address": "10.203.174.243"
+                }
+            },
+            "wifi_details": {
+                "error": "No es una trama 802.11"
+            },
+            "flow_analysis": {},
+            "anomaly_analysis": {
+                "detected_anomalies": []
+            },
+            "packet_summary": {
+                "summary_line": "N/A:N/A -> N/A:N/A Proto: N/A Type: Ethernet",
+                "packet_type": "Ethernet",
+                "error": "No es un paquete IP"
+            }
+        },
+        {
+            "capture_timestamp": "2025-05-15T19:56:33.315060",
+            "raw_packet_length": 42,
+            "original_packet": "Ether / ARP is at 26:a1:95:4f:77:1d says 10.203.168.30",
+            "protocol_details": {
+                "error": "No es un paquete IP"
+            },
+            "ethernet_details": {
+                "analysis_timestamp": "2025-05-15T19:56:33.315060",
+                "type": "ethernet",
+                "src_mac": "80:e8:6f:02:c2:00",
+                "dst_mac": "ff:ff:ff:ff:ff:ff",
+                "ethertype": "0x806",
+                "protocol_name": "ARP",
+                "frame_length": 42,
+                "frame_components": {
+                    "preamble_sfd": "55-55-55-55-55-55-55-D5",
+                    "dest_mac": "ff:ff:ff:ff:ff:ff",
+                    "src_mac": "80:e8:6f:02:c2:00",
+                    "ethertype_length": "0x806",
+                    "data_length": 28,
+                    "padding": 18,
+                    "frame_check_sequence": "0x5c7e1003"
+                },
+                "frame_timing": {
+                    "start_time": "2025-05-15T19:56:33.314980",
+                    "end_time": "2025-05-15T19:56:33.314980",
+                    "duration_ns": 528
+                },
+                "arp_details": {
+                    "operation": "reply",
+                    "sender_hardware_address": "26:a1:95:4f:77:1d",
+                    "sender_protocol_address": "10.203.168.30",
+                    "target_hardware_address": "26:a1:95:4f:77:1d",
+                    "target_protocol_address": "10.203.168.30"
+                }
+            },
+            "wifi_details": {
+                "error": "No es una trama 802.11"
+            },
+            "flow_analysis": {},
+            "anomaly_analysis": {
+                "detected_anomalies": []
+            },
+            "packet_summary": {
+                "summary_line": "N/A:N/A -> N/A:N/A Proto: N/A Type: Ethernet",
+                "packet_type": "Ethernet",
+                "error": "No es un paquete IP"
+            }
+        },
+        {
+            "capture_timestamp": "2025-05-15T19:56:33.397192",
+            "raw_packet_length": 42,
+            "original_packet": "Ether / ARP who has 10.203.155.111 says 10.203.155.111",
+            "protocol_details": {
+                "error": "No es un paquete IP"
+            },
+            "ethernet_details": {
+                "analysis_timestamp": "2025-05-15T19:56:33.397192",
+                "type": "ethernet",
+                "src_mac": "80:e8:6f:02:c2:00",
+                "dst_mac": "ff:ff:ff:ff:ff:ff",
+                "ethertype": "0x806",
+                "protocol_name": "ARP",
+                "frame_length": 42,
+                "frame_components": {
+                    "preamble_sfd": "55-55-55-55-55-55-55-D5",
+                    "dest_mac": "ff:ff:ff:ff:ff:ff",
+                    "src_mac": "80:e8:6f:02:c2:00",
+                    "ethertype_length": "0x806",
+                    "data_length": 28,
+                    "padding": 18,
+                    "frame_check_sequence": "0xc2d932fe"
+                },
+                "frame_timing": {
+                    "start_time": "2025-05-15T19:56:33.397736",
+                    "end_time": "2025-05-15T19:56:33.397736",
+                    "duration_ns": 528
+                },
+                "arp_details": {
+                    "operation": "request",
+                    "sender_hardware_address": "72:1e:76:e0:e0:45",
+                    "sender_protocol_address": "10.203.155.111",
+                    "target_hardware_address": "00:00:00:00:00:00",
+                    "target_protocol_address": "10.203.155.111"
+                }
+            },
+            "wifi_details": {
+                "error": "No es una trama 802.11"
+            },
+            "flow_analysis": {},
+            "anomaly_analysis": {
+                "detected_anomalies": []
+            },
+            "packet_summary": {
+                "summary_line": "N/A:N/A -> N/A:N/A Proto: N/A Type: Ethernet",
+                "packet_type": "Ethernet",
+                "error": "No es un paquete IP"
+            }
+        },
+        {
+            "capture_timestamp": "2025-05-15T19:56:33.398250",
+            "raw_packet_length": 42,
+            "original_packet": "Ether / ARP who has 10.203.161.167 says 10.203.161.167",
+            "protocol_details": {
+                "error": "No es un paquete IP"
+            },
+            "ethernet_details": {
+                "analysis_timestamp": "2025-05-15T19:56:33.398250",
+                "type": "ethernet",
+                "src_mac": "80:e8:6f:02:c2:00",
+                "dst_mac": "ff:ff:ff:ff:ff:ff",
+                "ethertype": "0x806",
+                "protocol_name": "ARP",
+                "frame_length": 42,
+                "frame_components": {
+                    "preamble_sfd": "55-55-55-55-55-55-55-D5",
+                    "dest_mac": "ff:ff:ff:ff:ff:ff",
+                    "src_mac": "80:e8:6f:02:c2:00",
+                    "ethertype_length": "0x806",
+                    "data_length": 28,
+                    "padding": 18,
+                    "frame_check_sequence": "0xbe560335"
+                },
+                "frame_timing": {
+                    "start_time": "2025-05-15T19:56:33.397736",
+                    "end_time": "2025-05-15T19:56:33.397736",
+                    "duration_ns": 528
+                },
+                "arp_details": {
+                    "operation": "request",
+                    "sender_hardware_address": "58:40:4e:e4:27:08",
+                    "sender_protocol_address": "10.203.161.167",
+                    "target_hardware_address": "00:00:00:00:00:00",
+                    "target_protocol_address": "10.203.161.167"
+                }
+            },
+            "wifi_details": {
+                "error": "No es una trama 802.11"
+            },
+            "flow_analysis": {},
+            "anomaly_analysis": {
+                "detected_anomalies": []
+            },
+            "packet_summary": {
+                "summary_line": "N/A:N/A -> N/A:N/A Proto: N/A Type: Ethernet",
+                "packet_type": "Ethernet",
+                "error": "No es un paquete IP"
+            }
+        },
+        {
+            "capture_timestamp": "2025-05-15T19:56:33.500508",
+            "raw_packet_length": 42,
+            "original_packet": "Ether / ARP is at a2:06:2a:f5:0a:60 says 10.203.146.134",
+            "protocol_details": {
+                "error": "No es un paquete IP"
+            },
+            "ethernet_details": {
+                "analysis_timestamp": "2025-05-15T19:56:33.500508",
+                "type": "ethernet",
+                "src_mac": "80:e8:6f:02:c2:00",
+                "dst_mac": "ff:ff:ff:ff:ff:ff",
+                "ethertype": "0x806",
+                "protocol_name": "ARP",
+                "frame_length": 42,
+                "frame_components": {
+                    "preamble_sfd": "55-55-55-55-55-55-55-D5",
+                    "dest_mac": "ff:ff:ff:ff:ff:ff",
+                    "src_mac": "80:e8:6f:02:c2:00",
+                    "ethertype_length": "0x806",
+                    "data_length": 28,
+                    "padding": 18,
+                    "frame_check_sequence": "0xa79e1aab"
+                },
+                "frame_timing": {
+                    "start_time": "2025-05-15T19:56:33.500203",
+                    "end_time": "2025-05-15T19:56:33.500203",
+                    "duration_ns": 528
+                },
+                "arp_details": {
+                    "operation": "reply",
+                    "sender_hardware_address": "a2:06:2a:f5:0a:60",
+                    "sender_protocol_address": "10.203.146.134",
+                    "target_hardware_address": "ff:ff:ff:ff:ff:ff",
+                    "target_protocol_address": "10.203.146.134"
+                }
+            },
+            "wifi_details": {
+                "error": "No es una trama 802.11"
+            },
+            "flow_analysis": {},
+            "anomaly_analysis": {
+                "detected_anomalies": []
+            },
+            "packet_summary": {
+                "summary_line": "N/A:N/A -> N/A:N/A Proto: N/A Type: Ethernet",
+                "packet_type": "Ethernet",
+                "error": "No es un paquete IP"
+            }
+        },
+        {
+            "capture_timestamp": "2025-05-15T19:56:33.500508",
+            "raw_packet_length": 42,
+            "original_packet": "Ether / ARP is at a2:06:2a:f5:0a:60 says 10.203.146.134",
+            "protocol_details": {
+                "error": "No es un paquete IP"
+            },
+            "ethernet_details": {
+                "analysis_timestamp": "2025-05-15T19:56:33.500508",
+                "type": "ethernet",
+                "src_mac": "80:e8:6f:02:c2:00",
+                "dst_mac": "ff:ff:ff:ff:ff:ff",
+                "ethertype": "0x806",
+                "protocol_name": "ARP",
+                "frame_length": 42,
+                "frame_components": {
+                    "preamble_sfd": "55-55-55-55-55-55-55-D5",
+                    "dest_mac": "ff:ff:ff:ff:ff:ff",
+                    "src_mac": "80:e8:6f:02:c2:00",
+                    "ethertype_length": "0x806",
+                    "data_length": 28,
+                    "padding": 18,
+                    "frame_check_sequence": "0xa79e1aab"
+                },
+                "frame_timing": {
+                    "start_time": "2025-05-15T19:56:33.500203",
+                    "end_time": "2025-05-15T19:56:33.500203",
+                    "duration_ns": 528
+                },
+                "arp_details": {
+                    "operation": "reply",
+                    "sender_hardware_address": "a2:06:2a:f5:0a:60",
+                    "sender_protocol_address": "10.203.146.134",
+                    "target_hardware_address": "ff:ff:ff:ff:ff:ff",
+                    "target_protocol_address": "10.203.146.134"
+                }
+            },
+            "wifi_details": {
+                "error": "No es una trama 802.11"
+            },
+            "flow_analysis": {},
+            "anomaly_analysis": {
+                "detected_anomalies": []
+            },
+            "packet_summary": {
+                "summary_line": "N/A:N/A -> N/A:N/A Proto: N/A Type: Ethernet",
+                "packet_type": "Ethernet",
+                "error": "No es un paquete IP"
+            }
+        },
+        {
+            "capture_timestamp": "2025-05-15T19:56:33.716424",
+            "raw_packet_length": 42,
+            "original_packet": "Ether / ARP who has 10.203.155.111 says 10.203.155.111",
+            "protocol_details": {
+                "error": "No es un paquete IP"
+            },
+            "ethernet_details": {
+                "analysis_timestamp": "2025-05-15T19:56:33.716424",
+                "type": "ethernet",
+                "src_mac": "80:e8:6f:02:c2:00",
+                "dst_mac": "ff:ff:ff:ff:ff:ff",
+                "ethertype": "0x806",
+                "protocol_name": "ARP",
+                "frame_length": 42,
+                "frame_components": {
+                    "preamble_sfd": "55-55-55-55-55-55-55-D5",
+                    "dest_mac": "ff:ff:ff:ff:ff:ff",
+                    "src_mac": "80:e8:6f:02:c2:00",
+                    "ethertype_length": "0x806",
+                    "data_length": 28,
+                    "padding": 18,
+                    "frame_check_sequence": "0xc2d932fe"
+                },
+                "frame_timing": {
+                    "start_time": "2025-05-15T19:56:33.716136",
+                    "end_time": "2025-05-15T19:56:33.716136",
+                    "duration_ns": 528
+                },
+                "arp_details": {
+                    "operation": "request",
+                    "sender_hardware_address": "72:1e:76:e0:e0:45",
+                    "sender_protocol_address": "10.203.155.111",
+                    "target_hardware_address": "00:00:00:00:00:00",
+                    "target_protocol_address": "10.203.155.111"
+                }
+            },
+            "wifi_details": {
+                "error": "No es una trama 802.11"
+            },
+            "flow_analysis": {},
+            "anomaly_analysis": {
+                "detected_anomalies": []
+            },
+            "packet_summary": {
+                "summary_line": "N/A:N/A -> N/A:N/A Proto: N/A Type: Ethernet",
+                "packet_type": "Ethernet",
+                "error": "No es un paquete IP"
+            }
+        }
+    ],
+    "ai_analysis_results": {}
+}

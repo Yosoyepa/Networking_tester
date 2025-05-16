@@ -17,6 +17,7 @@ class StatisticsCollector:
         self.ip_destination_counts = Counter()
         self.port_source_counts = Counter()
         self.port_destination_counts = Counter()
+        self.packet_type_counts = Counter() # WiFi, Ethernet, Other
         self.start_time = None
         self.end_time = None
         self.errors = 0
@@ -51,6 +52,11 @@ class StatisticsCollector:
         self.end_time = current_dt_timestamp # Now self.end_time is a datetime object
 
         self.total_packets += 1
+        
+        # Track packet type (Ethernet, WiFi, Other)
+        packet_summary = analysis_data.get('packet_summary', {})
+        packet_type = packet_summary.get('packet_type', 'Unknown')
+        self.packet_type_counts[packet_type] += 1
         
         protocol_details = analysis_data.get('protocol_details', {})
         if protocol_details:
@@ -92,6 +98,7 @@ class StatisticsCollector:
             "duration_seconds": duration_seconds,
             "packets_per_second": packets_per_second,
             "protocol_distribution": dict(self.protocol_counts),
+            "packet_type_distribution": dict(self.packet_type_counts),
             "top_source_ips": dict(self.ip_source_counts.most_common(5)),
             "top_destination_ips": dict(self.ip_destination_counts.most_common(5)),
             "top_source_ports": dict(self.port_source_counts.most_common(5)),
