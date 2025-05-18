@@ -1,0 +1,14 @@
+name: NetworkingTesterMLOps
+
+# Specifies the Conda environment file. 
+# MLflow will create this environment if it doesn't exist.
+conda_env: requirements.txt
+
+# Defines the entry points for the project.
+# Each entry point has a name, parameters, and a command to execute.
+entry_points:
+  main:
+    parameters:
+      config_file: {type: string, default: "config/mlops_train_config_gmm_test.json", description: "Path to the MLOps training configuration JSON file."}
+    command: |
+      python src/mlops/pipeline_orchestrator.py --config {config_file}

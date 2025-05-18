@@ -1,0 +1,19 @@
+{
+    "text_summary": "Performance Analysis (2000 samples):\nNo specific performance concerns identified based on current heuristics.",
+    "quality_score": 100.0,
+    "anomalies_detected": 0,
+    "performance_rules_used": {
+        "packet_size_categories": {
+            "small_threshold": 100,
+            "medium_threshold": 1000
+        },
+        "protocol_insights": {
+            "enabled": true
+        },
+        "small_packet_percentage_concern": {
+            "enabled": true,
+            "threshold_percentage": 60,
+            "minimum_sample_size": 50
+        }
+    }
+}

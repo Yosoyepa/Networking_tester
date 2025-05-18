@@ -1,0 +1,18 @@
+{
+    "model_name": "qos_anomaly_model_sample",
+    "model_version": "1.0.0",
+    "data_source": "data/ml_training_data/sample_training_data.csv",
+    "output_model_path": "C:\\Users\\juanc\\Documents\\Proyectos Personales\\networking_tester\\data\\mlops_artifacts\\qos_anomaly_model_sample\\1_0_0_20250517210051\\qos_anomaly_model_sample_1.0.0.joblib",
+    "feature_columns": [
+        "feature1",
+        "feature2",
+        "feature3",
+        "feature4",
+        "feature5"
+    ],
+    "isolation_forest_params": {
+        "n_estimators": 100,
+        "contamination": "auto",
+        "random_state": 42
+    }
+}

@@ -1,0 +1,127 @@
+version: '3.8'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    ports:
+      - "5672:5672" # AMQP port
+      - "15672:15672" # Management UI port
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: password
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "status"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  packet_ingestor:
+    build:
+      context: .
+      dockerfile: Dockerfile.packet_ingestor
+    volumes:
+      - .:/app  # Mount current directory to /app in container for development
+      - ./data/captures:/app/data/captures # Mount pcap data
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      PYTHONPATH: /app
+      # PCAP_FILE: "data/captures/your_capture.pcap" # Example: Set if service reads from a specific file
+      # INTERFACE_NAME: "eth0" # Example: Set if service captures live traffic
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    restart: on-failure
+
+  packet_parser:
+    build:
+      context: .
+      dockerfile: Dockerfile.packet_parser
+    volumes:
+      - .:/app
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      PYTHONPATH: /app
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    restart: on-failure
+
+  statistics_collector:
+    build:
+      context: .
+      dockerfile: Dockerfile.statistics_collector
+    volumes:
+      - .:/app
+      - ./data/reports:/app/data/reports # For saving stats reports if applicable
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      PYTHONPATH: /app
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    restart: on-failure
+
+  feature_extractor:
+    build:
+      context: .
+      dockerfile: Dockerfile.feature_extractor
+    volumes:
+      - .:/app
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      PYTHONPATH: /app
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    restart: on-failure
+
+  qos_ml_inference:
+    build:
+      context: .
+      dockerfile: Dockerfile.qos_ml_inference
+    volumes:
+      - .:/app
+      - ./data/models:/app/data/models # Mount models directory
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      PYTHONPATH: /app
+      # QOS_MODEL_NAME: "qos_anomaly_default" # Can be overridden
+      # QOS_MODEL_VERSION: "latest"
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    restart: on-failure
+
+  core_analysis:
+    build:
+      context: .
+      dockerfile: Dockerfile.core_analysis
+    volumes:
+      - .:/app
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      PYTHONPATH: /app
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    restart: on-failure
+
+  reporting_service:
+    build:
+      context: .
+      dockerfile: Dockerfile.reporting
+    volumes:
+      - .:/app
+      - ./data/reports:/app/data/reports # Mount reports directory
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      PYTHONPATH: /app
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    restart: on-failure
+
+volumes:
+  rabbitmq_data:

@@ -1,0 +1,24 @@
+{
+    "model_name": "qos_anomaly_model_sample",
+    "model_version": "1.0.0",
+    "model_type": "isolation_forest",
+    "data_source": "data/ml_training_data/sample_training_data.csv",
+    "output_base_dir": "data/mlops_artifacts/",
+    "feature_columns": [
+        "feature1",
+        "feature2",
+        "feature3",
+        "feature4",
+        "feature5"
+    ],
+    "isolation_forest_params": {
+        "n_estimators": 100,
+        "contamination": "auto",
+        "random_state": 42
+    },
+    "gmm_params": {
+        "n_components": 3,
+        "covariance_type": "full",
+        "anomaly_threshold_percentile": 5.0
+    }
+}

@@ -1,0 +1,35 @@
+{
+    "model_name": "qos_anomaly_vae_e2e_test",
+    "model_version": "1.0.0",
+    "model_type": "vae",
+    "data_source": "data/ml_training_data/realistic_evaluation_data.csv",
+    "evaluation_data_path": "data/ml_training_data/realistic_evaluation_data.csv",
+    "evaluation_dataset_for_pipeline": "data/ml_training_data/realistic_evaluation_data.csv",
+    "output_base_dir": "data/mlops_artifacts/",
+    "output_model_path": "data/mlops_artifacts/models/qos_anomaly_vae_e2e_test/1.0.0/qos_anomaly_vae_e2e_test",
+    "output_metrics_path": "data/mlops_artifacts/metrics/qos_anomaly_vae_e2e_test/1.0.0/metrics.json",
+    "feature_columns": [
+        "feature1",
+        "feature2",
+        "feature3",
+        "feature4",
+        "feature5"
+    ],
+    "vae_params": {
+        "intermediate_dim": 32,
+        "latent_dim": 2,
+        "epochs": 50,
+        "batch_size": 32,
+        "anomaly_threshold_percentile": 95.0
+    },
+    "gmm_params": {
+        "n_components": 4,
+        "covariance_type": "diag",
+        "anomaly_threshold_std_dev": 2.5 
+    },
+    "isolation_forest_params": {
+        "n_estimators": 100,
+        "contamination": "auto",
+        "random_state": 42
+    }
+}

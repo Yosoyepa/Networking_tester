@@ -11,6 +11,10 @@ import logging
 # from sklearn.preprocessing import StandardScaler
 # Future: from sklearn.linear_model import LinearRegression # For predicting throughput based on features
 from src.utils.config_manager import ConfigManager # Ensure ConfigManager is imported
+import argparse # Added
+import os # Added
+import json # Added
+import mlflow # Added
 
 logger = logging.getLogger(__name__)
 
@@ -24,7 +28,7 @@ class PerformanceMLAnalyzer:
         try:
             # Use the static get method from ConfigManager class
             # Corrected path: 'ai_monitoring.performance_rules'
-            loaded_rules = ConfigManager.get('ai_monitoring.performance_rules', {})
+            loaded_rules = ConfigManager.get('ai_monitoring.qos_rules.performance_rules', {})
             if isinstance(loaded_rules, dict):
                 self.performance_rules = loaded_rules
                 logger.info(f"Loaded performance rules: {self.performance_rules}")
@@ -92,12 +96,17 @@ class PerformanceMLAnalyzer:
                 (results_df['frame_length'] > medium_thresh)
             ]
             categories = ['Small Packet', 'Medium Packet', 'Large Packet']
-            results_df['packet_size_category'] = pd.NA
-            results_df['packet_size_category'] = pd.Series(dtype=pd.StringDtype()) # Initialize with StringDtype
+            # Ensure the column is initialized correctly to avoid dtype issues with pd.NA or mixed types if some conditions aren't met.
+            results_df['packet_size_category'] = pd.Series(index=results_df.index, dtype=pd.StringDtype())
 
-            for cond, cat in zip(conditions, categories):
-                results_df.loc[cond, 'packet_size_category'] = cat
+
+            for i, cond_series in enumerate(conditions):
+                results_df.loc[cond_series, 'packet_size_category'] = categories[i]
+            
+            # Fill any remaining NaNs, though with StringDtype and proper assignment, this might not be strictly necessary
+            # if all packets fall into one of the categories. However, it's a good fallback.
             results_df['packet_size_category'] = results_df['packet_size_category'].fillna('Unknown Size')
+
         else:
             results_df['packet_size_category'] = 'N/A (No frame_length feature)'
 
@@ -124,15 +133,19 @@ class PerformanceMLAnalyzer:
            'packet_size_category' in results_df.columns and \
            total_samples >= small_packet_concern_rule.get('minimum_sample_size', 50):
             
-            small_packet_count = (results_df['packet_size_category'] == 'Small Packet').sum()
-            small_packet_percentage = (small_packet_count / total_samples) * 100
-            threshold_pct = small_packet_concern_rule.get('threshold_percentage', 60)
+            # Ensure 'packet_size_category' is not all N/A before proceeding
+            if not results_df['packet_size_category'].str.startswith('N/A').all():
+                small_packet_count = (results_df['packet_size_category'] == 'Small Packet').sum()
+                small_packet_percentage = (small_packet_count / total_samples) * 100
+                threshold_pct = small_packet_concern_rule.get('threshold_percentage', 60)
 
-            if small_packet_percentage > threshold_pct:
-                concern_desc = f"High percentage of small packets ({small_packet_percentage:.1f}%) detected. This might indicate predominantly interactive/control traffic, or potentially fragmentation or keep-alive messages. Threshold: >{threshold_pct}%."
-                concerns_found.append(concern_desc)
-                anomalies_count += small_packet_count # Count all small packets as part of this anomaly type
-                # Add a column to mark these specific packets if needed, or just use the summary.
+                if small_packet_percentage > threshold_pct:
+                    concern_desc = f"High percentage of small packets ({small_packet_percentage:.1f}%) detected. This might indicate predominantly interactive/control traffic, or potentially fragmentation or keep-alive messages. Threshold: >{threshold_pct}%."
+                    concerns_found.append(concern_desc)
+                    anomalies_count += small_packet_count # Count all small packets as part of this anomaly type
+            else:
+                logger.info("Small packet concern check skipped as 'packet_size_category' is N/A.")
+
 
         logger.info(f"Performed performance feature analysis on {total_samples} samples.")
 
@@ -193,79 +206,104 @@ class PerformanceMLAnalyzer:
                                "Metrics include packet size categorization and protocol characteristics."
         }
 
-# Example Usage (for testing)
+def main():
+	parser = argparse.ArgumentParser(description="Performance Analyzer ML Script")
+	parser.add_argument("--features-input-path", type=str, required=True, help="Path to the input CSV file with features.")
+	parser.add_argument("--output-dir", type=str, required=True, help="Directory to save analysis results (JSON summary, CSV details).")
+	parser.add_argument("--mlflow-active-run-id", type=str, required=False, help="Active MLflow Run ID for nested logging.")
+	args = parser.parse_args()
+
+	logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+	logger.info(f"Starting performance analysis with input: {args.features_input_path}")
+
+	os.makedirs(args.output_dir, exist_ok=True)
+
+	try:
+		features_df = pd.read_csv(args.features_input_path)
+	except FileNotFoundError:
+		logger.error(f"Input features file not found: {args.features_input_path}")
+		raise
+	except Exception as e:
+		logger.error(f"Error loading features CSV {args.features_input_path}: {e}")
+		raise
+
+	analyzer = PerformanceMLAnalyzer() # Uses ConfigManager internally
+	analysis_results = analyzer.analyze_performance_features(features_df)
+
+	summary_data = {
+		"text_summary": analysis_results["text_summary"],
+		"quality_score": analysis_results["quality_score"],
+		"anomalies_detected": analysis_results["anomalies_detected"],
+		"performance_rules_used": analyzer.performance_rules # Log the rules used
+	}
+	summary_output_path = os.path.join(args.output_dir, "performance_analysis_summary.json")
+	details_output_path = os.path.join(args.output_dir, "performance_analysis_details.csv")
+
+	with open(summary_output_path, 'w') as f:
+		json.dump(summary_data, f, indent=4)
+	logger.info(f"Performance analysis summary saved to: {summary_output_path}")
+
+	analysis_results["details_df"].to_csv(details_output_path, index=False)
+	logger.info(f"Performance analysis details saved to: {details_output_path}")
+
+	# MLflow Logging
+	if args.mlflow_active_run_id:
+		with mlflow.start_run(run_id=args.mlflow_active_run_id, run_name="PerformanceAnalysisStep", nested=True):
+			logger.info(f"Logging to MLflow nested run under parent ID: {args.mlflow_active_run_id}")
+			mlflow.log_param("performance_features_input_path", args.features_input_path)
+			mlflow.log_param("performance_output_dir", args.output_dir)
+			
+			# Log performance rules as parameters
+			for category, rules in analyzer.performance_rules.items():
+				if isinstance(rules, dict):
+					for key, value in rules.items():
+						mlflow.log_param(f"rule_{category}_{key}", value)
+				else:
+					mlflow.log_param(f"rule_{category}", rules)
+			
+			mlflow.log_metric("performance_quality_score", analysis_results["quality_score"])
+			mlflow.log_metric("performance_anomalies_detected", analysis_results["anomalies_detected"])
+			
+			mlflow.log_artifact(summary_output_path, artifact_path="performance_analysis_results")
+			mlflow.log_artifact(details_output_path, artifact_path="performance_analysis_results")
+			logger.info("Logged parameters, metrics, and artifacts to MLflow.")
+	else:
+		# Fallback for standalone run (optional, could also just skip MLflow if no run_id)
+		with mlflow.start_run(run_name="PerformanceAnalysisStandalone"):
+			logger.info("No active MLflow run ID provided, starting a new standalone MLflow run.")
+			mlflow.log_param("performance_features_input_path", args.features_input_path)
+			mlflow.log_param("performance_output_dir", args.output_dir)
+			
+			# Log performance rules as parameters
+			for category, rules in analyzer.performance_rules.items():
+				if isinstance(rules, dict):
+					for key, value in rules.items():
+						mlflow.log_param(f"rule_{category}_{key}", value)
+				else:
+					mlflow.log_param(f"rule_{category}", rules)
+			
+			mlflow.log_metric("performance_quality_score", analysis_results["quality_score"])
+			mlflow.log_metric("performance_anomalies_detected", analysis_results["anomalies_detected"])
+			
+			mlflow.log_artifact(summary_output_path, artifact_path="performance_analysis_results")
+			mlflow.log_artifact(details_output_path, artifact_path="performance_analysis_results")
+
+
 if __name__ == '__main__':
-    data = {
-        'frame_length': [60, 700, 1480, 200],
-        'ip_protocol': [6, 17, 6, 1] # TCP, UDP, TCP, ICMP
-    }
-    sample_df = pd.DataFrame(data)
-    
-    # Mock ConfigManager for testing
-    class MockConfigManager:
-        def __init__(self, rules=None):
-            self.rules = rules
-            if self.rules is None:
-                self.rules = { # Default mock rules, mimicking settings.yaml structure
-                    'packet_size_categories': {'small_threshold': 100, 'medium_threshold': 1000},
-                    'protocol_insights': {'enabled': True},
-                    'small_packet_percentage_concern': {'enabled': True, 'threshold_percentage': 60, 'minimum_sample_size': 2}
-                }
+	# Setup project root for src imports if run directly
+	current_dir = os.path.dirname(os.path.abspath(__file__))
+	project_root = os.path.abspath(os.path.join(current_dir, "..", ".."))
+	import sys
+	if project_root not in sys.path:
+		sys.path.insert(0, project_root)
+	
+	# Re-import ConfigManager if path was just added, to ensure it's found
+	# This is a bit of a hack for direct execution; normally PYTHONPATH handles this.
+	try:
+		from src.utils.config_manager import ConfigManager
+	except ImportError:
+		print("Failed to re-import ConfigManager. Ensure PYTHONPATH is set or script is run via orchestrator.")
+		# Depending on strictness, might exit here if ConfigManager is critical and not found.
 
-        def get_setting(self, key, default=None):
-            if key == 'ai_monitoring_settings.performance_rules':
-                return self.rules
-            return default
-
-    print("--- Test with Default Performance Rules ---")
-    perf_analyzer_default = PerformanceMLAnalyzer(config_manager=MockConfigManager())
-    description = perf_analyzer_default.get_description()
-    print("Analyzer Description:")
-    for key, value in description.items():
-        print(f"  {key}: {value}")
-
-    results_default = perf_analyzer_default.analyze_performance_features(sample_df.copy())
-    print("\nPerformance Analysis Results (Default Rules):")
-    print(f"Text Summary:\n{results_default['text_summary']}")
-    print(f"Quality Score: {results_default['quality_score']}")
-    print(f"Anomalies Detected: {results_default['anomalies_detected']}")
-    # print("\nDetails DataFrame Sample:")
-    # print(results_default['details_df'][['frame_length', 'ip_protocol', 'packet_size_category', 'protocol_performance_note']].head())
-
-    print("\n--- Test with Small Packet Concern Triggered ---")
-    many_small_packets_data = {
-        'frame_length': [60, 70, 80, 90, 50, 1500], # 5 out of 6 are small
-        'ip_protocol': [6, 17, 6, 1, 6, 17]
-    }
-    small_df = pd.DataFrame(many_small_packets_data)
-    results_small_concern = perf_analyzer_default.analyze_performance_features(small_df.copy())
-    print(f"Text Summary:\n{results_small_concern['text_summary']}")
-    print(f"Quality Score: {results_small_concern['quality_score']}")
-    print(f"Anomalies Detected: {results_small_concern['anomalies_detected']}")
-
-    print("\n--- Test with Small Packet Concern Disabled ---")
-    disabled_concern_rules = {
-        'packet_size_categories': {'small_threshold': 100, 'medium_threshold': 1000},
-        'protocol_insights': {'enabled': True},
-        'small_packet_percentage_concern': {'enabled': False, 'threshold_percentage': 60, 'minimum_sample_size': 2}
-    }
-    perf_analyzer_disabled = PerformanceMLAnalyzer(config_manager=MockConfigManager(rules=disabled_concern_rules))
-    results_disabled_concern = perf_analyzer_disabled.analyze_performance_features(small_df.copy()) # Use same small_df
-    print(f"Text Summary:\n{results_disabled_concern['text_summary']}")
-    print(f"Quality Score: {results_disabled_concern['quality_score']}")
-    print(f"Anomalies Detected: {results_disabled_concern['anomalies_detected']}")
-
-    print("\n--- Test with Empty DataFrame ---")
-    empty_df = pd.DataFrame(columns=sample_df.columns)
-    results_empty = perf_analyzer_default.analyze_performance_features(empty_df)
-    print(f"Text Summary:\n{results_empty['text_summary']}")
-    print(f"Quality Score: {results_empty['quality_score']}")
-    print(f"Anomalies Detected: {results_empty['anomalies_detected']}")
-
-    print("\n--- Test with No Config Manager (Defaults) ---")
-    perf_analyzer_no_config = PerformanceMLAnalyzer(config_manager=None)
-    results_no_config = perf_analyzer_no_config.analyze_performance_features(sample_df.copy())
-    print(f"Text Summary:\n{results_no_config['text_summary']}")
-    print(f"Quality Score: {results_no_config['quality_score']}")
-    print(f"Anomalies Detected: {results_no_config['anomalies_detected']}")
+	main()
 

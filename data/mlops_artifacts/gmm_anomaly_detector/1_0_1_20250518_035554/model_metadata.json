@@ -1,0 +1,55 @@
+{
+    "source_training_config_original": "C:\\Users\\juanc\\Documents\\Proyectos Personales\\networking_tester\\config\\mlops_train_config_gmm_test.json",
+    "source_training_config_run_specific_abs": "C:\\Users\\juanc\\Documents\\Proyectos Personales\\networking_tester\\data\\mlops_artifacts\\gmm_anomaly_detector\\1_0_1_20250518_035554\\training_run_config.json",
+    "evaluation_metrics": {
+        "accuracy": 0.08,
+        "precision_anomaly": 0.08,
+        "recall_anomaly": 1.0,
+        "f1_score_anomaly": 0.14814814814814814,
+        "f1_score": 0.07407407407407407,
+        "f1_score_macro": 0.07407407407407407,
+        "f1_score_weighted": 0.011851851851851851,
+        "precision_macro": 0.04,
+        "recall_macro": 0.5,
+        "classification_report": {
+            "Normal (0)": {
+                "precision": 0.0,
+                "recall": 0.0,
+                "f1-score": 0.0,
+                "support": 1840.0
+            },
+            "Anomaly (1)": {
+                "precision": 0.08,
+                "recall": 1.0,
+                "f1-score": 0.14814814814814814,
+                "support": 160.0
+            },
+            "accuracy": 0.08,
+            "macro avg": {
+                "precision": 0.04,
+                "recall": 0.5,
+                "f1-score": 0.07407407407407407,
+                "support": 2000.0
+            },
+            "weighted avg": {
+                "precision": 0.0064,
+                "recall": 0.08,
+                "f1-score": 0.011851851851851851,
+                "support": 2000.0
+            }
+        },
+        "confusion_matrix": [
+            [
+                0,
+                1840
+            ],
+            [
+                0,
+                160
+            ]
+        ]
+    },
+    "trained_timestamp": "2025-05-18T08:56:13.082827+00:00",
+    "model_artifact_path_in_run_abs": "C:\\Users\\juanc\\Documents\\Proyectos Personales\\networking_tester\\data\\mlops_artifacts\\gmm_anomaly_detector\\1_0_1_20250518_035554\\gmm_anomaly_detector_1.0.1.joblib",
+    "pipeline_run_id": "ba1f62840cce45a0a27bb85e0c18d559"
+}

@@ -1,0 +1,28 @@
+{
+    "model_name": "qos_anomaly_gmm_e2e_test",
+    "model_version": "1.0.8",
+    "model_type": "gmm",
+    "data_source": "data/ml_training_data/realistic_evaluation_data.csv",
+    "evaluation_data_path": "data/ml_training_data/realistic_evaluation_data.csv",
+    "evaluation_dataset_for_pipeline": "data/ml_training_data/realistic_evaluation_data.csv",
+    "output_base_dir": "data/mlops_artifacts/",
+    "output_model_path": "C:\\Users\\juanc\\Documents\\Proyectos Personales\\networking_tester\\data\\mlops_artifacts\\qos_anomaly_gmm_e2e_test\\1_0_8_20250518012814\\qos_anomaly_gmm_e2e_test_1.0.8.joblib",
+    "output_metrics_path": "C:\\Users\\juanc\\Documents\\Proyectos Personales\\networking_tester\\data\\mlops_artifacts\\qos_anomaly_gmm_e2e_test\\1_0_8_20250518012814\\evaluation_metrics.json",
+    "feature_columns": [
+        "feature1",
+        "feature2",
+        "feature3",
+        "feature4",
+        "feature5"
+    ],
+    "gmm_params": {
+        "n_components": 4,
+        "covariance_type": "diag",
+        "anomaly_threshold_std_dev": 2.5
+    },
+    "isolation_forest_params": {
+        "n_estimators": 100,
+        "contamination": "auto",
+        "random_state": 42
+    }
+}

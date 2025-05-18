@@ -1,0 +1,44 @@
+{
+    "model_path": "C:\\Users\\juanc\\Documents\\Proyectos Personales\\networking_tester\\data\\mlops_artifacts\\qos_anomaly_model_sample\\1_0_0_20250517210051\\qos_anomaly_model_sample_1.0.0.joblib",
+    "evaluation_data_path": "data/ml_training_data/sample_evaluation_data.csv",
+    "num_predictions": 10,
+    "anomaly_count_predicted": 3,
+    "normal_count_predicted": 7,
+    "classification_report": {
+        "0": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 7.0
+        },
+        "1": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 3.0
+        },
+        "accuracy": 1.0,
+        "macro avg": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 10.0
+        },
+        "weighted avg": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 10.0
+        }
+    },
+    "confusion_matrix": [
+        [
+            7,
+            0
+        ],
+        [
+            0,
+            3
+        ]
+    ]
+}
