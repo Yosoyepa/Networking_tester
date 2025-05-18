@@ -42,6 +42,26 @@ storage:
   database_type: "sqlite"
   database_name: "data/analysis_results.db" # Relative to project root
 
-# ai_models: # If you integrate ML models later
-#   anomaly_detector_path: "data/models/anomaly_detector_v1.joblib"
-#   qos_classifier_path: "data/models/qos_classifier_v1.onnx"
+ai_monitoring:
+  anomaly_detector_model_path: "data/models/ai_anomaly_detector.joblib" # Relative to project root
+  anomaly_detector_scaler_path: "data/models/ai_anomaly_detector_scaler.joblib" # Relative to project root
+  # qos_classifier_path: "data/models/qos_classifier_v1.onnx" # Example for future QoS ML model
+  # performance_model_path: "data/models/performance_predictor_v1.joblib" # Example for future performance ML model
+  enable_ai_analysis_on_completion: true # Whether to automatically run AI analysis after capture/pcap processing
+  qos_rules:
+    ef_small_packet_concern:
+      enabled: true
+      dscp_threshold: 46 # Minimum DSCP value to be considered high priority (e.g., EF)
+      frame_length_threshold: 100 # Maximum frame length for a high priority packet to be considered "small"
+  performance_rules: # New section for performance analyzer
+    packet_size_categories:
+      small_threshold: 100  # Bytes, packets <= this are "small"
+      medium_threshold: 1000 # Bytes, packets > small_threshold and <= this are "medium", else "large"
+    protocol_insights:
+      enabled: true
+      # Potentially add more specific rules here later, e.g., for TCP retransmissions if detectable
+    # Example: Rule for high percentage of small packets (could indicate control traffic or fragmentation issues)
+    small_packet_percentage_concern:
+      enabled: true
+      threshold_percentage: 60 # If >60% of packets are small, it might be a concern or noteworthy
+      minimum_sample_size: 50 # Only apply if there are at least 50 packets

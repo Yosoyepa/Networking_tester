@@ -64,9 +64,14 @@ class FlowAnalyzer(BaseAnalyzer):
         
         current_packet_flow_metrics = {}
 
-        if flow_key:
-            # Store essential, JSON-safe data for internal flow tracking
-            packet_time = packet.time if hasattr(packet, 'time') else time.time()
+        if flow_key:            
+            packet_time_raw = packet.time if hasattr(packet, 'time') else time.time()
+            try:
+                packet_time = float(packet_time_raw)
+            except (TypeError, ValueError):
+                logger.warning(f"Could not convert packet time {packet_time_raw} to float. Using current time.")
+                packet_time = time.time()
+            
             self.flows[flow_key]["timestamps"].append(packet_time)
             self.flows[flow_key]["packet_count"] = self.flows[flow_key].get("packet_count", 0) + 1
             

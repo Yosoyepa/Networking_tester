@@ -16,7 +16,7 @@ from unittest.mock import patch, MagicMock
 # Add project root to path to allow imports
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from src.ai_monitoring.network_monitor_ai import NetworkAIMonitor
+from src.ai_monitoring.anomaly_detector import AnomalyDetector as NetworkAIMonitor # Use the actual AnomalyDetector
 from src.analysis.ieee802_3_analyzer import IEEE802_3_Analyzer # Note: This analyzer might need updates post-refactor
 from src.analysis.ieee802_11_analyzer import IEEE802_11_Analyzer # Note: This analyzer might need updates post-refactor
 from src.capture.frame_capture import FrameCapture # Changed from frame_capturer import FrameCapturer
@@ -39,6 +39,7 @@ class TestAIMonitoring(unittest.TestCase):
         # Create a temporary directory for test outputs
         self.test_dir = tempfile.mkdtemp()
         self.model_path = os.path.join(self.test_dir, "test_model.joblib")
+        self.scaler_path = os.path.join(self.test_dir, "test_model_scaler.joblib")
         
         # Create mock packet data for testing
         self.mock_ethernet_packets = self._create_mock_ethernet_packets()
@@ -214,7 +215,7 @@ class TestAIMonitoring(unittest.TestCase):
         
         # Train the model
         with patch('joblib.dump') as mock_dump:
-            self.ai_monitor.train_anomaly_detector(features, self.model_path)
+            self.ai_monitor.train_model(pd.DataFrame(features), self.model_path, self.scaler_path) # Use train_model and pass DataFrame
             self.assertTrue(mock_dump.called)
             
         # Verify model is trained
@@ -253,7 +254,7 @@ class TestAIMonitoring(unittest.TestCase):
             mock_predict.return_value = np.array([1] * 20 + [-1] * 2)  # 20 normal packets, 2 anomalies
             
             # Run detection
-            predictions = self.ai_monitor.predict_anomalies(features)
+            predictions = self.ai_monitor.predict(pd.DataFrame(features)) # Use predict and pass DataFrame
             
             # Verify predictions
             self.assertEqual(len(predictions), 22)

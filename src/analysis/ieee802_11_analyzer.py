@@ -99,7 +99,7 @@ class IEEE802_11_Analyzer(BaseAnalyzer): # Inherit from BaseAnalyzer
             if hasattr(packet, 'time'):
                 try:
                     # Convert EDecimal to float before using it with fromtimestamp
-                    packet_time = datetime.fromtimestamp(float(packet.time))
+                    packet_time = datetime.fromtimestamp(float(packet.time)) # Ensure float conversion
                 except (TypeError, ValueError, OverflowError):
                     # If conversion fails, use current time
                     packet_time = datetime.now()
@@ -141,7 +141,7 @@ class IEEE802_11_Analyzer(BaseAnalyzer): # Inherit from BaseAnalyzer
                 if hasattr(packet, 'time'):
                     try:
                         # Convert EDecimal to float before using it with fromtimestamp
-                        packet_time = datetime.fromtimestamp(float(packet.time))
+                        packet_time = datetime.fromtimestamp(float(packet.time)) # Ensure float conversion
                     except (TypeError, ValueError, OverflowError):
                         # If conversion fails, use current time
                         packet_time = datetime.now()

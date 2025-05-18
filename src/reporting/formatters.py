@@ -13,11 +13,19 @@ class BaseFormatter:
 class JSONFormatter(BaseFormatter):
     def format(self, data_list, stats=None, ai_results=None): # Added stats and ai_results
         """Formats a list of analysis dictionaries, stats, and AI results into a JSON string."""
+        cleaned_packet_analysis_data = []
+        for item in data_list:
+            # Remove non-serializable raw Scapy packet object before JSON dump
+            cleaned_item = {k: v for k, v in item.items() if k != 'original_packet'}
+            cleaned_packet_analysis_data.append(cleaned_item)
+        
+
         report_content = {
             "statistics": stats if stats is not None else {},
-            "packet_analysis_data": data_list,
+            "packet_analysis_data": cleaned_packet_analysis_data, # Use cleaned data
             "ai_analysis_results": ai_results if ai_results is not None else {}
         }
+        
         try:
             return json.dumps(report_content, indent=4, default=str) # default=str for datetime etc.
         except TypeError as e:

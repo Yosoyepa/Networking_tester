@@ -7,6 +7,7 @@ from scapy.all import Ether, IP, ARP, Dot1Q, Raw
 from unittest.mock import MagicMock # Assuming MagicMock might be used as in other analyzers
 import logging
 from datetime import datetime
+import json # Importing json to handle ethertype map loading
 
 from .base_analyzer import BaseAnalyzer
 from .protocol_analyzer import ProtocolAnalyzer # To perform IP layer analysis
@@ -20,7 +21,7 @@ class IEEE802_3_Analyzer(BaseAnalyzer):
         super().__init__(config_manager)
         # Assuming ethertype_map is loaded from config or defined in BaseAnalyzer/statically
         # For example:
-        self.ethertype_map = self.config_manager.get('analysis.ethertype_map', {
+        default_ethertype_map = {
             0x0800: "IPv4",
             0x0806: "ARP",
             0x86DD: "IPv6",
@@ -28,7 +29,14 @@ class IEEE802_3_Analyzer(BaseAnalyzer):
             0x88A8: "Provider Bridging (802.1ad) & Shortest Path Bridging IEEE 802.1aq",
             0x88CC: "LLDP (Link Layer Discovery Protocol)",
             # Add more common EtherTypes as needed
-        })
+        }
+        loaded_ethertype_map = self.config_manager.get('analysis.ethertype_map', default_ethertype_map)
+        if loaded_ethertype_map is None:
+            logger.warning("'analysis.ethertype_map' is null in config, using default ethertype map.")
+            self.ethertype_map = default_ethertype_map
+        else:
+            self.ethertype_map = loaded_ethertype_map
+            
         self.ip_analyzer = ProtocolAnalyzer(config_manager) # For nested IP analysis
         logger.debug("IEEE802_3_Analyzer initialized.")
 
@@ -276,3 +284,30 @@ class IEEE802_3_Analyzer(BaseAnalyzer):
         duration_ns = wire_size * 8
         
         return duration_ns
+    
+    def _load_ethertype_map(self, file_path):
+        """
+        Load a custom EtherType map from a JSON file.
+        
+        Args:
+            file_path: The path to the JSON file containing the EtherType mappings
+            
+        Returns:
+            Dictionary with EtherType mappings, or an empty dictionary if an error occurs
+        """
+        try:
+            with open(file_path, 'r') as json_file:
+                ethertype_map = json.load(json_file)
+                
+                # Validate that the loaded data is a dictionary
+                if not isinstance(ethertype_map, dict):
+                    logger.error(f"Invalid data format in ethertype map file: {file_path}. Expected a JSON object.")
+                    return {}
+                
+                return ethertype_map
+        except json.JSONDecodeError:
+            logger.error(f"Error decoding JSON from ethertype map file: {file_path}")
+            return {}
+        except Exception as e: # Catch any other unexpected errors
+            logger.error(f"An unexpected error occurred while loading ethertype map from {file_path}: {e}")
+            return {} # Ensure it always returns a dict

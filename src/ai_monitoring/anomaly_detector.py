@@ -137,11 +137,11 @@ class AnomalyDetector:
         Args:
             normal_traffic_features_df (pd.DataFrame): DataFrame de características de tráfico normal.
             model_save_path (str): Ruta para guardar el modelo entrenado.
-            scaler_save_path (str): Ruta para guardar el scaler entrenado.
+            scaler_save_path (str): Ruta para guardar el scaler entrenado. Optional, will derive if None.
         """
         if normal_traffic_features_df.empty:
             logger.error("No data provided for training AnomalyDetector model.")
-            return
+            return False
 
         df_normal = normal_traffic_features_df # Use the input DataFrame
 
@@ -150,7 +150,7 @@ class AnomalyDetector:
         numeric_cols = df_normal.select_dtypes(include=np.number).columns
         if numeric_cols.empty:
             logger.error("No numeric columns found in the training data. Cannot train model.")
-            return
+            return False # Added return False
 
         # Fit a new scaler
         self.scaler = StandardScaler()
@@ -180,8 +180,10 @@ class AnomalyDetector:
                 os.makedirs(scaler_dir, exist_ok=True)
             joblib.dump(self.scaler, scaler_save_path)
             logger.info(f"Scaler saved to: {scaler_save_path}")
+            return True
         except Exception as e:
             logger.error(f"Error saving model or scaler: {e}")
+            return False
 
     def interpret_prediction_results(self, original_data_list: list, predictions: list):
         """
@@ -287,28 +289,26 @@ class AnomalyDetector:
                 
                 # Copy values from the input DataFrame for features that exist in both
                 common_features = [col for col in features_df.columns if col in expected_features]
-                
+
                 if not common_features:
                     logger.warning("No features in the input match the features the model was trained on.")
-                    return np.ones(len(features_df))  # Default to normal if no usable features
+                    return np.ones(len(features_df))
                 
                 # Copy the values for common features
                 for feature in common_features:
-                    prediction_df[feature] = features_df[feature].values
+                    prediction_df[feature] = features_df[feature]
                 
-                # Apply scaling using the scaler
-                scaled_values = self.scaler.transform(prediction_df)
-                scaled_df = pd.DataFrame(scaled_values, columns=expected_features)
-                
-                # Make predictions with the complete set of expected features
-                predictions = self.model.predict(scaled_df)
-                return predictions
-            else:
-                # If no scaler with feature names, use all numeric columns (less safe fallback)
-                logger.warning("Scaler without feature_names_in_ attribute. Using all numeric columns.")
-                numeric_cols = features_df.select_dtypes(include=np.number).columns
-                predictions = self.model.predict(features_df[numeric_cols])
-                return predictions
+                features_df = prediction_df
+            
+            df_features = self._preprocess_features(features_df.to_dict(orient='records'))
+            
+            if df_features.empty:
+                logger.warning("Preprocessed features are empty after scaling. Cannot predict anomalies.")
+                return np.ones(len(features_df))
+            
+            predictions = self.model.predict(df_features)
+            return predictions
         except Exception as e:
             logger.error(f"Error during anomaly prediction: {e}")
-            return np.ones(len(features_df))  # Default to normal on error
+            return np.ones(len(features_df))
+

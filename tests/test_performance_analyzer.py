@@ -7,7 +7,7 @@ import unittest
 import pandas as pd
 import numpy as np
 
-from src.ai_monitoring import PerformanceMLAnalyzer
+from src.ai_monitoring.performance_analyzer_ml import PerformanceMLAnalyzer
 
 
 class TestPerformanceMLAnalyzer(unittest.TestCase):

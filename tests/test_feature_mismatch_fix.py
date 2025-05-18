@@ -8,6 +8,7 @@ import unittest
 import pandas as pd
 import numpy as np
 import logging
+from pathlib import Path
 
 from src.ai_monitoring.anomaly_detector import AnomalyDetector
 
@@ -24,8 +25,9 @@ class TestAnomalyDetectorFeatureMismatch(unittest.TestCase):
     def setUp(self):
         """Set up test environment before each test method."""
         # Path to the real model and scaler
-        self.model_path = 'data/models/ai_anomaly_detector.joblib'
-        self.scaler_path = 'data/models/ai_anomaly_detector_scaler.joblib'
+        project_root = Path(__file__).resolve().parent.parent
+        self.model_path = str(project_root / 'data' / 'models' / 'ai_anomaly_detector.joblib')
+        self.scaler_path = str(project_root / 'data' / 'models' / 'ai_anomaly_detector_scaler.joblib')
         
         # Skip tests if model doesn't exist
         if not os.path.exists(self.model_path) or not os.path.exists(self.scaler_path):

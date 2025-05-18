@@ -44,7 +44,7 @@ class ConfigManager:
         try:
             for k in keys:
                 if isinstance(value, dict):
-                    value = value[k]
+                    value = value.get(k) # Use .get() to avoid KeyError if intermediate key is missing
                 else: # pragma: no cover
                     logger.warning(f"Config key part '{k}' not found or parent is not a dict for key '{key}'.")
                     return default

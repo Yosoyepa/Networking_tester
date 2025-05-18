@@ -5170,3 +5170,1097 @@ TypeError: 'EDecimal' object cannot be interpreted as an integer
 2025-05-15 20:01:02 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\Documents\Redes Unal\Networking_tester\data\models\ai_anomaly_detector.joblib
 2025-05-15 20:01:02 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\Documents\Redes Unal\Networking_tester\data\models\ai_anomaly_detector_scaler.joblib
 2025-05-15 20:01:02 [INFO   ] [src.core.engine     ] [_load_ai_model:92] AI Anomaly Detection model and scaler loaded from C:\Users\juanc\Documents\Redes Unal\Networking_tester\data\models\ai_anomaly_detector.joblib and C:\Users\juanc\Documents\Redes Unal\Networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-17 17:42:57 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-17 17:42:57 [INFO   ] [src.core.engine     ] [__init__:32] Initializing AnalysisEngine...
+2025-05-17 17:42:57 [INFO   ] [src.core.engine     ] [_load_analyzers:82] Loaded 5 standard analyzers: ['ProtocolAnalyzer', 'IEEE802_11_Analyzer', 'IEEE802_3_Analyzer', 'FlowAnalyzer', 'RuleBasedAnomalyDetector']
+2025-05-17 17:42:57 [INFO   ] [src.storage.database_handler] [__init__:26] DatabaseHandler is disabled by configuration.
+2025-05-17 17:42:57 [INFO   ] [src.ai_monitoring.feature_extractor] [__init__:17] PacketFeatureExtractor initialized.
+2025-05-17 17:42:57 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [__init__:60] QoSMLAnalyzer initialized.
+2025-05-17 17:42:57 [INFO   ] [src.ai_monitoring.performance_analyzer_ml] [__init__:22] PerformanceMLAnalyzer initialized.
+2025-05-17 17:42:57 [WARNING] [src.ai_monitoring.anomaly_detector] [__init__:28] AnomalyDetector: Model path 'None' not provided or not found. Anomaly detection will not be performed unless a model is loaded or trained.
+2025-05-17 17:42:57 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib
+2025-05-17 17:42:57 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-17 17:42:57 [INFO   ] [src.core.engine     ] [_load_ai_model:97] AI Anomaly Detection model and scaler loaded from C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib and C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-17 17:44:05 [INFO   ] [src.ui.menu_handler ] [handle_live_capture:188] Capture will be saved to: c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\captura_para_el_profe.pcap
+2025-05-17 17:44:05 [INFO   ] [src.ui.menu_handler ] [handle_live_capture:190] Starting live capture on interface: Ethernet 2
+2025-05-17 17:44:05 [INFO   ] [src.core.engine     ] [run_live_capture:199] Starting live capture run: interface=Ethernet 2, count=10, timeout=None, filter='None', write_to='c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\captura_para_el_profe.pcap'
+2025-05-17 17:44:05 [INFO   ] [src.capture.frame_capture] [start_capture:42] Starting synchronous capture on interface Ethernet 2 (count=10, timeout=None, filter='None')
+2025-05-17 17:44:05 [ERROR  ] [src.core.engine     ] [_process_packet_core_logic:125] Critical error in _determine_packet_type_and_analyze for packet: 'NoneType' object has no attribute 'get'
+Traceback (most recent call last):
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 122, in _process_packet_core_logic
+    detailed_analysis_results = self._determine_packet_type_and_analyze(packet)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 182, in _determine_packet_type_and_analyze
+    analysis_results['ethernet_details'] = self.analyzers["ethernet"].analyze_packet(packet, analysis_results)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\analysis\ieee802_3_analyzer.py", line 145, in analyze_packet
+    "protocol_name": self.ethertype_map.get(ethertype_val, f"Unknown ({hex(ethertype_val)})"),
+                     ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get'
+2025-05-17 17:44:05 [ERROR  ] [src.core.engine     ] [_process_packet_core_logic:125] Critical error in _determine_packet_type_and_analyze for packet: 'NoneType' object has no attribute 'get'
+Traceback (most recent call last):
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 122, in _process_packet_core_logic
+    detailed_analysis_results = self._determine_packet_type_and_analyze(packet)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 182, in _determine_packet_type_and_analyze
+    analysis_results['ethernet_details'] = self.analyzers["ethernet"].analyze_packet(packet, analysis_results)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\analysis\ieee802_3_analyzer.py", line 145, in analyze_packet
+    "protocol_name": self.ethertype_map.get(ethertype_val, f"Unknown ({hex(ethertype_val)})"),
+                     ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get'
+2025-05-17 17:44:05 [ERROR  ] [src.core.engine     ] [_process_packet_core_logic:125] Critical error in _determine_packet_type_and_analyze for packet: 'NoneType' object has no attribute 'get'
+Traceback (most recent call last):
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 122, in _process_packet_core_logic
+    detailed_analysis_results = self._determine_packet_type_and_analyze(packet)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 182, in _determine_packet_type_and_analyze
+    analysis_results['ethernet_details'] = self.analyzers["ethernet"].analyze_packet(packet, analysis_results)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\analysis\ieee802_3_analyzer.py", line 145, in analyze_packet
+    "protocol_name": self.ethertype_map.get(ethertype_val, f"Unknown ({hex(ethertype_val)})"),
+                     ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get'
+2025-05-17 17:44:05 [ERROR  ] [src.core.engine     ] [_process_packet_core_logic:125] Critical error in _determine_packet_type_and_analyze for packet: 'NoneType' object has no attribute 'get'
+Traceback (most recent call last):
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 122, in _process_packet_core_logic
+    detailed_analysis_results = self._determine_packet_type_and_analyze(packet)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 182, in _determine_packet_type_and_analyze
+    analysis_results['ethernet_details'] = self.analyzers["ethernet"].analyze_packet(packet, analysis_results)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\analysis\ieee802_3_analyzer.py", line 145, in analyze_packet
+    "protocol_name": self.ethertype_map.get(ethertype_val, f"Unknown ({hex(ethertype_val)})"),
+                     ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get'
+2025-05-17 17:44:05 [ERROR  ] [src.core.engine     ] [_process_packet_core_logic:125] Critical error in _determine_packet_type_and_analyze for packet: 'NoneType' object has no attribute 'get'
+Traceback (most recent call last):
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 122, in _process_packet_core_logic
+    detailed_analysis_results = self._determine_packet_type_and_analyze(packet)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 182, in _determine_packet_type_and_analyze
+    analysis_results['ethernet_details'] = self.analyzers["ethernet"].analyze_packet(packet, analysis_results)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\analysis\ieee802_3_analyzer.py", line 145, in analyze_packet
+    "protocol_name": self.ethertype_map.get(ethertype_val, f"Unknown ({hex(ethertype_val)})"),
+                     ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get'
+2025-05-17 17:44:05 [ERROR  ] [src.core.engine     ] [_process_packet_core_logic:125] Critical error in _determine_packet_type_and_analyze for packet: 'NoneType' object has no attribute 'get'
+Traceback (most recent call last):
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 122, in _process_packet_core_logic
+    detailed_analysis_results = self._determine_packet_type_and_analyze(packet)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 182, in _determine_packet_type_and_analyze
+    analysis_results['ethernet_details'] = self.analyzers["ethernet"].analyze_packet(packet, analysis_results)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\analysis\ieee802_3_analyzer.py", line 145, in analyze_packet
+    "protocol_name": self.ethertype_map.get(ethertype_val, f"Unknown ({hex(ethertype_val)})"),
+                     ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get'
+2025-05-17 17:44:05 [ERROR  ] [src.core.engine     ] [_process_packet_core_logic:125] Critical error in _determine_packet_type_and_analyze for packet: 'NoneType' object has no attribute 'get'
+Traceback (most recent call last):
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 122, in _process_packet_core_logic
+    detailed_analysis_results = self._determine_packet_type_and_analyze(packet)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 182, in _determine_packet_type_and_analyze
+    analysis_results['ethernet_details'] = self.analyzers["ethernet"].analyze_packet(packet, analysis_results)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\analysis\ieee802_3_analyzer.py", line 145, in analyze_packet
+    "protocol_name": self.ethertype_map.get(ethertype_val, f"Unknown ({hex(ethertype_val)})"),
+                     ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get'
+2025-05-17 17:44:07 [ERROR  ] [src.core.engine     ] [_process_packet_core_logic:125] Critical error in _determine_packet_type_and_analyze for packet: 'NoneType' object has no attribute 'get'
+Traceback (most recent call last):
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 122, in _process_packet_core_logic
+    detailed_analysis_results = self._determine_packet_type_and_analyze(packet)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 182, in _determine_packet_type_and_analyze
+    analysis_results['ethernet_details'] = self.analyzers["ethernet"].analyze_packet(packet, analysis_results)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\analysis\ieee802_3_analyzer.py", line 145, in analyze_packet
+    "protocol_name": self.ethertype_map.get(ethertype_val, f"Unknown ({hex(ethertype_val)})"),
+                     ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get'
+2025-05-17 17:44:07 [ERROR  ] [src.core.engine     ] [_process_packet_core_logic:125] Critical error in _determine_packet_type_and_analyze for packet: 'NoneType' object has no attribute 'get'
+Traceback (most recent call last):
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 122, in _process_packet_core_logic
+    detailed_analysis_results = self._determine_packet_type_and_analyze(packet)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 182, in _determine_packet_type_and_analyze
+    analysis_results['ethernet_details'] = self.analyzers["ethernet"].analyze_packet(packet, analysis_results)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\analysis\ieee802_3_analyzer.py", line 145, in analyze_packet
+    "protocol_name": self.ethertype_map.get(ethertype_val, f"Unknown ({hex(ethertype_val)})"),
+                     ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get'
+2025-05-17 17:44:07 [ERROR  ] [src.core.engine     ] [_process_packet_core_logic:125] Critical error in _determine_packet_type_and_analyze for packet: 'NoneType' object has no attribute 'get'
+Traceback (most recent call last):
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 122, in _process_packet_core_logic
+    detailed_analysis_results = self._determine_packet_type_and_analyze(packet)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 182, in _determine_packet_type_and_analyze
+    analysis_results['ethernet_details'] = self.analyzers["ethernet"].analyze_packet(packet, analysis_results)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\analysis\ieee802_3_analyzer.py", line 145, in analyze_packet
+    "protocol_name": self.ethertype_map.get(ethertype_val, f"Unknown ({hex(ethertype_val)})"),
+                     ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get'
+2025-05-17 17:44:07 [INFO   ] [src.capture.frame_capture] [start_capture:51] Synchronous capture finished on Ethernet 2.
+2025-05-17 17:44:07 [INFO   ] [src.core.engine     ] [run_live_capture:217] Writing 10 captured packets to c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\captura_para_el_profe.pcap
+2025-05-17 17:44:07 [INFO   ] [src.capture.frame_capture] [write_pcap:89] Writing 10 packets to c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\captura_para_el_profe.pcap
+2025-05-17 17:44:07 [INFO   ] [src.capture.frame_capture] [write_pcap:91] Successfully wrote packets to c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\captura_para_el_profe.pcap
+2025-05-17 17:44:07 [INFO   ] [src.capture.frame_capture] [write_pcap:96] PCAP file c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\captura_para_el_profe.pcap size: 978 bytes.
+2025-05-17 17:44:07 [INFO   ] [src.core.engine     ] [run_live_capture:222] Live capture run finished.
+2025-05-17 17:44:07 [INFO   ] [src.core.engine     ] [_finalize_run:244] Finalizing run...
+2025-05-17 17:44:07 [INFO   ] [src.reporting.report_generator] [generate_report:63] Report generated and saved to C:\Users\juanc\Documents\Proyectos Personales\networking_tester\reports\capture_report_20250517_174407.json
+2025-05-17 17:44:07 [INFO   ] [src.core.engine     ] [_finalize_run:258] Final Statistics (also included in reports):
+2025-05-17 17:44:07 [INFO   ] [src.core.engine     ] [_finalize_run:260]   total_packets: 10
+2025-05-17 17:44:07 [INFO   ] [src.core.engine     ] [_finalize_run:260]   start_time: 2025-05-17T17:44:05.919170
+2025-05-17 17:44:07 [INFO   ] [src.core.engine     ] [_finalize_run:260]   end_time: 2025-05-17T17:44:07.158073
+2025-05-17 17:44:07 [INFO   ] [src.core.engine     ] [_finalize_run:260]   duration_seconds: 1.238903
+2025-05-17 17:44:07 [INFO   ] [src.core.engine     ] [_finalize_run:260]   packets_per_second: 8.07
+2025-05-17 17:44:07 [INFO   ] [src.core.engine     ] [_finalize_run:260]   protocol_distribution:
+2025-05-17 17:44:07 [INFO   ] [src.core.engine     ] [_finalize_run:263]     OTHER: 10
+2025-05-17 17:44:07 [INFO   ] [src.core.engine     ] [_finalize_run:260]   packet_type_distribution:
+2025-05-17 17:44:07 [INFO   ] [src.core.engine     ] [_finalize_run:263]     Ethernet: 10
+2025-05-17 17:44:07 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_source_ips:
+2025-05-17 17:44:07 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_destination_ips:
+2025-05-17 17:44:07 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_source_ports:
+2025-05-17 17:44:07 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_destination_ports:
+2025-05-17 17:44:07 [INFO   ] [src.core.engine     ] [_finalize_run:260]   error_count: 10
+2025-05-17 17:46:16 [INFO   ] [src.core.engine     ] [shutdown:489] Shutting down Analysis Engine...
+2025-05-17 17:46:16 [INFO   ] [src.core.engine     ] [shutdown:501] Analysis Engine shut down successfully.
+2025-05-17 17:46:16 [INFO   ] [src.ui.menu_handler ] [run_main_loop:420] Networking Tester finished.
+2025-05-17 17:46:26 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-17 17:46:26 [INFO   ] [src.core.engine     ] [__init__:32] Initializing AnalysisEngine...
+2025-05-17 17:46:26 [INFO   ] [src.core.engine     ] [_load_analyzers:82] Loaded 5 standard analyzers: ['ProtocolAnalyzer', 'IEEE802_11_Analyzer', 'IEEE802_3_Analyzer', 'FlowAnalyzer', 'RuleBasedAnomalyDetector']
+2025-05-17 17:46:26 [INFO   ] [src.storage.database_handler] [__init__:26] DatabaseHandler is disabled by configuration.
+2025-05-17 17:46:26 [INFO   ] [src.ai_monitoring.feature_extractor] [__init__:17] PacketFeatureExtractor initialized.
+2025-05-17 17:46:26 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [__init__:60] QoSMLAnalyzer initialized.
+2025-05-17 17:46:26 [INFO   ] [src.ai_monitoring.performance_analyzer_ml] [__init__:22] PerformanceMLAnalyzer initialized.
+2025-05-17 17:46:26 [WARNING] [src.ai_monitoring.anomaly_detector] [__init__:28] AnomalyDetector: Model path 'None' not provided or not found. Anomaly detection will not be performed unless a model is loaded or trained.
+2025-05-17 17:46:26 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib
+2025-05-17 17:46:26 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-17 17:46:26 [INFO   ] [src.core.engine     ] [_load_ai_model:97] AI Anomaly Detection model and scaler loaded from C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib and C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-17 17:46:54 [INFO   ] [src.ui.menu_handler ] [handle_live_capture:188] Capture will be saved to: c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test1.pcap
+2025-05-17 17:46:54 [INFO   ] [src.ui.menu_handler ] [handle_live_capture:190] Starting live capture on interface: Ethernet 2
+2025-05-17 17:46:54 [INFO   ] [src.core.engine     ] [run_live_capture:199] Starting live capture run: interface=Ethernet 2, count=20, timeout=None, filter='None', write_to='c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test1.pcap'
+2025-05-17 17:46:54 [INFO   ] [src.capture.frame_capture] [start_capture:42] Starting synchronous capture on interface Ethernet 2 (count=20, timeout=None, filter='None')
+2025-05-17 17:46:58 [ERROR  ] [src.core.engine     ] [_process_packet_core_logic:125] Critical error in _determine_packet_type_and_analyze for packet: 'NoneType' object has no attribute 'get'
+Traceback (most recent call last):
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 122, in _process_packet_core_logic
+    detailed_analysis_results = self._determine_packet_type_and_analyze(packet)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 182, in _determine_packet_type_and_analyze
+    analysis_results['ethernet_details'] = self.analyzers["ethernet"].analyze_packet(packet, analysis_results)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\analysis\ieee802_3_analyzer.py", line 146, in analyze_packet
+    "protocol_name": self.ethertype_map.get(ethertype_val, f"Unknown ({hex(ethertype_val)})"),
+                     ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get'
+2025-05-17 17:46:58 [ERROR  ] [src.core.engine     ] [_process_packet_core_logic:125] Critical error in _determine_packet_type_and_analyze for packet: 'NoneType' object has no attribute 'get'
+Traceback (most recent call last):
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 122, in _process_packet_core_logic
+    detailed_analysis_results = self._determine_packet_type_and_analyze(packet)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 182, in _determine_packet_type_and_analyze
+    analysis_results['ethernet_details'] = self.analyzers["ethernet"].analyze_packet(packet, analysis_results)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\analysis\ieee802_3_analyzer.py", line 146, in analyze_packet
+    "protocol_name": self.ethertype_map.get(ethertype_val, f"Unknown ({hex(ethertype_val)})"),
+                     ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get'
+2025-05-17 17:46:58 [ERROR  ] [src.core.engine     ] [_process_packet_core_logic:125] Critical error in _determine_packet_type_and_analyze for packet: 'NoneType' object has no attribute 'get'
+Traceback (most recent call last):
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 122, in _process_packet_core_logic
+    detailed_analysis_results = self._determine_packet_type_and_analyze(packet)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 182, in _determine_packet_type_and_analyze
+    analysis_results['ethernet_details'] = self.analyzers["ethernet"].analyze_packet(packet, analysis_results)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\analysis\ieee802_3_analyzer.py", line 146, in analyze_packet
+    "protocol_name": self.ethertype_map.get(ethertype_val, f"Unknown ({hex(ethertype_val)})"),
+                     ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get'
+2025-05-17 17:46:59 [ERROR  ] [src.core.engine     ] [_process_packet_core_logic:125] Critical error in _determine_packet_type_and_analyze for packet: 'NoneType' object has no attribute 'get'
+Traceback (most recent call last):
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 122, in _process_packet_core_logic
+    detailed_analysis_results = self._determine_packet_type_and_analyze(packet)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 182, in _determine_packet_type_and_analyze
+    analysis_results['ethernet_details'] = self.analyzers["ethernet"].analyze_packet(packet, analysis_results)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\analysis\ieee802_3_analyzer.py", line 146, in analyze_packet
+    "protocol_name": self.ethertype_map.get(ethertype_val, f"Unknown ({hex(ethertype_val)})"),
+                     ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get'
+2025-05-17 17:46:59 [ERROR  ] [src.core.engine     ] [_process_packet_core_logic:125] Critical error in _determine_packet_type_and_analyze for packet: 'NoneType' object has no attribute 'get'
+Traceback (most recent call last):
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 122, in _process_packet_core_logic
+    detailed_analysis_results = self._determine_packet_type_and_analyze(packet)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 182, in _determine_packet_type_and_analyze
+    analysis_results['ethernet_details'] = self.analyzers["ethernet"].analyze_packet(packet, analysis_results)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\analysis\ieee802_3_analyzer.py", line 146, in analyze_packet
+    "protocol_name": self.ethertype_map.get(ethertype_val, f"Unknown ({hex(ethertype_val)})"),
+                     ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get'
+2025-05-17 17:46:59 [ERROR  ] [src.core.engine     ] [_process_packet_core_logic:125] Critical error in _determine_packet_type_and_analyze for packet: 'NoneType' object has no attribute 'get'
+Traceback (most recent call last):
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 122, in _process_packet_core_logic
+    detailed_analysis_results = self._determine_packet_type_and_analyze(packet)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 182, in _determine_packet_type_and_analyze
+    analysis_results['ethernet_details'] = self.analyzers["ethernet"].analyze_packet(packet, analysis_results)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\analysis\ieee802_3_analyzer.py", line 146, in analyze_packet
+    "protocol_name": self.ethertype_map.get(ethertype_val, f"Unknown ({hex(ethertype_val)})"),
+                     ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get'
+2025-05-17 17:46:59 [ERROR  ] [src.core.engine     ] [_process_packet_core_logic:125] Critical error in _determine_packet_type_and_analyze for packet: 'NoneType' object has no attribute 'get'
+Traceback (most recent call last):
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 122, in _process_packet_core_logic
+    detailed_analysis_results = self._determine_packet_type_and_analyze(packet)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 182, in _determine_packet_type_and_analyze
+    analysis_results['ethernet_details'] = self.analyzers["ethernet"].analyze_packet(packet, analysis_results)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\analysis\ieee802_3_analyzer.py", line 146, in analyze_packet
+    "protocol_name": self.ethertype_map.get(ethertype_val, f"Unknown ({hex(ethertype_val)})"),
+                     ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get'
+2025-05-17 17:46:59 [ERROR  ] [src.core.engine     ] [_process_packet_core_logic:125] Critical error in _determine_packet_type_and_analyze for packet: 'NoneType' object has no attribute 'get'
+Traceback (most recent call last):
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 122, in _process_packet_core_logic
+    detailed_analysis_results = self._determine_packet_type_and_analyze(packet)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 182, in _determine_packet_type_and_analyze
+    analysis_results['ethernet_details'] = self.analyzers["ethernet"].analyze_packet(packet, analysis_results)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\analysis\ieee802_3_analyzer.py", line 146, in analyze_packet
+    "protocol_name": self.ethertype_map.get(ethertype_val, f"Unknown ({hex(ethertype_val)})"),
+                     ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get'
+2025-05-17 17:47:02 [ERROR  ] [src.core.engine     ] [_process_packet_core_logic:125] Critical error in _determine_packet_type_and_analyze for packet: 'NoneType' object has no attribute 'get'
+Traceback (most recent call last):
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 122, in _process_packet_core_logic
+    detailed_analysis_results = self._determine_packet_type_and_analyze(packet)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 182, in _determine_packet_type_and_analyze
+    analysis_results['ethernet_details'] = self.analyzers["ethernet"].analyze_packet(packet, analysis_results)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\analysis\ieee802_3_analyzer.py", line 146, in analyze_packet
+    "protocol_name": self.ethertype_map.get(ethertype_val, f"Unknown ({hex(ethertype_val)})"),
+                     ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get'
+2025-05-17 17:47:02 [ERROR  ] [src.core.engine     ] [_process_packet_core_logic:125] Critical error in _determine_packet_type_and_analyze for packet: 'NoneType' object has no attribute 'get'
+Traceback (most recent call last):
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 122, in _process_packet_core_logic
+    detailed_analysis_results = self._determine_packet_type_and_analyze(packet)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 182, in _determine_packet_type_and_analyze
+    analysis_results['ethernet_details'] = self.analyzers["ethernet"].analyze_packet(packet, analysis_results)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\analysis\ieee802_3_analyzer.py", line 146, in analyze_packet
+    "protocol_name": self.ethertype_map.get(ethertype_val, f"Unknown ({hex(ethertype_val)})"),
+                     ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get'
+2025-05-17 17:47:03 [ERROR  ] [src.core.engine     ] [_process_packet_core_logic:125] Critical error in _determine_packet_type_and_analyze for packet: 'NoneType' object has no attribute 'get'
+Traceback (most recent call last):
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 122, in _process_packet_core_logic
+    detailed_analysis_results = self._determine_packet_type_and_analyze(packet)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 182, in _determine_packet_type_and_analyze
+    analysis_results['ethernet_details'] = self.analyzers["ethernet"].analyze_packet(packet, analysis_results)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\analysis\ieee802_3_analyzer.py", line 146, in analyze_packet
+    "protocol_name": self.ethertype_map.get(ethertype_val, f"Unknown ({hex(ethertype_val)})"),
+                     ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get'
+2025-05-17 17:47:03 [ERROR  ] [src.core.engine     ] [_process_packet_core_logic:125] Critical error in _determine_packet_type_and_analyze for packet: 'NoneType' object has no attribute 'get'
+Traceback (most recent call last):
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 122, in _process_packet_core_logic
+    detailed_analysis_results = self._determine_packet_type_and_analyze(packet)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 182, in _determine_packet_type_and_analyze
+    analysis_results['ethernet_details'] = self.analyzers["ethernet"].analyze_packet(packet, analysis_results)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\analysis\ieee802_3_analyzer.py", line 146, in analyze_packet
+    "protocol_name": self.ethertype_map.get(ethertype_val, f"Unknown ({hex(ethertype_val)})"),
+                     ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get'
+2025-05-17 17:47:03 [ERROR  ] [src.core.engine     ] [_process_packet_core_logic:125] Critical error in _determine_packet_type_and_analyze for packet: 'NoneType' object has no attribute 'get'
+Traceback (most recent call last):
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 122, in _process_packet_core_logic
+    detailed_analysis_results = self._determine_packet_type_and_analyze(packet)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 182, in _determine_packet_type_and_analyze
+    analysis_results['ethernet_details'] = self.analyzers["ethernet"].analyze_packet(packet, analysis_results)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\analysis\ieee802_3_analyzer.py", line 146, in analyze_packet
+    "protocol_name": self.ethertype_map.get(ethertype_val, f"Unknown ({hex(ethertype_val)})"),
+                     ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get'
+2025-05-17 17:47:03 [ERROR  ] [src.core.engine     ] [_process_packet_core_logic:125] Critical error in _determine_packet_type_and_analyze for packet: 'NoneType' object has no attribute 'get'
+Traceback (most recent call last):
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 122, in _process_packet_core_logic
+    detailed_analysis_results = self._determine_packet_type_and_analyze(packet)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 182, in _determine_packet_type_and_analyze
+    analysis_results['ethernet_details'] = self.analyzers["ethernet"].analyze_packet(packet, analysis_results)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\analysis\ieee802_3_analyzer.py", line 146, in analyze_packet
+    "protocol_name": self.ethertype_map.get(ethertype_val, f"Unknown ({hex(ethertype_val)})"),
+                     ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get'
+2025-05-17 17:47:03 [ERROR  ] [src.core.engine     ] [_process_packet_core_logic:125] Critical error in _determine_packet_type_and_analyze for packet: 'NoneType' object has no attribute 'get'
+Traceback (most recent call last):
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 122, in _process_packet_core_logic
+    detailed_analysis_results = self._determine_packet_type_and_analyze(packet)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 182, in _determine_packet_type_and_analyze
+    analysis_results['ethernet_details'] = self.analyzers["ethernet"].analyze_packet(packet, analysis_results)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\analysis\ieee802_3_analyzer.py", line 146, in analyze_packet
+    "protocol_name": self.ethertype_map.get(ethertype_val, f"Unknown ({hex(ethertype_val)})"),
+                     ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get'
+2025-05-17 17:47:04 [ERROR  ] [src.core.engine     ] [_process_packet_core_logic:125] Critical error in _determine_packet_type_and_analyze for packet: 'NoneType' object has no attribute 'get'
+Traceback (most recent call last):
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 122, in _process_packet_core_logic
+    detailed_analysis_results = self._determine_packet_type_and_analyze(packet)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 182, in _determine_packet_type_and_analyze
+    analysis_results['ethernet_details'] = self.analyzers["ethernet"].analyze_packet(packet, analysis_results)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\analysis\ieee802_3_analyzer.py", line 146, in analyze_packet
+    "protocol_name": self.ethertype_map.get(ethertype_val, f"Unknown ({hex(ethertype_val)})"),
+                     ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get'
+2025-05-17 17:47:04 [ERROR  ] [src.core.engine     ] [_process_packet_core_logic:125] Critical error in _determine_packet_type_and_analyze for packet: 'NoneType' object has no attribute 'get'
+Traceback (most recent call last):
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 122, in _process_packet_core_logic
+    detailed_analysis_results = self._determine_packet_type_and_analyze(packet)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 182, in _determine_packet_type_and_analyze
+    analysis_results['ethernet_details'] = self.analyzers["ethernet"].analyze_packet(packet, analysis_results)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\analysis\ieee802_3_analyzer.py", line 146, in analyze_packet
+    "protocol_name": self.ethertype_map.get(ethertype_val, f"Unknown ({hex(ethertype_val)})"),
+                     ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get'
+2025-05-17 17:47:04 [ERROR  ] [src.core.engine     ] [_process_packet_core_logic:125] Critical error in _determine_packet_type_and_analyze for packet: 'NoneType' object has no attribute 'get'
+Traceback (most recent call last):
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 122, in _process_packet_core_logic
+    detailed_analysis_results = self._determine_packet_type_and_analyze(packet)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\core\engine.py", line 182, in _determine_packet_type_and_analyze
+    analysis_results['ethernet_details'] = self.analyzers["ethernet"].analyze_packet(packet, analysis_results)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\juanc\Documents\Proyectos Personales\networking_tester\src\analysis\ieee802_3_analyzer.py", line 146, in analyze_packet
+    "protocol_name": self.ethertype_map.get(ethertype_val, f"Unknown ({hex(ethertype_val)})"),
+                     ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'get'
+2025-05-17 17:47:04 [INFO   ] [src.capture.frame_capture] [start_capture:51] Synchronous capture finished on Ethernet 2.
+2025-05-17 17:47:04 [INFO   ] [src.core.engine     ] [run_live_capture:217] Writing 20 captured packets to c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test1.pcap
+2025-05-17 17:47:04 [INFO   ] [src.capture.frame_capture] [write_pcap:89] Writing 20 packets to c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test1.pcap
+2025-05-17 17:47:04 [INFO   ] [src.capture.frame_capture] [write_pcap:91] Successfully wrote packets to c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test1.pcap
+2025-05-17 17:47:04 [INFO   ] [src.capture.frame_capture] [write_pcap:96] PCAP file c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test1.pcap size: 2087 bytes.
+2025-05-17 17:47:04 [INFO   ] [src.core.engine     ] [run_live_capture:222] Live capture run finished.
+2025-05-17 17:47:04 [INFO   ] [src.core.engine     ] [_finalize_run:244] Finalizing run...
+2025-05-17 17:47:04 [INFO   ] [src.reporting.report_generator] [generate_report:63] Report generated and saved to C:\Users\juanc\Documents\Proyectos Personales\networking_tester\reports\capture_report_20250517_174704.json
+2025-05-17 17:47:04 [INFO   ] [src.core.engine     ] [_finalize_run:258] Final Statistics (also included in reports):
+2025-05-17 17:47:04 [INFO   ] [src.core.engine     ] [_finalize_run:260]   total_packets: 20
+2025-05-17 17:47:04 [INFO   ] [src.core.engine     ] [_finalize_run:260]   start_time: 2025-05-17T17:46:55.293875
+2025-05-17 17:47:04 [INFO   ] [src.core.engine     ] [_finalize_run:260]   end_time: 2025-05-17T17:47:04.162094
+2025-05-17 17:47:04 [INFO   ] [src.core.engine     ] [_finalize_run:260]   duration_seconds: 8.868219
+2025-05-17 17:47:04 [INFO   ] [src.core.engine     ] [_finalize_run:260]   packets_per_second: 2.26
+2025-05-17 17:47:04 [INFO   ] [src.core.engine     ] [_finalize_run:260]   protocol_distribution:
+2025-05-17 17:47:04 [INFO   ] [src.core.engine     ] [_finalize_run:263]     OTHER: 20
+2025-05-17 17:47:04 [INFO   ] [src.core.engine     ] [_finalize_run:260]   packet_type_distribution:
+2025-05-17 17:47:04 [INFO   ] [src.core.engine     ] [_finalize_run:263]     Other: 2
+2025-05-17 17:47:04 [INFO   ] [src.core.engine     ] [_finalize_run:263]     Ethernet: 18
+2025-05-17 17:47:04 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_source_ips:
+2025-05-17 17:47:04 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_destination_ips:
+2025-05-17 17:47:04 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_source_ports:
+2025-05-17 17:47:04 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_destination_ports:
+2025-05-17 17:47:04 [INFO   ] [src.core.engine     ] [_finalize_run:260]   error_count: 20
+2025-05-17 17:50:21 [INFO   ] [src.core.engine     ] [shutdown:489] Shutting down Analysis Engine...
+2025-05-17 17:50:21 [INFO   ] [src.core.engine     ] [shutdown:501] Analysis Engine shut down successfully.
+2025-05-17 17:50:21 [INFO   ] [src.ui.menu_handler ] [run_main_loop:420] Networking Tester finished.
+2025-05-17 17:50:25 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-17 17:50:25 [INFO   ] [src.core.engine     ] [__init__:32] Initializing AnalysisEngine...
+2025-05-17 17:50:25 [WARNING] [src.analysis.ieee802_3_analyzer] [__init__:35] 'analysis.ethertype_map' is null in config, using default ethertype map.
+2025-05-17 17:50:25 [INFO   ] [src.core.engine     ] [_load_analyzers:82] Loaded 5 standard analyzers: ['ProtocolAnalyzer', 'IEEE802_11_Analyzer', 'IEEE802_3_Analyzer', 'FlowAnalyzer', 'RuleBasedAnomalyDetector']
+2025-05-17 17:50:25 [INFO   ] [src.storage.database_handler] [__init__:26] DatabaseHandler is disabled by configuration.
+2025-05-17 17:50:25 [INFO   ] [src.ai_monitoring.feature_extractor] [__init__:17] PacketFeatureExtractor initialized.
+2025-05-17 17:50:25 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [__init__:60] QoSMLAnalyzer initialized.
+2025-05-17 17:50:25 [INFO   ] [src.ai_monitoring.performance_analyzer_ml] [__init__:22] PerformanceMLAnalyzer initialized.
+2025-05-17 17:50:25 [WARNING] [src.ai_monitoring.anomaly_detector] [__init__:28] AnomalyDetector: Model path 'None' not provided or not found. Anomaly detection will not be performed unless a model is loaded or trained.
+2025-05-17 17:50:25 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib
+2025-05-17 17:50:25 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-17 17:50:25 [INFO   ] [src.core.engine     ] [_load_ai_model:97] AI Anomaly Detection model and scaler loaded from C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib and C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-17 17:50:55 [INFO   ] [src.ui.menu_handler ] [handle_live_capture:188] Capture will be saved to: c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap
+2025-05-17 17:50:55 [INFO   ] [src.ui.menu_handler ] [handle_live_capture:190] Starting live capture on interface: Ethernet 2
+2025-05-17 17:50:55 [INFO   ] [src.core.engine     ] [run_live_capture:199] Starting live capture run: interface=Ethernet 2, count=20, timeout=None, filter='None', write_to='c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap'
+2025-05-17 17:50:55 [INFO   ] [src.capture.frame_capture] [start_capture:42] Starting synchronous capture on interface Ethernet 2 (count=20, timeout=None, filter='None')
+2025-05-17 17:50:57 [INFO   ] [src.capture.frame_capture] [start_capture:51] Synchronous capture finished on Ethernet 2.
+2025-05-17 17:50:57 [INFO   ] [src.core.engine     ] [run_live_capture:217] Writing 20 captured packets to c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap
+2025-05-17 17:50:57 [INFO   ] [src.capture.frame_capture] [write_pcap:89] Writing 20 packets to c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap
+2025-05-17 17:50:57 [INFO   ] [src.capture.frame_capture] [write_pcap:91] Successfully wrote packets to c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap
+2025-05-17 17:50:57 [INFO   ] [src.capture.frame_capture] [write_pcap:96] PCAP file c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap size: 10298 bytes.
+2025-05-17 17:50:57 [INFO   ] [src.core.engine     ] [run_live_capture:222] Live capture run finished.
+2025-05-17 17:50:57 [INFO   ] [src.core.engine     ] [_finalize_run:244] Finalizing run...
+2025-05-17 17:50:57 [INFO   ] [src.reporting.report_generator] [generate_report:63] Report generated and saved to C:\Users\juanc\Documents\Proyectos Personales\networking_tester\reports\capture_report_20250517_175057.json
+2025-05-17 17:50:57 [INFO   ] [src.core.engine     ] [_finalize_run:258] Final Statistics (also included in reports):
+2025-05-17 17:50:57 [INFO   ] [src.core.engine     ] [_finalize_run:260]   total_packets: 20
+2025-05-17 17:50:57 [INFO   ] [src.core.engine     ] [_finalize_run:260]   start_time: 2025-05-17T17:50:57.139406
+2025-05-17 17:50:57 [INFO   ] [src.core.engine     ] [_finalize_run:260]   end_time: 2025-05-17T17:50:57.564302
+2025-05-17 17:50:57 [INFO   ] [src.core.engine     ] [_finalize_run:260]   duration_seconds: 0.424896
+2025-05-17 17:50:57 [INFO   ] [src.core.engine     ] [_finalize_run:260]   packets_per_second: 47.07
+2025-05-17 17:50:57 [INFO   ] [src.core.engine     ] [_finalize_run:260]   protocol_distribution:
+2025-05-17 17:50:57 [INFO   ] [src.core.engine     ] [_finalize_run:263]     UDP: 2
+2025-05-17 17:50:57 [INFO   ] [src.core.engine     ] [_finalize_run:263]     TCP: 18
+2025-05-17 17:50:57 [INFO   ] [src.core.engine     ] [_finalize_run:260]   packet_type_distribution:
+2025-05-17 17:50:57 [INFO   ] [src.core.engine     ] [_finalize_run:263]     Ethernet: 20
+2025-05-17 17:50:57 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_source_ips:
+2025-05-17 17:50:57 [INFO   ] [src.core.engine     ] [_finalize_run:263]     192.168.0.5: 11
+2025-05-17 17:50:57 [INFO   ] [src.core.engine     ] [_finalize_run:263]     52.182.143.208: 8
+2025-05-17 17:50:57 [INFO   ] [src.core.engine     ] [_finalize_run:263]     192.168.0.1: 1
+2025-05-17 17:50:57 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_destination_ips:
+2025-05-17 17:50:57 [INFO   ] [src.core.engine     ] [_finalize_run:263]     52.182.143.208: 10
+2025-05-17 17:50:57 [INFO   ] [src.core.engine     ] [_finalize_run:263]     192.168.0.5: 9
+2025-05-17 17:50:57 [INFO   ] [src.core.engine     ] [_finalize_run:263]     192.168.0.1: 1
+2025-05-17 17:50:57 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_source_ports:
+2025-05-17 17:50:57 [INFO   ] [src.core.engine     ] [_finalize_run:263]     52983: 10
+2025-05-17 17:50:57 [INFO   ] [src.core.engine     ] [_finalize_run:263]     443: 8
+2025-05-17 17:50:57 [INFO   ] [src.core.engine     ] [_finalize_run:263]     65142: 1
+2025-05-17 17:50:57 [INFO   ] [src.core.engine     ] [_finalize_run:263]     53: 1
+2025-05-17 17:50:57 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_destination_ports:
+2025-05-17 17:50:57 [INFO   ] [src.core.engine     ] [_finalize_run:263]     443: 10
+2025-05-17 17:50:57 [INFO   ] [src.core.engine     ] [_finalize_run:263]     52983: 8
+2025-05-17 17:50:57 [INFO   ] [src.core.engine     ] [_finalize_run:263]     53: 1
+2025-05-17 17:50:57 [INFO   ] [src.core.engine     ] [_finalize_run:263]     65142: 1
+2025-05-17 17:50:57 [INFO   ] [src.core.engine     ] [_finalize_run:260]   error_count: 0
+2025-05-17 17:53:50 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:288] Starting AI analysis on 20 processed packets' original data.
+2025-05-17 17:53:50 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:296] Extracting features from 20 packets for AI...
+2025-05-17 17:53:50 [INFO   ] [src.ai_monitoring.feature_extractor] [extract_features_to_dataframe:221] Extracted features for 20 packets. DataFrame shape: (20, 51)
+2025-05-17 17:53:50 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:304] AI Feature extraction complete. Shape: (20, 51)
+2025-05-17 17:53:50 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [analyze_qos_features:112] Performed QoS analysis on 20 samples.
+2025-05-17 17:53:50 [INFO   ] [src.ai_monitoring.performance_analyzer_ml] [analyze_performance_features:88] Performed basic performance feature analysis on 20 samples.
+2025-05-17 17:53:50 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:408] AI analysis on session data completed and results structured.
+2025-05-17 17:54:15 [INFO   ] [src.ui.menu_handler ] [handle_user_choice:357] Attempting to use PCAP from default location for training: c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap
+2025-05-17 17:54:15 [INFO   ] [src.core.engine     ] [train_ai_anomaly_model:433] Starting AI anomaly model training process...
+2025-05-17 17:54:15 [INFO   ] [src.core.engine     ] [_read_packets_for_training:424] Reading packets directly using rdpcap from c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap for training.
+2025-05-17 17:54:15 [INFO   ] [src.core.engine     ] [train_ai_anomaly_model:463] Extracting features from 20 packets for training.
+2025-05-17 17:54:15 [INFO   ] [src.ai_monitoring.feature_extractor] [extract_features_to_dataframe:221] Extracted features for 20 packets. DataFrame shape: (20, 51)
+2025-05-17 17:54:15 [INFO   ] [src.ai_monitoring.anomaly_detector] [train_model:163] Training anomaly detector model...
+2025-05-17 17:54:15 [INFO   ] [src.ai_monitoring.anomaly_detector] [train_model:168] AnomalyDetector model training completed.
+2025-05-17 17:54:15 [INFO   ] [src.ai_monitoring.anomaly_detector] [train_model:176] Model saved to: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib
+2025-05-17 17:54:15 [INFO   ] [src.ai_monitoring.anomaly_detector] [train_model:182] Scaler saved to: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-17 17:54:15 [INFO   ] [src.core.engine     ] [train_ai_anomaly_model:477] AI Anomaly Detector trained successfully.
+2025-05-17 17:55:17 [INFO   ] [src.ui.menu_handler ] [handle_pcap_analysis:235] Attempting to read PCAP from default location: c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap
+2025-05-17 17:55:17 [INFO   ] [src.ui.menu_handler ] [handle_pcap_analysis:243] Analyzing PCAP file: c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap
+2025-05-17 17:55:17 [INFO   ] [src.core.engine     ] [run_from_pcap:226] Starting PCAP file run: c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap
+2025-05-17 17:55:17 [INFO   ] [src.capture.frame_capture] [read_pcap:58] Reading packets from c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap
+2025-05-17 17:55:17 [INFO   ] [src.capture.frame_capture] [read_pcap:70] Read and processed 20 packets from c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap
+2025-05-17 17:55:17 [INFO   ] [src.core.engine     ] [run_from_pcap:239] PCAP file run finished for c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap.
+2025-05-17 17:55:17 [INFO   ] [src.core.engine     ] [_finalize_run:244] Finalizing run...
+2025-05-17 17:55:17 [INFO   ] [src.reporting.report_generator] [generate_report:63] Report generated and saved to C:\Users\juanc\Documents\Proyectos Personales\networking_tester\reports\capture_report_20250517_175517.json
+2025-05-17 17:55:17 [INFO   ] [src.core.engine     ] [_finalize_run:258] Final Statistics (also included in reports):
+2025-05-17 17:55:17 [INFO   ] [src.core.engine     ] [_finalize_run:260]   total_packets: 20
+2025-05-17 17:55:17 [INFO   ] [src.core.engine     ] [_finalize_run:260]   start_time: 2025-05-17T17:55:17.270063
+2025-05-17 17:55:17 [INFO   ] [src.core.engine     ] [_finalize_run:260]   end_time: 2025-05-17T17:55:17.274554
+2025-05-17 17:55:17 [INFO   ] [src.core.engine     ] [_finalize_run:260]   duration_seconds: 0.004491
+2025-05-17 17:55:17 [INFO   ] [src.core.engine     ] [_finalize_run:260]   packets_per_second: 4453.35
+2025-05-17 17:55:17 [INFO   ] [src.core.engine     ] [_finalize_run:260]   protocol_distribution:
+2025-05-17 17:55:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     UDP: 2
+2025-05-17 17:55:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     TCP: 18
+2025-05-17 17:55:17 [INFO   ] [src.core.engine     ] [_finalize_run:260]   packet_type_distribution:
+2025-05-17 17:55:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     Ethernet: 20
+2025-05-17 17:55:17 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_source_ips:
+2025-05-17 17:55:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     192.168.0.5: 11
+2025-05-17 17:55:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     52.182.143.208: 8
+2025-05-17 17:55:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     192.168.0.1: 1
+2025-05-17 17:55:17 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_destination_ips:
+2025-05-17 17:55:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     52.182.143.208: 10
+2025-05-17 17:55:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     192.168.0.5: 9
+2025-05-17 17:55:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     192.168.0.1: 1
+2025-05-17 17:55:17 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_source_ports:
+2025-05-17 17:55:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     52983: 10
+2025-05-17 17:55:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     443: 8
+2025-05-17 17:55:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     65142: 1
+2025-05-17 17:55:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     53: 1
+2025-05-17 17:55:17 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_destination_ports:
+2025-05-17 17:55:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     443: 10
+2025-05-17 17:55:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     52983: 8
+2025-05-17 17:55:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     53: 1
+2025-05-17 17:55:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     65142: 1
+2025-05-17 17:55:17 [INFO   ] [src.core.engine     ] [_finalize_run:260]   error_count: 0
+2025-05-17 17:55:56 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:288] Starting AI analysis on 20 processed packets' original data.
+2025-05-17 17:55:56 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:296] Extracting features from 20 packets for AI...
+2025-05-17 17:55:56 [INFO   ] [src.ai_monitoring.feature_extractor] [extract_features_to_dataframe:221] Extracted features for 20 packets. DataFrame shape: (20, 51)
+2025-05-17 17:55:56 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:304] AI Feature extraction complete. Shape: (20, 51)
+2025-05-17 17:55:56 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [analyze_qos_features:112] Performed QoS analysis on 20 samples.
+2025-05-17 17:55:56 [INFO   ] [src.ai_monitoring.performance_analyzer_ml] [analyze_performance_features:88] Performed basic performance feature analysis on 20 samples.
+2025-05-17 17:55:56 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:408] AI analysis on session data completed and results structured.
+2025-05-17 18:02:42 [INFO   ] [src.core.engine     ] [shutdown:489] Shutting down Analysis Engine...
+2025-05-17 18:02:42 [INFO   ] [src.core.engine     ] [shutdown:501] Analysis Engine shut down successfully.
+2025-05-17 18:02:42 [INFO   ] [src.ui.menu_handler ] [run_main_loop:420] Networking Tester finished.
+2025-05-17 18:02:53 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-17 18:02:53 [INFO   ] [src.core.engine     ] [__init__:32] Initializing AnalysisEngine...
+2025-05-17 18:02:53 [WARNING] [src.analysis.ieee802_3_analyzer] [__init__:35] 'analysis.ethertype_map' is null in config, using default ethertype map.
+2025-05-17 18:02:53 [INFO   ] [src.core.engine     ] [_load_analyzers:82] Loaded 5 standard analyzers: ['ProtocolAnalyzer', 'IEEE802_11_Analyzer', 'IEEE802_3_Analyzer', 'FlowAnalyzer', 'RuleBasedAnomalyDetector']
+2025-05-17 18:02:53 [INFO   ] [src.storage.database_handler] [__init__:26] DatabaseHandler is disabled by configuration.
+2025-05-17 18:02:53 [INFO   ] [src.ai_monitoring.feature_extractor] [__init__:17] PacketFeatureExtractor initialized.
+2025-05-17 18:02:53 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [__init__:60] QoSMLAnalyzer initialized.
+2025-05-17 18:02:53 [INFO   ] [src.ai_monitoring.performance_analyzer_ml] [__init__:22] PerformanceMLAnalyzer initialized.
+2025-05-17 18:02:53 [WARNING] [src.ai_monitoring.anomaly_detector] [__init__:28] AnomalyDetector: Model path 'None' not provided or not found. Anomaly detection will not be performed unless a model is loaded or trained.
+2025-05-17 18:02:53 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib
+2025-05-17 18:02:53 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-17 18:02:53 [INFO   ] [src.core.engine     ] [_load_ai_model:97] AI Anomaly Detection model and scaler loaded from C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib and C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-17 18:03:05 [INFO   ] [src.ui.menu_handler ] [handle_user_choice:255] Menu handler received choice: '2'
+2025-05-17 18:03:17 [INFO   ] [src.ui.menu_handler ] [handle_pcap_analysis:235] Attempting to read PCAP from default location: c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap
+2025-05-17 18:03:17 [INFO   ] [src.ui.menu_handler ] [handle_pcap_analysis:243] Analyzing PCAP file: c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap
+2025-05-17 18:03:17 [INFO   ] [src.core.engine     ] [run_from_pcap:226] Starting PCAP file run: c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap
+2025-05-17 18:03:17 [INFO   ] [src.capture.frame_capture] [read_pcap:58] Reading packets from c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap
+2025-05-17 18:03:17 [INFO   ] [src.capture.frame_capture] [read_pcap:70] Read and processed 20 packets from c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap
+2025-05-17 18:03:17 [INFO   ] [src.core.engine     ] [run_from_pcap:239] PCAP file run finished for c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap.
+2025-05-17 18:03:17 [INFO   ] [src.core.engine     ] [_finalize_run:244] Finalizing run...
+2025-05-17 18:03:17 [INFO   ] [src.reporting.report_generator] [generate_report:63] Report generated and saved to C:\Users\juanc\Documents\Proyectos Personales\networking_tester\reports\capture_report_20250517_180317.json
+2025-05-17 18:03:17 [INFO   ] [src.core.engine     ] [_finalize_run:258] Final Statistics (also included in reports):
+2025-05-17 18:03:17 [INFO   ] [src.core.engine     ] [_finalize_run:260]   total_packets: 20
+2025-05-17 18:03:17 [INFO   ] [src.core.engine     ] [_finalize_run:260]   start_time: 2025-05-17T18:03:17.669897
+2025-05-17 18:03:17 [INFO   ] [src.core.engine     ] [_finalize_run:260]   end_time: 2025-05-17T18:03:17.674777
+2025-05-17 18:03:17 [INFO   ] [src.core.engine     ] [_finalize_run:260]   duration_seconds: 0.00488
+2025-05-17 18:03:17 [INFO   ] [src.core.engine     ] [_finalize_run:260]   packets_per_second: 4098.36
+2025-05-17 18:03:17 [INFO   ] [src.core.engine     ] [_finalize_run:260]   protocol_distribution:
+2025-05-17 18:03:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     UDP: 2
+2025-05-17 18:03:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     TCP: 18
+2025-05-17 18:03:17 [INFO   ] [src.core.engine     ] [_finalize_run:260]   packet_type_distribution:
+2025-05-17 18:03:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     Ethernet: 20
+2025-05-17 18:03:17 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_source_ips:
+2025-05-17 18:03:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     192.168.0.5: 11
+2025-05-17 18:03:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     52.182.143.208: 8
+2025-05-17 18:03:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     192.168.0.1: 1
+2025-05-17 18:03:17 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_destination_ips:
+2025-05-17 18:03:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     52.182.143.208: 10
+2025-05-17 18:03:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     192.168.0.5: 9
+2025-05-17 18:03:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     192.168.0.1: 1
+2025-05-17 18:03:17 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_source_ports:
+2025-05-17 18:03:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     52983: 10
+2025-05-17 18:03:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     443: 8
+2025-05-17 18:03:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     65142: 1
+2025-05-17 18:03:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     53: 1
+2025-05-17 18:03:17 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_destination_ports:
+2025-05-17 18:03:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     443: 10
+2025-05-17 18:03:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     52983: 8
+2025-05-17 18:03:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     53: 1
+2025-05-17 18:03:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     65142: 1
+2025-05-17 18:03:17 [INFO   ] [src.core.engine     ] [_finalize_run:260]   error_count: 0
+2025-05-17 18:03:22 [INFO   ] [src.ui.menu_handler ] [handle_user_choice:255] Menu handler received choice: '6'
+2025-05-17 18:03:22 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:288] Starting AI analysis on 20 processed packets' original data.
+2025-05-17 18:03:22 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:296] Extracting features from 20 packets for AI...
+2025-05-17 18:03:22 [INFO   ] [src.ai_monitoring.feature_extractor] [extract_features_to_dataframe:221] Extracted features for 20 packets. DataFrame shape: (20, 51)
+2025-05-17 18:03:22 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:304] AI Feature extraction complete. Shape: (20, 51)
+2025-05-17 18:03:22 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [analyze_qos_features:112] Performed QoS analysis on 20 samples.
+2025-05-17 18:03:22 [INFO   ] [src.ai_monitoring.performance_analyzer_ml] [analyze_performance_features:88] Performed basic performance feature analysis on 20 samples.
+2025-05-17 18:03:22 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:408] AI analysis on session data completed and results structured.
+2025-05-17 18:03:53 [INFO   ] [src.ui.menu_handler ] [handle_user_choice:255] Menu handler received choice: '5'
+2025-05-17 18:03:53 [INFO   ] [src.core.engine     ] [shutdown:489] Shutting down Analysis Engine...
+2025-05-17 18:03:53 [INFO   ] [src.core.engine     ] [shutdown:501] Analysis Engine shut down successfully.
+2025-05-17 18:03:53 [INFO   ] [src.ui.menu_handler ] [run_main_loop:441] Networking Tester finished.
+2025-05-17 18:05:12 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-17 18:05:12 [INFO   ] [src.core.engine     ] [__init__:32] Initializing AnalysisEngine...
+2025-05-17 18:05:12 [WARNING] [src.analysis.ieee802_3_analyzer] [__init__:35] 'analysis.ethertype_map' is null in config, using default ethertype map.
+2025-05-17 18:05:12 [INFO   ] [src.core.engine     ] [_load_analyzers:82] Loaded 5 standard analyzers: ['ProtocolAnalyzer', 'IEEE802_11_Analyzer', 'IEEE802_3_Analyzer', 'FlowAnalyzer', 'RuleBasedAnomalyDetector']
+2025-05-17 18:05:12 [INFO   ] [src.storage.database_handler] [__init__:26] DatabaseHandler is disabled by configuration.
+2025-05-17 18:05:12 [INFO   ] [src.ai_monitoring.feature_extractor] [__init__:17] PacketFeatureExtractor initialized.
+2025-05-17 18:05:12 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [__init__:60] QoSMLAnalyzer initialized.
+2025-05-17 18:05:12 [INFO   ] [src.ai_monitoring.performance_analyzer_ml] [__init__:22] PerformanceMLAnalyzer initialized.
+2025-05-17 18:05:12 [WARNING] [src.ai_monitoring.anomaly_detector] [__init__:28] AnomalyDetector: Model path 'None' not provided or not found. Anomaly detection will not be performed unless a model is loaded or trained.
+2025-05-17 18:05:12 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib
+2025-05-17 18:05:12 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-17 18:05:12 [INFO   ] [src.core.engine     ] [_load_ai_model:97] AI Anomaly Detection model and scaler loaded from C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib and C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-17 18:05:15 [INFO   ] [src.ui.menu_handler ] [handle_user_choice:255] Menu handler received choice: '2'
+2025-05-17 18:05:17 [INFO   ] [src.ui.menu_handler ] [handle_pcap_analysis:235] Attempting to read PCAP from default location: c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap
+2025-05-17 18:05:17 [INFO   ] [src.ui.menu_handler ] [handle_pcap_analysis:243] Analyzing PCAP file: c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap
+2025-05-17 18:05:17 [INFO   ] [src.core.engine     ] [run_from_pcap:226] Starting PCAP file run: c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap
+2025-05-17 18:05:17 [INFO   ] [src.capture.frame_capture] [read_pcap:58] Reading packets from c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap
+2025-05-17 18:05:17 [INFO   ] [src.capture.frame_capture] [read_pcap:70] Read and processed 20 packets from c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap
+2025-05-17 18:05:17 [INFO   ] [src.core.engine     ] [run_from_pcap:239] PCAP file run finished for c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap.
+2025-05-17 18:05:17 [INFO   ] [src.core.engine     ] [_finalize_run:244] Finalizing run...
+2025-05-17 18:05:17 [INFO   ] [src.reporting.report_generator] [generate_report:63] Report generated and saved to C:\Users\juanc\Documents\Proyectos Personales\networking_tester\reports\capture_report_20250517_180517.json
+2025-05-17 18:05:17 [INFO   ] [src.core.engine     ] [_finalize_run:258] Final Statistics (also included in reports):
+2025-05-17 18:05:17 [INFO   ] [src.core.engine     ] [_finalize_run:260]   total_packets: 20
+2025-05-17 18:05:17 [INFO   ] [src.core.engine     ] [_finalize_run:260]   start_time: 2025-05-17T18:05:17.939206
+2025-05-17 18:05:17 [INFO   ] [src.core.engine     ] [_finalize_run:260]   end_time: 2025-05-17T18:05:17.943912
+2025-05-17 18:05:17 [INFO   ] [src.core.engine     ] [_finalize_run:260]   duration_seconds: 0.004706
+2025-05-17 18:05:17 [INFO   ] [src.core.engine     ] [_finalize_run:260]   packets_per_second: 4249.89
+2025-05-17 18:05:17 [INFO   ] [src.core.engine     ] [_finalize_run:260]   protocol_distribution:
+2025-05-17 18:05:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     UDP: 2
+2025-05-17 18:05:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     TCP: 18
+2025-05-17 18:05:17 [INFO   ] [src.core.engine     ] [_finalize_run:260]   packet_type_distribution:
+2025-05-17 18:05:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     Ethernet: 20
+2025-05-17 18:05:17 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_source_ips:
+2025-05-17 18:05:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     192.168.0.5: 11
+2025-05-17 18:05:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     52.182.143.208: 8
+2025-05-17 18:05:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     192.168.0.1: 1
+2025-05-17 18:05:17 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_destination_ips:
+2025-05-17 18:05:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     52.182.143.208: 10
+2025-05-17 18:05:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     192.168.0.5: 9
+2025-05-17 18:05:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     192.168.0.1: 1
+2025-05-17 18:05:17 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_source_ports:
+2025-05-17 18:05:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     52983: 10
+2025-05-17 18:05:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     443: 8
+2025-05-17 18:05:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     65142: 1
+2025-05-17 18:05:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     53: 1
+2025-05-17 18:05:17 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_destination_ports:
+2025-05-17 18:05:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     443: 10
+2025-05-17 18:05:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     52983: 8
+2025-05-17 18:05:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     53: 1
+2025-05-17 18:05:17 [INFO   ] [src.core.engine     ] [_finalize_run:263]     65142: 1
+2025-05-17 18:05:17 [INFO   ] [src.core.engine     ] [_finalize_run:260]   error_count: 0
+2025-05-17 18:05:22 [INFO   ] [src.ui.menu_handler ] [handle_user_choice:255] Menu handler received choice: '6'
+2025-05-17 18:05:22 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:288] Starting AI analysis on 20 processed packets' original data.
+2025-05-17 18:05:22 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:296] Extracting features from 20 packets for AI...
+2025-05-17 18:05:22 [INFO   ] [src.ai_monitoring.feature_extractor] [extract_features_to_dataframe:221] Extracted features for 20 packets. DataFrame shape: (20, 51)
+2025-05-17 18:05:22 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:304] AI Feature extraction complete. Shape: (20, 51)
+2025-05-17 18:05:22 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [analyze_qos_features:112] Performed QoS analysis on 20 samples.
+2025-05-17 18:05:22 [INFO   ] [src.ai_monitoring.performance_analyzer_ml] [analyze_performance_features:88] Performed basic performance feature analysis on 20 samples.
+2025-05-17 18:05:22 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:408] AI analysis on session data completed and results structured.
+2025-05-17 18:12:07 [INFO   ] [src.ui.menu_handler ] [handle_user_choice:255] Menu handler received choice: '5'
+2025-05-17 18:12:07 [INFO   ] [src.core.engine     ] [shutdown:489] Shutting down Analysis Engine...
+2025-05-17 18:12:07 [INFO   ] [src.core.engine     ] [shutdown:501] Analysis Engine shut down successfully.
+2025-05-17 18:12:07 [INFO   ] [src.ui.menu_handler ] [run_main_loop:442] Networking Tester finished.
+2025-05-17 18:12:10 [INFO   ] [networking_tester   ] [setup_logging:59] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-17 18:12:10 [INFO   ] [src.core.engine     ] [__init__:32] Initializing AnalysisEngine...
+2025-05-17 18:12:10 [WARNING] [src.analysis.ieee802_3_analyzer] [__init__:35] 'analysis.ethertype_map' is null in config, using default ethertype map.
+2025-05-17 18:12:10 [INFO   ] [src.core.engine     ] [_load_analyzers:82] Loaded 5 standard analyzers: ['ProtocolAnalyzer', 'IEEE802_11_Analyzer', 'IEEE802_3_Analyzer', 'FlowAnalyzer', 'RuleBasedAnomalyDetector']
+2025-05-17 18:12:10 [INFO   ] [src.storage.database_handler] [__init__:26] DatabaseHandler is disabled by configuration.
+2025-05-17 18:12:10 [INFO   ] [src.ai_monitoring.feature_extractor] [__init__:17] PacketFeatureExtractor initialized.
+2025-05-17 18:12:10 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [__init__:60] QoSMLAnalyzer initialized.
+2025-05-17 18:12:10 [INFO   ] [src.ai_monitoring.performance_analyzer_ml] [__init__:22] PerformanceMLAnalyzer initialized.
+2025-05-17 18:12:10 [WARNING] [src.ai_monitoring.anomaly_detector] [__init__:28] AnomalyDetector: Model path 'None' not provided or not found. Anomaly detection will not be performed unless a model is loaded or trained.
+2025-05-17 18:12:10 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib
+2025-05-17 18:12:10 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-17 18:12:10 [INFO   ] [src.core.engine     ] [_load_ai_model:97] AI Anomaly Detection model and scaler loaded from C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib and C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-17 18:12:16 [INFO   ] [src.ui.menu_handler ] [handle_user_choice:255] Menu handler received choice: '2'
+2025-05-17 18:12:35 [INFO   ] [src.ui.menu_handler ] [handle_pcap_analysis:235] Attempting to read PCAP from default location: c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap
+2025-05-17 18:12:35 [INFO   ] [src.ui.menu_handler ] [handle_pcap_analysis:243] Analyzing PCAP file: c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap
+2025-05-17 18:12:35 [INFO   ] [src.core.engine     ] [run_from_pcap:226] Starting PCAP file run: c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap
+2025-05-17 18:12:35 [INFO   ] [src.capture.frame_capture] [read_pcap:58] Reading packets from c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap
+2025-05-17 18:12:35 [INFO   ] [src.capture.frame_capture] [read_pcap:70] Read and processed 20 packets from c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap
+2025-05-17 18:12:35 [INFO   ] [src.core.engine     ] [run_from_pcap:239] PCAP file run finished for c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap.
+2025-05-17 18:12:35 [INFO   ] [src.core.engine     ] [_finalize_run:244] Finalizing run...
+2025-05-17 18:12:35 [INFO   ] [src.reporting.report_generator] [generate_report:63] Report generated and saved to C:\Users\juanc\Documents\Proyectos Personales\networking_tester\reports\capture_report_20250517_181235.json
+2025-05-17 18:12:35 [INFO   ] [src.core.engine     ] [_finalize_run:258] Final Statistics (also included in reports):
+2025-05-17 18:12:35 [INFO   ] [src.core.engine     ] [_finalize_run:260]   total_packets: 20
+2025-05-17 18:12:35 [INFO   ] [src.core.engine     ] [_finalize_run:260]   start_time: 2025-05-17T18:12:35.106370
+2025-05-17 18:12:35 [INFO   ] [src.core.engine     ] [_finalize_run:260]   end_time: 2025-05-17T18:12:35.112636
+2025-05-17 18:12:35 [INFO   ] [src.core.engine     ] [_finalize_run:260]   duration_seconds: 0.006266
+2025-05-17 18:12:35 [INFO   ] [src.core.engine     ] [_finalize_run:260]   packets_per_second: 3191.83
+2025-05-17 18:12:35 [INFO   ] [src.core.engine     ] [_finalize_run:260]   protocol_distribution:
+2025-05-17 18:12:35 [INFO   ] [src.core.engine     ] [_finalize_run:263]     UDP: 2
+2025-05-17 18:12:35 [INFO   ] [src.core.engine     ] [_finalize_run:263]     TCP: 18
+2025-05-17 18:12:35 [INFO   ] [src.core.engine     ] [_finalize_run:260]   packet_type_distribution:
+2025-05-17 18:12:35 [INFO   ] [src.core.engine     ] [_finalize_run:263]     Ethernet: 20
+2025-05-17 18:12:35 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_source_ips:
+2025-05-17 18:12:35 [INFO   ] [src.core.engine     ] [_finalize_run:263]     192.168.0.5: 11
+2025-05-17 18:12:35 [INFO   ] [src.core.engine     ] [_finalize_run:263]     52.182.143.208: 8
+2025-05-17 18:12:35 [INFO   ] [src.core.engine     ] [_finalize_run:263]     192.168.0.1: 1
+2025-05-17 18:12:35 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_destination_ips:
+2025-05-17 18:12:35 [INFO   ] [src.core.engine     ] [_finalize_run:263]     52.182.143.208: 10
+2025-05-17 18:12:35 [INFO   ] [src.core.engine     ] [_finalize_run:263]     192.168.0.5: 9
+2025-05-17 18:12:35 [INFO   ] [src.core.engine     ] [_finalize_run:263]     192.168.0.1: 1
+2025-05-17 18:12:35 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_source_ports:
+2025-05-17 18:12:35 [INFO   ] [src.core.engine     ] [_finalize_run:263]     52983: 10
+2025-05-17 18:12:35 [INFO   ] [src.core.engine     ] [_finalize_run:263]     443: 8
+2025-05-17 18:12:35 [INFO   ] [src.core.engine     ] [_finalize_run:263]     65142: 1
+2025-05-17 18:12:35 [INFO   ] [src.core.engine     ] [_finalize_run:263]     53: 1
+2025-05-17 18:12:35 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_destination_ports:
+2025-05-17 18:12:35 [INFO   ] [src.core.engine     ] [_finalize_run:263]     443: 10
+2025-05-17 18:12:35 [INFO   ] [src.core.engine     ] [_finalize_run:263]     52983: 8
+2025-05-17 18:12:35 [INFO   ] [src.core.engine     ] [_finalize_run:263]     53: 1
+2025-05-17 18:12:35 [INFO   ] [src.core.engine     ] [_finalize_run:263]     65142: 1
+2025-05-17 18:12:35 [INFO   ] [src.core.engine     ] [_finalize_run:260]   error_count: 0
+2025-05-17 18:12:52 [INFO   ] [src.ui.menu_handler ] [handle_user_choice:255] Menu handler received choice: '6'
+2025-05-17 18:12:52 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:288] Starting AI analysis on 20 processed packets' original data.
+2025-05-17 18:12:52 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:296] Extracting features from 20 packets for AI...
+2025-05-17 18:12:52 [INFO   ] [src.ai_monitoring.feature_extractor] [extract_features_to_dataframe:221] Extracted features for 20 packets. DataFrame shape: (20, 51)
+2025-05-17 18:12:52 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:304] AI Feature extraction complete. Shape: (20, 51)
+2025-05-17 18:12:52 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [analyze_qos_features:112] Performed QoS analysis on 20 samples.
+2025-05-17 18:12:52 [INFO   ] [src.ai_monitoring.performance_analyzer_ml] [analyze_performance_features:88] Performed basic performance feature analysis on 20 samples.
+2025-05-17 18:12:52 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:408] AI analysis on session data completed and results structured.
+2025-05-17 18:14:44 [INFO   ] [src.ui.menu_handler ] [handle_user_choice:255] Menu handler received choice: '5'
+2025-05-17 18:14:44 [INFO   ] [src.core.engine     ] [shutdown:489] Shutting down Analysis Engine...
+2025-05-17 18:14:44 [INFO   ] [src.core.engine     ] [shutdown:501] Analysis Engine shut down successfully.
+2025-05-17 18:14:44 [INFO   ] [src.ui.menu_handler ] [run_main_loop:472] Networking Tester finished.
+2025-05-17 18:20:31 [INFO   ] [networking_tester   ] [setup_logging:64] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-17 18:20:31 [INFO   ] [src.core.engine     ] [__init__:32] Initializing AnalysisEngine...
+2025-05-17 18:20:31 [WARNING] [src.analysis.ieee802_3_analyzer] [__init__:35] 'analysis.ethertype_map' is null in config, using default ethertype map.
+2025-05-17 18:20:31 [INFO   ] [src.core.engine     ] [_load_analyzers:82] Loaded 5 standard analyzers: ['ProtocolAnalyzer', 'IEEE802_11_Analyzer', 'IEEE802_3_Analyzer', 'FlowAnalyzer', 'RuleBasedAnomalyDetector']
+2025-05-17 18:20:31 [INFO   ] [src.storage.database_handler] [__init__:26] DatabaseHandler is disabled by configuration.
+2025-05-17 18:20:31 [INFO   ] [src.ai_monitoring.feature_extractor] [__init__:17] PacketFeatureExtractor initialized.
+2025-05-17 18:20:31 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [__init__:60] QoSMLAnalyzer initialized.
+2025-05-17 18:20:31 [INFO   ] [src.ai_monitoring.performance_analyzer_ml] [__init__:22] PerformanceMLAnalyzer initialized.
+2025-05-17 18:20:31 [WARNING] [src.ai_monitoring.anomaly_detector] [__init__:28] AnomalyDetector: Model path 'None' not provided or not found. Anomaly detection will not be performed unless a model is loaded or trained.
+2025-05-17 18:20:31 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib
+2025-05-17 18:20:31 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-17 18:20:31 [INFO   ] [src.core.engine     ] [_load_ai_model:97] AI Anomaly Detection model and scaler loaded from C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib and C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-17 18:20:58 [INFO   ] [src.ui.menu_handler ] [handle_user_choice:255] Menu handler received choice: '2'
+2025-05-17 18:21:06 [INFO   ] [src.ui.menu_handler ] [handle_pcap_analysis:235] Attempting to read PCAP from default location: c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap
+2025-05-17 18:21:06 [INFO   ] [src.ui.menu_handler ] [handle_pcap_analysis:243] Analyzing PCAP file: c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap
+2025-05-17 18:21:06 [INFO   ] [src.core.engine     ] [run_from_pcap:226] Starting PCAP file run: c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap
+2025-05-17 18:21:06 [INFO   ] [src.capture.frame_capture] [read_pcap:58] Reading packets from c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap
+2025-05-17 18:21:06 [INFO   ] [src.capture.frame_capture] [read_pcap:70] Read and processed 20 packets from c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap
+2025-05-17 18:21:06 [INFO   ] [src.core.engine     ] [run_from_pcap:239] PCAP file run finished for c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test2.pcap.
+2025-05-17 18:21:06 [INFO   ] [src.core.engine     ] [_finalize_run:244] Finalizing run...
+2025-05-17 18:21:06 [INFO   ] [src.reporting.report_generator] [generate_report:63] Report generated and saved to C:\Users\juanc\Documents\Proyectos Personales\networking_tester\reports\capture_report_20250517_182106.json
+2025-05-17 18:21:06 [INFO   ] [src.core.engine     ] [_finalize_run:258] Final Statistics (also included in reports):
+2025-05-17 18:21:06 [INFO   ] [src.core.engine     ] [_finalize_run:260]   total_packets: 20
+2025-05-17 18:21:06 [INFO   ] [src.core.engine     ] [_finalize_run:260]   start_time: 2025-05-17T18:21:06.252999
+2025-05-17 18:21:06 [INFO   ] [src.core.engine     ] [_finalize_run:260]   end_time: 2025-05-17T18:21:06.257784
+2025-05-17 18:21:06 [INFO   ] [src.core.engine     ] [_finalize_run:260]   duration_seconds: 0.004785
+2025-05-17 18:21:06 [INFO   ] [src.core.engine     ] [_finalize_run:260]   packets_per_second: 4179.73
+2025-05-17 18:21:06 [INFO   ] [src.core.engine     ] [_finalize_run:260]   protocol_distribution:
+2025-05-17 18:21:06 [INFO   ] [src.core.engine     ] [_finalize_run:263]     UDP: 2
+2025-05-17 18:21:06 [INFO   ] [src.core.engine     ] [_finalize_run:263]     TCP: 18
+2025-05-17 18:21:06 [INFO   ] [src.core.engine     ] [_finalize_run:260]   packet_type_distribution:
+2025-05-17 18:21:06 [INFO   ] [src.core.engine     ] [_finalize_run:263]     Ethernet: 20
+2025-05-17 18:21:06 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_source_ips:
+2025-05-17 18:21:06 [INFO   ] [src.core.engine     ] [_finalize_run:263]     192.168.0.5: 11
+2025-05-17 18:21:06 [INFO   ] [src.core.engine     ] [_finalize_run:263]     52.182.143.208: 8
+2025-05-17 18:21:06 [INFO   ] [src.core.engine     ] [_finalize_run:263]     192.168.0.1: 1
+2025-05-17 18:21:06 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_destination_ips:
+2025-05-17 18:21:06 [INFO   ] [src.core.engine     ] [_finalize_run:263]     52.182.143.208: 10
+2025-05-17 18:21:06 [INFO   ] [src.core.engine     ] [_finalize_run:263]     192.168.0.5: 9
+2025-05-17 18:21:06 [INFO   ] [src.core.engine     ] [_finalize_run:263]     192.168.0.1: 1
+2025-05-17 18:21:06 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_source_ports:
+2025-05-17 18:21:06 [INFO   ] [src.core.engine     ] [_finalize_run:263]     52983: 10
+2025-05-17 18:21:06 [INFO   ] [src.core.engine     ] [_finalize_run:263]     443: 8
+2025-05-17 18:21:06 [INFO   ] [src.core.engine     ] [_finalize_run:263]     65142: 1
+2025-05-17 18:21:06 [INFO   ] [src.core.engine     ] [_finalize_run:263]     53: 1
+2025-05-17 18:21:06 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_destination_ports:
+2025-05-17 18:21:06 [INFO   ] [src.core.engine     ] [_finalize_run:263]     443: 10
+2025-05-17 18:21:06 [INFO   ] [src.core.engine     ] [_finalize_run:263]     52983: 8
+2025-05-17 18:21:06 [INFO   ] [src.core.engine     ] [_finalize_run:263]     53: 1
+2025-05-17 18:21:06 [INFO   ] [src.core.engine     ] [_finalize_run:263]     65142: 1
+2025-05-17 18:21:06 [INFO   ] [src.core.engine     ] [_finalize_run:260]   error_count: 0
+2025-05-17 18:43:46 [INFO   ] [src.ui.menu_handler ] [handle_user_choice:255] Menu handler received choice: '5'
+2025-05-17 18:43:46 [INFO   ] [src.core.engine     ] [shutdown:489] Shutting down Analysis Engine...
+2025-05-17 18:43:46 [INFO   ] [src.core.engine     ] [shutdown:501] Analysis Engine shut down successfully.
+2025-05-17 18:43:46 [INFO   ] [src.ui.menu_handler ] [run_main_loop:472] Networking Tester finished.
+2025-05-17 18:46:30 [INFO   ] [networking_tester   ] [setup_logging:64] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-17 18:46:30 [INFO   ] [src.core.engine     ] [__init__:32] Initializing AnalysisEngine...
+2025-05-17 18:46:30 [WARNING] [src.analysis.ieee802_3_analyzer] [__init__:35] 'analysis.ethertype_map' is null in config, using default ethertype map.
+2025-05-17 18:46:30 [INFO   ] [src.core.engine     ] [_load_analyzers:82] Loaded 5 standard analyzers: ['ProtocolAnalyzer', 'IEEE802_11_Analyzer', 'IEEE802_3_Analyzer', 'FlowAnalyzer', 'RuleBasedAnomalyDetector']
+2025-05-17 18:46:30 [INFO   ] [src.storage.database_handler] [__init__:26] DatabaseHandler is disabled by configuration.
+2025-05-17 18:46:30 [INFO   ] [src.ai_monitoring.feature_extractor] [__init__:17] PacketFeatureExtractor initialized.
+2025-05-17 18:46:30 [ERROR  ] [src.ai_monitoring.qos_analyzer_ml] [__init__:70] Error loading QoS rules from config: type object 'ConfigManager' has no attribute 'get_setting'
+2025-05-17 18:46:30 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [__init__:83] Using default 'ef_small_packet_concern' rules.
+2025-05-17 18:46:30 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [__init__:96] QoSMLAnalyzer initialized.
+2025-05-17 18:46:30 [ERROR  ] [src.ai_monitoring.performance_analyzer_ml] [__init__:28] Error loading performance rules from config: type object 'ConfigManager' has no attribute 'get_setting'
+2025-05-17 18:46:30 [INFO   ] [src.ai_monitoring.performance_analyzer_ml] [__init__:48] PerformanceMLAnalyzer initialized.
+2025-05-17 18:46:30 [WARNING] [src.ai_monitoring.anomaly_detector] [__init__:28] AnomalyDetector: Model path 'None' not provided or not found. Anomaly detection will not be performed unless a model is loaded or trained.
+2025-05-17 18:46:30 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib
+2025-05-17 18:46:30 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-17 18:46:30 [INFO   ] [src.core.engine     ] [_load_ai_model:97] AI Anomaly Detection model and scaler loaded from C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib and C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-17 18:49:28 [INFO   ] [src.ui.menu_handler ] [handle_user_choice:255] Menu handler received choice: '1'
+2025-05-17 18:53:34 [INFO   ] [src.ui.menu_handler ] [handle_live_capture:188] Capture will be saved to: c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test3.pcap
+2025-05-17 18:53:34 [INFO   ] [src.ui.menu_handler ] [handle_live_capture:190] Starting live capture on interface: Ethernet 2
+2025-05-17 18:53:34 [INFO   ] [src.core.engine     ] [run_live_capture:199] Starting live capture run: interface=Ethernet 2, count=20, timeout=None, filter='None', write_to='c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test3.pcap'
+2025-05-17 18:53:34 [INFO   ] [src.capture.frame_capture] [start_capture:42] Starting synchronous capture on interface Ethernet 2 (count=20, timeout=None, filter='None')
+2025-05-17 18:53:39 [INFO   ] [src.capture.frame_capture] [start_capture:51] Synchronous capture finished on Ethernet 2.
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [run_live_capture:217] Writing 20 captured packets to c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test3.pcap
+2025-05-17 18:53:39 [INFO   ] [src.capture.frame_capture] [write_pcap:89] Writing 20 packets to c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test3.pcap
+2025-05-17 18:53:39 [INFO   ] [src.capture.frame_capture] [write_pcap:91] Successfully wrote packets to c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test3.pcap
+2025-05-17 18:53:39 [INFO   ] [src.capture.frame_capture] [write_pcap:96] PCAP file c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test3.pcap size: 2002 bytes.
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [run_live_capture:222] Live capture run finished.
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:244] Finalizing run...
+2025-05-17 18:53:39 [INFO   ] [src.reporting.report_generator] [generate_report:63] Report generated and saved to C:\Users\juanc\Documents\Proyectos Personales\networking_tester\reports\capture_report_20250517_185339.json
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:258] Final Statistics (also included in reports):
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:260]   total_packets: 20
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:260]   start_time: 2025-05-17T18:53:34.810968
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:260]   end_time: 2025-05-17T18:53:39.358166
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:260]   duration_seconds: 4.547198
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:260]   packets_per_second: 4.4
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:260]   protocol_distribution:
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:263]     TCP: 19
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:263]     UDP: 1
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:260]   packet_type_distribution:
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:263]     Ethernet: 20
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_source_ips:
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:263]     192.168.0.5: 9
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:263]     92.122.157.40: 3
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:263]     163.70.152.61: 2
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:263]     163.70.152.1: 2
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:263]     199.232.177.91: 1
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_destination_ips:
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:263]     192.168.0.5: 10
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:263]     92.122.157.40: 3
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:263]     163.70.152.1: 2
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:263]     163.70.152.61: 1
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:263]     199.232.177.91: 1
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_source_ports:
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:263]     443: 8
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:263]     54076: 3
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:263]     5222: 2
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:263]     53458: 2
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:263]     53602: 1
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_destination_ports:
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:263]     443: 8
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:263]     54076: 3
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:263]     53602: 2
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:263]     53458: 2
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:263]     5222: 1
+2025-05-17 18:53:39 [INFO   ] [src.core.engine     ] [_finalize_run:260]   error_count: 0
+2025-05-17 18:54:31 [INFO   ] [src.ui.menu_handler ] [handle_user_choice:255] Menu handler received choice: '6'
+2025-05-17 18:54:31 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:287] Starting AI analysis on 20 processed packets' original data.
+2025-05-17 18:54:31 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:294] Extracting features from 20 packets for AI...
+2025-05-17 18:54:31 [INFO   ] [src.ai_monitoring.feature_extractor] [extract_features_to_dataframe:221] Extracted features for 20 packets. DataFrame shape: (20, 51)
+2025-05-17 18:54:31 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:301] AI Feature extraction complete. Shape: (20, 51)
+2025-05-17 18:54:31 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [analyze_qos_features:160] Performed QoS analysis on 20 samples.
+2025-05-17 18:54:31 [INFO   ] [src.ai_monitoring.performance_analyzer_ml] [analyze_performance_features:132] Performed performance feature analysis on 20 samples.
+2025-05-17 18:54:31 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:439] AI analysis on session data completed and results structured.
+2025-05-17 18:56:26 [INFO   ] [src.ui.menu_handler ] [handle_user_choice:255] Menu handler received choice: '7'
+2025-05-17 18:56:32 [INFO   ] [src.ui.menu_handler ] [handle_user_choice:410] Attempting to use PCAP from default location for training: c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test3.pcap
+2025-05-17 18:56:32 [INFO   ] [src.core.engine     ] [train_ai_anomaly_model:463] Starting AI anomaly model training process...
+2025-05-17 18:56:32 [INFO   ] [src.core.engine     ] [_read_packets_for_training:454] Reading packets directly using rdpcap from c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test3.pcap for training.
+2025-05-17 18:56:32 [INFO   ] [src.core.engine     ] [train_ai_anomaly_model:493] Extracting features from 20 packets for training.
+2025-05-17 18:56:32 [INFO   ] [src.ai_monitoring.feature_extractor] [extract_features_to_dataframe:221] Extracted features for 20 packets. DataFrame shape: (20, 51)
+2025-05-17 18:56:32 [INFO   ] [src.ai_monitoring.anomaly_detector] [train_model:163] Training anomaly detector model...
+2025-05-17 18:56:32 [INFO   ] [src.ai_monitoring.anomaly_detector] [train_model:168] AnomalyDetector model training completed.
+2025-05-17 18:56:32 [INFO   ] [src.ai_monitoring.anomaly_detector] [train_model:176] Model saved to: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib
+2025-05-17 18:56:32 [INFO   ] [src.ai_monitoring.anomaly_detector] [train_model:182] Scaler saved to: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-17 18:56:32 [INFO   ] [src.core.engine     ] [train_ai_anomaly_model:507] AI Anomaly Detector trained successfully.
+2025-05-17 18:59:12 [INFO   ] [src.ui.menu_handler ] [handle_user_choice:255] Menu handler received choice: '5'
+2025-05-17 18:59:12 [INFO   ] [src.core.engine     ] [shutdown:519] Shutting down Analysis Engine...
+2025-05-17 18:59:12 [INFO   ] [src.core.engine     ] [shutdown:531] Analysis Engine shut down successfully.
+2025-05-17 18:59:12 [INFO   ] [src.ui.menu_handler ] [run_main_loop:483] Networking Tester finished.
+2025-05-17 18:59:15 [INFO   ] [networking_tester   ] [setup_logging:64] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-17 18:59:15 [INFO   ] [src.core.engine     ] [__init__:32] Initializing AnalysisEngine...
+2025-05-17 18:59:15 [WARNING] [src.analysis.ieee802_3_analyzer] [__init__:35] 'analysis.ethertype_map' is null in config, using default ethertype map.
+2025-05-17 18:59:15 [INFO   ] [src.core.engine     ] [_load_analyzers:82] Loaded 5 standard analyzers: ['ProtocolAnalyzer', 'IEEE802_11_Analyzer', 'IEEE802_3_Analyzer', 'FlowAnalyzer', 'RuleBasedAnomalyDetector']
+2025-05-17 18:59:15 [INFO   ] [src.storage.database_handler] [__init__:26] DatabaseHandler is disabled by configuration.
+2025-05-17 18:59:15 [INFO   ] [src.ai_monitoring.feature_extractor] [__init__:17] PacketFeatureExtractor initialized.
+2025-05-17 18:59:15 [WARNING] [src.utils.config_manager] [get:49] Config key part 'qos_rules' not found or parent is not a dict for key 'ai_monitoring_settings.qos_rules'.
+2025-05-17 18:59:15 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [__init__:67] Loaded QoS rules: {}
+2025-05-17 18:59:15 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [__init__:83] Using default 'ef_small_packet_concern' rules.
+2025-05-17 18:59:15 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [__init__:96] QoSMLAnalyzer initialized.
+2025-05-17 18:59:15 [WARNING] [src.utils.config_manager] [get:49] Config key part 'performance_rules' not found or parent is not a dict for key 'ai_monitoring_settings.performance_rules'.
+2025-05-17 18:59:15 [INFO   ] [src.ai_monitoring.performance_analyzer_ml] [__init__:29] Loaded performance rules: {}
+2025-05-17 18:59:15 [INFO   ] [src.ai_monitoring.performance_analyzer_ml] [__init__:52] PerformanceMLAnalyzer initialized.
+2025-05-17 18:59:15 [WARNING] [src.ai_monitoring.anomaly_detector] [__init__:28] AnomalyDetector: Model path 'None' not provided or not found. Anomaly detection will not be performed unless a model is loaded or trained.
+2025-05-17 18:59:15 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib
+2025-05-17 18:59:15 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-17 18:59:15 [INFO   ] [src.core.engine     ] [_load_ai_model:97] AI Anomaly Detection model and scaler loaded from C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib and C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-17 18:59:17 [INFO   ] [src.ui.menu_handler ] [handle_user_choice:255] Menu handler received choice: '5'
+2025-05-17 18:59:17 [INFO   ] [src.core.engine     ] [shutdown:519] Shutting down Analysis Engine...
+2025-05-17 18:59:17 [INFO   ] [src.core.engine     ] [shutdown:531] Analysis Engine shut down successfully.
+2025-05-17 18:59:17 [INFO   ] [src.ui.menu_handler ] [run_main_loop:483] Networking Tester finished.
+2025-05-17 18:59:21 [INFO   ] [networking_tester   ] [setup_logging:64] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-17 18:59:21 [INFO   ] [src.core.engine     ] [__init__:32] Initializing AnalysisEngine...
+2025-05-17 18:59:21 [WARNING] [src.analysis.ieee802_3_analyzer] [__init__:35] 'analysis.ethertype_map' is null in config, using default ethertype map.
+2025-05-17 18:59:21 [INFO   ] [src.core.engine     ] [_load_analyzers:82] Loaded 5 standard analyzers: ['ProtocolAnalyzer', 'IEEE802_11_Analyzer', 'IEEE802_3_Analyzer', 'FlowAnalyzer', 'RuleBasedAnomalyDetector']
+2025-05-17 18:59:21 [INFO   ] [src.storage.database_handler] [__init__:26] DatabaseHandler is disabled by configuration.
+2025-05-17 18:59:21 [INFO   ] [src.ai_monitoring.feature_extractor] [__init__:17] PacketFeatureExtractor initialized.
+2025-05-17 18:59:21 [WARNING] [src.utils.config_manager] [get:49] Config key part 'qos_rules' not found or parent is not a dict for key 'ai_monitoring_settings.qos_rules'.
+2025-05-17 18:59:21 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [__init__:67] Loaded QoS rules: {}
+2025-05-17 18:59:21 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [__init__:83] Using default 'ef_small_packet_concern' rules.
+2025-05-17 18:59:21 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [__init__:96] QoSMLAnalyzer initialized.
+2025-05-17 18:59:21 [WARNING] [src.utils.config_manager] [get:49] Config key part 'performance_rules' not found or parent is not a dict for key 'ai_monitoring_settings.performance_rules'.
+2025-05-17 18:59:21 [INFO   ] [src.ai_monitoring.performance_analyzer_ml] [__init__:29] Loaded performance rules: {}
+2025-05-17 18:59:21 [INFO   ] [src.ai_monitoring.performance_analyzer_ml] [__init__:52] PerformanceMLAnalyzer initialized.
+2025-05-17 18:59:21 [WARNING] [src.ai_monitoring.anomaly_detector] [__init__:28] AnomalyDetector: Model path 'None' not provided or not found. Anomaly detection will not be performed unless a model is loaded or trained.
+2025-05-17 18:59:21 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib
+2025-05-17 18:59:21 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-17 18:59:21 [INFO   ] [src.core.engine     ] [_load_ai_model:97] AI Anomaly Detection model and scaler loaded from C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib and C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-17 19:00:39 [INFO   ] [src.ui.menu_handler ] [handle_user_choice:255] Menu handler received choice: '5'
+2025-05-17 19:00:39 [INFO   ] [src.core.engine     ] [shutdown:519] Shutting down Analysis Engine...
+2025-05-17 19:00:39 [INFO   ] [src.core.engine     ] [shutdown:531] Analysis Engine shut down successfully.
+2025-05-17 19:00:39 [INFO   ] [src.ui.menu_handler ] [run_main_loop:483] Networking Tester finished.
+2025-05-17 19:00:42 [INFO   ] [networking_tester   ] [setup_logging:64] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-17 19:00:42 [INFO   ] [src.core.engine     ] [__init__:32] Initializing AnalysisEngine...
+2025-05-17 19:00:42 [WARNING] [src.analysis.ieee802_3_analyzer] [__init__:35] 'analysis.ethertype_map' is null in config, using default ethertype map.
+2025-05-17 19:00:42 [INFO   ] [src.core.engine     ] [_load_analyzers:82] Loaded 5 standard analyzers: ['ProtocolAnalyzer', 'IEEE802_11_Analyzer', 'IEEE802_3_Analyzer', 'FlowAnalyzer', 'RuleBasedAnomalyDetector']
+2025-05-17 19:00:42 [INFO   ] [src.storage.database_handler] [__init__:26] DatabaseHandler is disabled by configuration.
+2025-05-17 19:00:42 [INFO   ] [src.ai_monitoring.feature_extractor] [__init__:17] PacketFeatureExtractor initialized.
+2025-05-17 19:00:42 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [__init__:68] Loaded QoS rules: {'ef_small_packet_concern': {'enabled': True, 'dscp_threshold': 46, 'frame_length_threshold': 100}}
+2025-05-17 19:00:42 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [__init__:97] QoSMLAnalyzer initialized.
+2025-05-17 19:00:42 [INFO   ] [src.ai_monitoring.performance_analyzer_ml] [__init__:30] Loaded performance rules: {'packet_size_categories': {'small_threshold': 100, 'medium_threshold': 1000}, 'protocol_insights': {'enabled': True}, 'small_packet_percentage_concern': {'enabled': True, 'threshold_percentage': 60, 'minimum_sample_size': 50}}
+2025-05-17 19:00:42 [INFO   ] [src.ai_monitoring.performance_analyzer_ml] [__init__:53] PerformanceMLAnalyzer initialized.
+2025-05-17 19:00:42 [WARNING] [src.ai_monitoring.anomaly_detector] [__init__:28] AnomalyDetector: Model path 'None' not provided or not found. Anomaly detection will not be performed unless a model is loaded or trained.
+2025-05-17 19:00:42 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib
+2025-05-17 19:00:42 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-17 19:00:42 [INFO   ] [src.core.engine     ] [_load_ai_model:97] AI Anomaly Detection model and scaler loaded from C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib and C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-17 19:00:57 [INFO   ] [src.ui.menu_handler ] [handle_user_choice:255] Menu handler received choice: '1'
+2025-05-17 19:01:17 [INFO   ] [src.ui.menu_handler ] [handle_live_capture:188] Capture will be saved to: c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test5.pcap
+2025-05-17 19:01:17 [INFO   ] [src.ui.menu_handler ] [handle_live_capture:190] Starting live capture on interface: Ethernet 2
+2025-05-17 19:01:17 [INFO   ] [src.core.engine     ] [run_live_capture:199] Starting live capture run: interface=Ethernet 2, count=40, timeout=None, filter='None', write_to='c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test5.pcap'
+2025-05-17 19:01:17 [INFO   ] [src.capture.frame_capture] [start_capture:42] Starting synchronous capture on interface Ethernet 2 (count=40, timeout=None, filter='None')
+2025-05-17 19:01:21 [INFO   ] [src.capture.frame_capture] [start_capture:51] Synchronous capture finished on Ethernet 2.
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [run_live_capture:217] Writing 40 captured packets to c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test5.pcap
+2025-05-17 19:01:21 [INFO   ] [src.capture.frame_capture] [write_pcap:89] Writing 40 packets to c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test5.pcap
+2025-05-17 19:01:21 [INFO   ] [src.capture.frame_capture] [write_pcap:91] Successfully wrote packets to c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test5.pcap
+2025-05-17 19:01:21 [INFO   ] [src.capture.frame_capture] [write_pcap:96] PCAP file c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test5.pcap size: 14723 bytes.
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [run_live_capture:222] Live capture run finished.
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:244] Finalizing run...
+2025-05-17 19:01:21 [INFO   ] [src.reporting.report_generator] [generate_report:63] Report generated and saved to C:\Users\juanc\Documents\Proyectos Personales\networking_tester\reports\capture_report_20250517_190121.json
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:258] Final Statistics (also included in reports):
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:260]   total_packets: 40
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:260]   start_time: 2025-05-17T19:01:18.680763
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:260]   end_time: 2025-05-17T19:01:21.704764
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:260]   duration_seconds: 3.024001
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:260]   packets_per_second: 13.23
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:260]   protocol_distribution:
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:263]     TCP: 35
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:263]     UDP: 5
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:260]   packet_type_distribution:
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:263]     Ethernet: 40
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_source_ips:
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:263]     192.168.0.5: 19
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:263]     163.70.152.21: 7
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:263]     20.42.73.28: 5
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:263]     163.70.152.1: 4
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:263]     192.168.0.1: 2
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_destination_ips:
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:263]     192.168.0.5: 20
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:263]     163.70.152.21: 6
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:263]     20.42.73.28: 5
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:263]     163.70.152.1: 4
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:263]     192.168.0.1: 2
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_source_ports:
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:263]     443: 18
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:263]     51059: 6
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:263]     54233: 5
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:263]     54005: 2
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:263]     54004: 2
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:260]   top_destination_ports:
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:263]     443: 17
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:263]     51059: 7
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:263]     54233: 5
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:263]     54004: 2
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:263]     54005: 2
+2025-05-17 19:01:21 [INFO   ] [src.core.engine     ] [_finalize_run:260]   error_count: 0
+2025-05-17 19:01:34 [INFO   ] [src.ui.menu_handler ] [handle_user_choice:255] Menu handler received choice: '6'
+2025-05-17 19:01:34 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:287] Starting AI analysis on 40 processed packets' original data.
+2025-05-17 19:01:34 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:294] Extracting features from 40 packets for AI...
+2025-05-17 19:01:34 [INFO   ] [src.ai_monitoring.feature_extractor] [extract_features_to_dataframe:221] Extracted features for 40 packets. DataFrame shape: (40, 51)
+2025-05-17 19:01:34 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:301] AI Feature extraction complete. Shape: (40, 51)
+2025-05-17 19:01:34 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [analyze_qos_features:161] Performed QoS analysis on 40 samples.
+2025-05-17 19:01:34 [INFO   ] [src.ai_monitoring.performance_analyzer_ml] [analyze_performance_features:137] Performed performance feature analysis on 40 samples.
+2025-05-17 19:01:34 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:439] AI analysis on session data completed and results structured.
+2025-05-17 19:03:20 [INFO   ] [src.ui.menu_handler ] [handle_user_choice:255] Menu handler received choice: '7'
+2025-05-17 19:03:28 [INFO   ] [src.ui.menu_handler ] [handle_user_choice:410] Attempting to use PCAP from default location for training: c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test5.pcap
+2025-05-17 19:03:28 [INFO   ] [src.core.engine     ] [train_ai_anomaly_model:463] Starting AI anomaly model training process...
+2025-05-17 19:03:28 [INFO   ] [src.core.engine     ] [_read_packets_for_training:454] Reading packets directly using rdpcap from c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test5.pcap for training.
+2025-05-17 19:03:28 [INFO   ] [src.core.engine     ] [train_ai_anomaly_model:493] Extracting features from 40 packets for training.
+2025-05-17 19:03:28 [INFO   ] [src.ai_monitoring.feature_extractor] [extract_features_to_dataframe:221] Extracted features for 40 packets. DataFrame shape: (40, 51)
+2025-05-17 19:03:28 [INFO   ] [src.ai_monitoring.anomaly_detector] [train_model:163] Training anomaly detector model...
+2025-05-17 19:03:28 [INFO   ] [src.ai_monitoring.anomaly_detector] [train_model:168] AnomalyDetector model training completed.
+2025-05-17 19:03:28 [INFO   ] [src.ai_monitoring.anomaly_detector] [train_model:176] Model saved to: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib
+2025-05-17 19:03:28 [INFO   ] [src.ai_monitoring.anomaly_detector] [train_model:182] Scaler saved to: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-17 19:03:28 [INFO   ] [src.core.engine     ] [train_ai_anomaly_model:507] AI Anomaly Detector trained successfully.
+2025-05-17 19:03:36 [INFO   ] [src.ui.menu_handler ] [handle_user_choice:255] Menu handler received choice: '6'
+2025-05-17 19:03:36 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:287] Starting AI analysis on 40 processed packets' original data.
+2025-05-17 19:03:36 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:294] Extracting features from 40 packets for AI...
+2025-05-17 19:03:36 [INFO   ] [src.ai_monitoring.feature_extractor] [extract_features_to_dataframe:221] Extracted features for 40 packets. DataFrame shape: (40, 51)
+2025-05-17 19:03:36 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:301] AI Feature extraction complete. Shape: (40, 51)
+2025-05-17 19:03:36 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [analyze_qos_features:161] Performed QoS analysis on 40 samples.
+2025-05-17 19:03:36 [INFO   ] [src.ai_monitoring.performance_analyzer_ml] [analyze_performance_features:137] Performed performance feature analysis on 40 samples.
+2025-05-17 19:03:36 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:439] AI analysis on session data completed and results structured.
+2025-05-17 19:07:45 [INFO   ] [src.ui.menu_handler ] [handle_user_choice:255] Menu handler received choice: '5'
+2025-05-17 19:07:45 [INFO   ] [src.core.engine     ] [shutdown:519] Shutting down Analysis Engine...
+2025-05-17 19:07:45 [INFO   ] [src.core.engine     ] [shutdown:531] Analysis Engine shut down successfully.
+2025-05-17 19:07:45 [INFO   ] [src.ui.menu_handler ] [run_main_loop:483] Networking Tester finished.
+2025-05-17 19:09:16 [INFO   ] [networking_tester   ] [setup_logging:64] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-17 19:09:16 [INFO   ] [src.core.engine     ] [__init__:33] Initializing AnalysisEngine...
+2025-05-17 19:09:16 [WARNING] [src.analysis.ieee802_3_analyzer] [__init__:35] 'analysis.ethertype_map' is null in config, using default ethertype map.
+2025-05-17 19:09:16 [INFO   ] [src.core.engine     ] [_load_analyzers:83] Loaded 5 standard analyzers: ['ProtocolAnalyzer', 'IEEE802_11_Analyzer', 'IEEE802_3_Analyzer', 'FlowAnalyzer', 'RuleBasedAnomalyDetector']
+2025-05-17 19:09:16 [INFO   ] [src.storage.database_handler] [__init__:26] DatabaseHandler is disabled by configuration.
+2025-05-17 19:09:16 [INFO   ] [src.ai_monitoring.feature_extractor] [__init__:17] PacketFeatureExtractor initialized.
+2025-05-17 19:09:16 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [__init__:68] Loaded QoS rules: {'ef_small_packet_concern': {'enabled': True, 'dscp_threshold': 46, 'frame_length_threshold': 100}}
+2025-05-17 19:09:16 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [__init__:97] QoSMLAnalyzer initialized.
+2025-05-17 19:09:16 [INFO   ] [src.ai_monitoring.performance_analyzer_ml] [__init__:30] Loaded performance rules: {'packet_size_categories': {'small_threshold': 100, 'medium_threshold': 1000}, 'protocol_insights': {'enabled': True}, 'small_packet_percentage_concern': {'enabled': True, 'threshold_percentage': 60, 'minimum_sample_size': 50}}
+2025-05-17 19:09:16 [INFO   ] [src.ai_monitoring.performance_analyzer_ml] [__init__:53] PerformanceMLAnalyzer initialized.
+2025-05-17 19:09:16 [WARNING] [src.ai_monitoring.anomaly_detector] [__init__:28] AnomalyDetector: Model path 'None' not provided or not found. Anomaly detection will not be performed unless a model is loaded or trained.
+2025-05-17 19:09:16 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:37] AnomalyDetector model loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib
+2025-05-17 19:09:16 [INFO   ] [src.ai_monitoring.anomaly_detector] [load_model:42] Scaler loaded from: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-17 19:09:16 [INFO   ] [src.core.engine     ] [_load_ai_model:98] AI Anomaly Detection model and scaler loaded from C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib and C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-17 19:09:30 [INFO   ] [src.ui.menu_handler ] [handle_user_choice:255] Menu handler received choice: '1'
+2025-05-17 19:09:39 [INFO   ] [src.ui.menu_handler ] [handle_live_capture:188] Capture will be saved to: c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test6.pcap
+2025-05-17 19:09:39 [INFO   ] [src.ui.menu_handler ] [handle_live_capture:190] Starting live capture on interface: Ethernet 2
+2025-05-17 19:09:39 [INFO   ] [src.core.engine     ] [run_live_capture:200] Starting live capture run: interface=Ethernet 2, count=200, timeout=None, filter='None', write_to='c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test6.pcap'
+2025-05-17 19:09:39 [INFO   ] [src.capture.frame_capture] [start_capture:42] Starting synchronous capture on interface Ethernet 2 (count=200, timeout=None, filter='None')
+2025-05-17 19:09:55 [INFO   ] [src.capture.frame_capture] [start_capture:51] Synchronous capture finished on Ethernet 2.
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [run_live_capture:218] Writing 200 captured packets to c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test6.pcap
+2025-05-17 19:09:55 [INFO   ] [src.capture.frame_capture] [write_pcap:89] Writing 200 packets to c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test6.pcap
+2025-05-17 19:09:55 [INFO   ] [src.capture.frame_capture] [write_pcap:91] Successfully wrote packets to c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test6.pcap
+2025-05-17 19:09:55 [INFO   ] [src.capture.frame_capture] [write_pcap:96] PCAP file c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test6.pcap size: 60191 bytes.
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [run_live_capture:223] Live capture run finished.
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:245] Finalizing run...
+2025-05-17 19:09:55 [INFO   ] [src.reporting.report_generator] [generate_report:63] Report generated and saved to C:\Users\juanc\Documents\Proyectos Personales\networking_tester\reports\capture_report_20250517_190955.json
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:259] Final Statistics (also included in reports):
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:261]   total_packets: 200
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:261]   start_time: 2025-05-17T19:09:39.377735
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:261]   end_time: 2025-05-17T19:09:55.758905
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:261]   duration_seconds: 16.38117
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:261]   packets_per_second: 12.21
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:261]   protocol_distribution:
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:264]     TCP: 179
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:264]     UDP: 18
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:264]     OTHER: 2
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:264]     ICMP: 1
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:261]   packet_type_distribution:
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:264]     Ethernet: 200
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:261]   top_source_ips:
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:264]     192.168.0.5: 95
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:264]     20.189.172.76: 22
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:264]     163.70.152.21: 11
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:264]     192.168.0.1: 9
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:264]     142.250.218.110: 8
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:261]   top_destination_ips:
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:264]     192.168.0.5: 100
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:264]     20.189.172.76: 20
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:264]     163.70.152.21: 12
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:264]     142.251.132.106: 8
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:264]     192.168.0.1: 7
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:261]   top_source_ports:
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:264]     443: 91
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:264]     51059: 12
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:264]     54363: 10
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:264]     54365: 10
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:264]     53: 9
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:261]   top_destination_ports:
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:264]     443: 88
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:264]     54363: 11
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:264]     54365: 11
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:264]     51059: 11
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:264]     54366: 7
+2025-05-17 19:09:55 [INFO   ] [src.core.engine     ] [_finalize_run:261]   error_count: 2
+2025-05-17 19:10:09 [INFO   ] [src.ui.menu_handler ] [handle_user_choice:255] Menu handler received choice: '7'
+2025-05-17 19:10:15 [INFO   ] [src.ui.menu_handler ] [handle_user_choice:324] Attempting to use PCAP from default location for training: c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test6.pcap
+2025-05-17 19:10:15 [INFO   ] [src.core.engine     ] [train_ai_anomaly_model:484] Starting AI anomaly model training process...
+2025-05-17 19:10:15 [INFO   ] [src.core.engine     ] [_read_packets_for_training:475] Reading packets directly using rdpcap from c:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\captures\test6.pcap for training.
+2025-05-17 19:10:15 [INFO   ] [src.core.engine     ] [train_ai_anomaly_model:514] Extracting features from 200 packets for training.
+2025-05-17 19:10:15 [INFO   ] [src.ai_monitoring.feature_extractor] [extract_features_to_dataframe:221] Extracted features for 200 packets. DataFrame shape: (200, 51)
+2025-05-17 19:10:15 [INFO   ] [src.ai_monitoring.anomaly_detector] [train_model:163] Training anomaly detector model...
+2025-05-17 19:10:15 [INFO   ] [src.ai_monitoring.anomaly_detector] [train_model:168] AnomalyDetector model training completed.
+2025-05-17 19:10:15 [INFO   ] [src.ai_monitoring.anomaly_detector] [train_model:176] Model saved to: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector.joblib
+2025-05-17 19:10:15 [INFO   ] [src.ai_monitoring.anomaly_detector] [train_model:182] Scaler saved to: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\models\ai_anomaly_detector_scaler.joblib
+2025-05-17 19:10:15 [INFO   ] [src.core.engine     ] [train_ai_anomaly_model:528] AI Anomaly Detector trained successfully.
+2025-05-17 19:10:26 [INFO   ] [src.ui.menu_handler ] [handle_user_choice:255] Menu handler received choice: '6'
+2025-05-17 19:10:26 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:288] Starting AI analysis on 200 processed packets' original data.
+2025-05-17 19:10:26 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:295] Extracting features from 200 packets for AI...
+2025-05-17 19:10:26 [INFO   ] [src.ai_monitoring.feature_extractor] [extract_features_to_dataframe:221] Extracted features for 200 packets. DataFrame shape: (200, 51)
+2025-05-17 19:10:26 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:302] AI Feature extraction complete. Shape: (200, 51)
+2025-05-17 19:10:26 [INFO   ] [src.ai_monitoring.qos_analyzer_ml] [analyze_qos_features:161] Performed QoS analysis on 200 samples.
+2025-05-17 19:10:26 [INFO   ] [src.ai_monitoring.performance_analyzer_ml] [analyze_performance_features:137] Performed performance feature analysis on 200 samples.
+2025-05-17 19:10:26 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:440] AI analysis on session data completed and results structured.
+2025-05-17 19:10:26 [INFO   ] [src.core.engine     ] [run_ai_analysis_on_session_data:454] Detailed AI analysis report saved to: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\data\reports\AI_reports\ai_analysis_report_20250517_191026.json
+2025-05-17 19:12:47 [INFO   ] [src.ui.menu_handler ] [handle_user_choice:255] Menu handler received choice: '5'
+2025-05-17 19:12:47 [INFO   ] [src.core.engine     ] [shutdown:540] Shutting down Analysis Engine...
+2025-05-17 19:12:47 [INFO   ] [src.core.engine     ] [shutdown:552] Analysis Engine shut down successfully.
+2025-05-17 19:12:47 [INFO   ] [src.ui.menu_handler ] [run_main_loop:397] Networking Tester finished.
