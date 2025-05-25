@@ -14,7 +14,7 @@ import datetime # Added for correct timestamp handling
 
 from src.messaging.rabbitmq_client import RabbitMQClient
 from src.messaging.schemas import ParsedPacket, MLResult, AnalysisResult, PARSED_PACKETS_TOPIC, ML_RESULTS_TOPIC, ANALYSIS_RESULTS_TOPIC
-from src.utils.logger_config import setup_logging
+from src.utils.logging_config import setup_logging
 
 logger = logging.getLogger(__name__)
 
@@ -416,49 +416,30 @@ class CoreAnalysisService:
             logger.error(f"Failed to publish AnalysisResult {result.get('analysis_id')}: {e}", exc_info=True)
 
     def start_consuming(self):
-        logger.info(f"CoreAnalysisService starting to consume from queues: "
-                    f"'{self.parsed_packets_queue}' and '{self.ml_results_queue}'")
+        """Starts consuming messages from configured queues."""
         try:
-            # Start consuming from ParsedPackets queue
+            logger.info(f"Starting consumer for ParsedPacket messages on queue: {self.parsed_packets_queue}")
             self.mq_client.consume(
                 queue_name=self.parsed_packets_queue,
-                callback_function=self._handle_parsed_packet,
-                auto_ack=True, # Consider False for production
-                consumer_tag="parsed_packet_consumer" # Unique tag
+                callback_function=self._handle_parsed_packet
+                # consumer_tag=f"core_analysis_parsed_packets_consumer_{uuid.uuid4().hex[:8]}" # Removed
             )
-            
-            # Start consuming from MLResults queue
-            # Note: RabbitMQClient.consume typically blocks. To consume from multiple queues
-            # concurrently with a single client instance in a single thread, you'd need
-            # to run consumers in separate threads or use an async client.
-            # For this example, we'll assume the client handles this or we'd run multiple
-            # instances/threads for a real service.
-            # A simple approach for now is to call consume sequentially, but only the first
-            # will block if it's a blocking call.
-            # A better RabbitMQClient would allow registering multiple consumers.
 
-            # To truly consume from both, the RabbitMQClient's consume method
-            # would need to be non-blocking or manage threads.
-            # For now, let's simulate by just calling the second one. If the first blocks,
-            # this won't be reached in a single-threaded model.
-            # This highlights a limitation in the current simple RabbitMQClient for multi-queue consumption.
-            
-            logger.info(f"Attempting to start consuming ML results. If parsed packet consumer is blocking, this might not start as expected in a single thread.")
+            # Note: If the first consume call above is blocking (which it is, due to channel.start_consuming()),
+            # the following code for the second consumer will not be reached until the first one stops.
+            # This service might need to run consumers in separate threads if concurrent consumption from
+            # multiple queues is required with this client structure.
+            logger.info(f"Starting consumer for MLResult messages on queue: {self.ml_results_queue}")
             self.mq_client.consume(
                 queue_name=self.ml_results_queue,
-                callback_function=self._handle_ml_result,
-                auto_ack=True, # Consider False for production
-                consumer_tag="ml_result_consumer" # Unique tag
+                callback_function=self._handle_ml_result
+                # consumer_tag=f"core_analysis_ml_results_consumer_{uuid.uuid4().hex[:8]}" # Removed
             )
-            # If both consume calls are blocking, the program will hang on the first one.
-            # A robust service would use threading or asyncio for concurrent consumption.
-            # For this example, we'll assume the user might run two instances or the RabbitMQClient
-            # is more advanced than the placeholder.
 
+        except KeyboardInterrupt:
+            logger.info("Core Analysis Service interrupted by user. Shutting down...")
         except Exception as e:
-            logger.error(f"CoreAnalysisService failed to start consuming: {e}", exc_info=True)
-            if self.mq_client:
-                self.mq_client.close()
+            logger.error(f"CoreAnalysisService encountered an error: {e}", exc_info=True)
         finally:
             logger.info("CoreAnalysisService consumption loop finished or was interrupted.")
 
@@ -469,11 +450,18 @@ if __name__ == '__main__':
 
     RABBITMQ_HOST = os.getenv('RABBITMQ_HOST', 'localhost')
     RABBITMQ_PORT = int(os.getenv('RABBITMQ_PORT', 5672))
+    RABBITMQ_USER = os.getenv('RABBITMQ_USER', 'user') # Added
+    RABBITMQ_PASSWORD = os.getenv('RABBITMQ_PASSWORD', 'password') # Added
 
     logger.info("Initializing Core Analysis Service Example...")
     mq_client_instance = None
     try:
-        mq_client_instance = RabbitMQClient(host=RABBITMQ_HOST, port=RABBITMQ_PORT)
+        mq_client_instance = RabbitMQClient(
+            host=RABBITMQ_HOST, 
+            port=RABBITMQ_PORT,
+            username=RABBITMQ_USER,  # Added
+            password=RABBITMQ_PASSWORD # Added
+        )
         
         # Ensure exchanges and queues this service consumes from are declared by their producers.
         # PacketParserService declares: parsed_packets_exchange, parsed_packets_queue

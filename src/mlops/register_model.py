@@ -23,7 +23,7 @@ if project_root_dir not in sys.path:
 # Now, this import should work when the script is called from any CWD,
 # especially when called by the orchestrator with CWD set to project_root.
 from src.ai_monitoring.model_registry_client import ModelRegistryClient 
-# from src.utils.logger_config import setup_logging # Example
+# from src.utils.logging_config import setup_logging # Example
 
 logger = logging.getLogger(__name__)
 

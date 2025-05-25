@@ -11,7 +11,7 @@ sys.path.insert(0, PROJECT_ROOT)
 
 from src.analysis.core_analysis_service import CoreAnalysisService
 from src.messaging.schemas import MLResult, AnalysisResult # Assuming schemas are accessible
-from src.utils.logger_config import setup_logging
+from src.utils.logging_config import setup_logging
 
 # Setup logging for the test
 setup_logging() # Removed level argument

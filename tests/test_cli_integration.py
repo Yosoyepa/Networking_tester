@@ -19,7 +19,7 @@ class CLIIntegrationTests(unittest.TestCase):
         """Set up the test environment once for all tests."""
         # Get the directory where the networking_tester code is
         cls.project_dir = Path(__file__).parent.parent.absolute()
-        cls.main_script = os.path.join(cls.project_dir, "cli_test_runner.py")
+        cls.main_script = os.path.join(cls.project_dir, "main.py")  # Changed to main.py for distributed architecture
         cls.test_pcap = os.path.join(cls.project_dir, "data", "captures", "test_ethernet2_v3.pcap")
         
         # Create a temporary directory for test outputs

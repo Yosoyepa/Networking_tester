@@ -13,14 +13,14 @@ import datetime
 if TYPE_CHECKING:
     from src.messaging.schemas import MLResult
     # If setup_logging also needs to be conditionally imported for type checking:
-    # from src.utils.logger_config import setup_logging 
+    # from src.utils.logging_config import setup_logging 
 
 # Runtime imports and fallbacks
 try:
     from src.messaging.schemas import MLResult as ActualMLResult
-    from src.utils.logger_config import setup_logging
+    from src.utils.logging_config import setup_logging
 except ImportError:
-    print("Warning: Could not import 'src.messaging.schemas.MLResult' or 'src.utils.logger_config.setup_logging'. Using fallback type for MLResult.")
+    print("Warning: Could not import 'src.messaging.schemas.MLResult' or 'src.utils.logging_config.setup_logging'. Using fallback type for MLResult.")
     # Define MLResult for runtime if import fails and it wasn't defined by TYPE_CHECKING for the linter
     # The type hints will use 'MLResult' as a string if TYPE_CHECKING is False and this path is taken.
     # However, with `from __future__ import annotations`, string literals are default.

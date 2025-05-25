@@ -129,9 +129,21 @@ class RabbitMQClient:
             raise
 
     def stop_consuming(self):
-        if self.channel and self.channel.is_consuming:
+        if self.channel and hasattr(self.channel, 'is_consuming') and self.channel.is_consuming:
             self.channel.stop_consuming()
             logger.info("Stopped consuming messages.")
+        elif self.channel and not hasattr(self.channel, 'is_consuming'):
+            # Fallback or alternative check if is_consuming is not available
+            # This might indicate a different pika version or an unexpected state.
+            # For now, we can try to stop it, but log a warning.
+            logger.warning("'is_consuming' attribute not found on channel. Attempting to stop_consuming anyway.")
+            try:
+                self.channel.stop_consuming() # Try to stop, might raise an error if not in a consuming state
+                logger.info("Stopped consuming messages (fallback attempt).")
+            except Exception as e:
+                logger.error(f"Error during fallback stop_consuming: {e}")
+        else:
+            logger.info("Channel is not consuming or not available.")
 
     def close(self):
         self.stop_consuming()

@@ -1,0 +1,90 @@
+{
+    "models": [
+        {
+            "model_id": "d2f9b8a0-1e5d-4f3c-9a7b-8c6f0a5d1e3b",
+            "model_name": "dummy_qos_model",
+            "metadata": {
+                "model_type": "dummy"
+            },
+            "versions": [
+                {
+                    "version": "0.1.0",
+                    "model_path": "dummy_qos_model.pkl",
+                    "creation_timestamp": "2025-05-18T10:00:00Z",
+                    "description": "A placeholder dummy model for QoS inference testing. Does not perform real predictions.",
+                    "metrics": {
+                        "accuracy": 0.0,
+                        "notes": "This is a non-functional placeholder model."
+                    }
+                }
+            ]
+        },
+        {
+            "model_id": "gmm-e2e-test-108",
+            "model_name": "qos_anomaly_gmm_e2e_test",
+            "metadata": {
+                "description": "GMM model for QoS anomaly detection in E2E tests.",
+                "tags": [
+                    "qos",
+                    "gmm",
+                    "anomaly_detection",
+                    "e2e_test"
+                ]
+            },
+            "versions": [
+                {
+                    "version": "1.0.8",
+                    "model_path": "data/mlops_artifacts/qos_anomaly_gmm_e2e_test/1_0_8_20250518012814/_model.joblib",
+                    "creation_timestamp": "2025-05-18T06:28:31.568270+00:00",
+                    "description": "GMM model for QoS anomaly detection, version 1.0.8.",
+                    "metadata": {
+                        "model_type": "gmm",
+                        "feature_columns": [
+                            "feature5"
+                        ]
+                    },
+                    "metrics": {
+                        "accuracy": 0.98,
+                        "precision_anomaly": 1.0,
+                        "recall_anomaly": 0.75,
+                        "f1_score_anomaly": 0.8571428571428571,
+                        "notes": "Metrics from evaluation_metrics.json for 1.0.8"
+                    }
+                }
+            ]
+        },
+        {
+            "model_id": "vae-e2e-test-100",
+            "model_name": "qos_anomaly_vae_e2e_test",
+            "metadata": {
+                "description": "VAE model for QoS anomaly detection in E2E tests.",
+                "tags": [
+                    "qos",
+                    "vae",
+                    "anomaly_detection",
+                    "e2e_test"
+                ]
+            },
+            "versions": [
+                {
+                    "version": "1.0.0",
+                    "model_path": "data/mlops_artifacts/models/qos_anomaly_vae_e2e_test/1.0.0/",
+                    "creation_timestamp": "2025-05-18T00:00:00Z",
+                    "description": "VAE model for QoS anomaly detection, version 1.0.0.",
+                    "metadata": {
+                        "model_type": "vae",
+                        "feature_columns": [
+                            "feature1",
+                            "feature2"
+                        ]
+                    },
+                    "metrics": {
+                        "loss": 0.05,
+                        "reconstruction_accuracy": 0.95,
+                        "notes": "Metrics for VAE model 1.0.0"
+                    }
+                }
+            ]
+        }
+    ]
+}

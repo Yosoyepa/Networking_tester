@@ -10,27 +10,36 @@ class MessageConsumer:
     """
     A generic RabbitMQ message consumer.
     """
-    def __init__(self, rabbitmq_host: str = 'localhost', rabbitmq_port: int = 5672):
+    def __init__(self, rabbitmq_host: str = 'localhost', rabbitmq_port: int = 5672, rabbitmq_user: Optional[str] = None, rabbitmq_password: Optional[str] = None):
         """
         Initializes the MessageConsumer.
 
         Args:
             rabbitmq_host: The hostname or IP address of the RabbitMQ server.
             rabbitmq_port: The port number of the RabbitMQ server.
+            rabbitmq_user: The username for RabbitMQ authentication.
+            rabbitmq_password: The password for RabbitMQ authentication.
         """
         self.rabbitmq_host = rabbitmq_host
         self.rabbitmq_port = rabbitmq_port
+        self.rabbitmq_user = rabbitmq_user # Added
+        self.rabbitmq_password = rabbitmq_password # Added
         self.connection: Optional[pika.BlockingConnection] = None
         self.channel: Optional[pika.adapters.blocking_connection.BlockingChannel] = None
         self.consumer_tag: Optional[str] = None
         self._connect()
 
     def _connect(self):
-        """Establishes a connection to RabbitMQ and creates a channel."""
+        """Establishes a connection to RabbitMQ and creates a channel."""        
         try:
-            self.connection = pika.BlockingConnection(
-                pika.ConnectionParameters(host=self.rabbitmq_host, port=self.rabbitmq_port)
-            )
+            params = {
+                'host': self.rabbitmq_host,
+                'port': self.rabbitmq_port
+            }
+            if self.rabbitmq_user and self.rabbitmq_password:
+                params['credentials'] = pika.PlainCredentials(self.rabbitmq_user, self.rabbitmq_password)
+
+            self.connection = pika.BlockingConnection(pika.ConnectionParameters(**params))
             self.channel = self.connection.channel()
             logger.info(f"Successfully connected to RabbitMQ at {self.rabbitmq_host}:{self.rabbitmq_port}")
         except pika.exceptions.AMQPConnectionError as e:
@@ -175,7 +184,9 @@ if __name__ == '__main__':
         # Return True if processing was successful, False otherwise
         return True 
 
-    consumer = MessageConsumer(rabbitmq_host='localhost')
+    # Example with credentials (replace with actual credentials or load from env)
+    # consumer = MessageConsumer(rabbitmq_host='localhost', rabbitmq_user='user', rabbitmq_password='password')
+    consumer = MessageConsumer(rabbitmq_host='localhost') # Original example for local testing without explicit creds
     if consumer.channel: # Check if connection was successful
         queue_name_to_consume = 'test_raw_frames_queue'
         consumer.declare_queue(queue_name_to_consume) # Ensure queue exists

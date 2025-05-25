@@ -235,13 +235,41 @@ class VAEAnomalyDetector:
         logger.info(f"VAE model (subclassed weights, scaler, metadata) saved with prefix: {model_path_prefix}. Weights to: {weights_filename}")
 
     @classmethod
-    def load(cls, model_path_prefix: str):
-        metadata_path = f"{model_path_prefix}_metadata.joblib"
-        weights_path = f"{model_path_prefix}.weights.h5" 
-        scaler_path = f"{model_path_prefix}_scaler.joblib"
+    def load(cls, model_path_prefix: str): # model_path_prefix is the directory like /app/data/mlops_artifacts/models/qos_anomaly_vae_e2e_test/1.0.0/
+        # Infer model_name from the directory structure
+        # e.g., .../models/qos_anomaly_vae_e2e_test/1.0.0/ -> qos_anomaly_vae_e2e_test
+        # Ensure model_path_prefix ends with a separator for dirname to work as expected if it's already a directory path
+        normalized_path = model_path_prefix.rstrip(os.sep)
+        model_name = os.path.basename(os.path.dirname(normalized_path)) # Gets 'qos_anomaly_vae_e2e_test'
+        
+        # If the model_path_prefix itself is the model name (e.g. for local testing save/load)
+        # then os.path.dirname would give the parent directory.
+        # A better way might be to expect the files to be directly in model_path_prefix using a fixed base name
+        # or pass model_name explicitly.
+        # For now, let's assume the structure from the service: model_path_prefix is the versioned directory.
+        # The files inside are named based on the model_name.
+
+        # The files in the directory are named like:
+        # qos_anomaly_vae_e2e_test.weights.h5
+        # qos_anomaly_vae_e2e_test_metadata.joblib
+        # qos_anomaly_vae_e2e_test_scaler.joblib
+        # So, the 'model_name' derived above is the correct base for filenames.
+
+        metadata_filename = f"{model_name}_metadata.joblib"
+        weights_filename = f"{model_name}.weights.h5" # As per save method and ls output
+        scaler_filename = f"{model_name}_scaler.joblib"
+
+        metadata_path = os.path.join(model_path_prefix, metadata_filename)
+        weights_path = os.path.join(model_path_prefix, weights_filename)
+        scaler_path = os.path.join(model_path_prefix, scaler_filename)
 
         if not all(os.path.exists(p) for p in [metadata_path, weights_path, scaler_path]):
-            logger.error(f"One or more VAE artifact files not found for prefix {model_path_prefix}. Searched for weights ({weights_path}), scaler ({scaler_path}), and metadata ({metadata_path}).")
+            logger.error(f"One or more VAE artifact files not found. Searched for:\\n- Metadata: {metadata_path}\\n- Weights: {weights_path}\\n- Scaler: {scaler_path}")
+            # Log what is actually in the directory for debugging
+            if os.path.exists(model_path_prefix):
+                logger.error(f"Contents of directory {model_path_prefix}: {os.listdir(model_path_prefix)}")
+            else:
+                logger.error(f"Directory {model_path_prefix} does not exist.")
             return None
         try:
             metadata = joblib.load(metadata_path)

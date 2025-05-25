@@ -1,0 +1,57 @@
+{
+    "statistics": {},
+    "packet_analysis_data": [
+        {
+            "timestamp": "2025-05-18T10:15:30Z",
+            "src_ip": "192.168.1.100",
+            "dst_ip": "8.8.8.8",
+            "protocol": "TCP",
+            "length": 64
+        },
+        {
+            "timestamp": "2025-05-18T10:15:31Z",
+            "src_ip": "192.168.1.100",
+            "dst_ip": "8.8.8.8",
+            "protocol": "TCP",
+            "length": 76
+        },
+        {
+            "timestamp": "2025-05-18T10:15:32Z",
+            "src_ip": "8.8.8.8",
+            "dst_ip": "192.168.1.100",
+            "protocol": "TCP",
+            "length": 60
+        },
+        {
+            "timestamp": "2025-05-18T10:15:33Z",
+            "src_ip": "192.168.1.100",
+            "dst_ip": "10.0.0.1",
+            "protocol": "UDP",
+            "length": 120,
+            "port_src": 53245,
+            "port_dst": 53,
+            "application": "DNS"
+        },
+        {
+            "timestamp": "2025-05-18T10:15:34Z",
+            "src_ip": "10.0.0.1",
+            "dst_ip": "192.168.1.100",
+            "protocol": "UDP",
+            "length": 180,
+            "port_src": 53,
+            "port_dst": 53245,
+            "application": "DNS"
+        },
+        {
+            "timestamp": "2025-05-18T10:15:35Z",
+            "src_ip": "192.168.1.100",
+            "dst_ip": "216.58.210.142",
+            "protocol": "TCP",
+            "length": 80,
+            "port_src": 54321,
+            "port_dst": 443,
+            "application": "HTTPS"
+        }
+    ],
+    "ai_analysis_results": {}
+}

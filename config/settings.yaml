@@ -10,6 +10,13 @@ logging:
   file: "logs/networking_tester.log" # Relative to project root
   console_logging: true
 
+rabbitmq: # New section for RabbitMQ settings
+  host: "localhost" # Default host, can be overridden by environment variables in services
+  port: 5672       # Default port
+  username: "guest"     # Default RabbitMQ username (changed from 'user')
+  password: "guest" # Default RabbitMQ password (changed from 'password')
+  # virtual_host: "/" # Optional: if using a specific virtual host
+
 capture:
   default_interface: "auto" # 'auto' o un nombre específico como 'eth0'
   # pcap_save_path: "data/captures/" # Example, if auto-saving captures

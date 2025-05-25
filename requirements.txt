@@ -1,6 +1,8 @@
 # Core Dependencies
 scapy>=2.5.0        # For packet capture, manipulation, and analysis
 PyYAML>=6.0         # For reading YAML configuration files (e.g., settings.yaml)
+pika>=1.3.0         # For RabbitMQ messaging integration
+click>=8.0.0        # For CLI interface
 
 # AI / Machine Learning Dependencies (uncomment or add specific versions as needed)
 numpy>=1.21.0       # Fundamental package for numerical computation (often a dependency for ML libraries)
@@ -8,7 +10,10 @@ pandas>=1.3.0       # Data manipulation and analysis (useful for preparing data 
 scikit-learn>=1.0.0 # Machine learning library (for anomaly detection, classification, etc.)
 tensorflow>=2.12.0  # Optional: For more complex deep learning models (Updated to 2.12.0 as a common recent version)
 # torch             # Optional: Alternative deep learning framework
-# onnxruntime       # Optional: To run models in ONNX format (cross-platform inference)
+
+# Testing Dependencies
+pytest>=6.0.0      # For unit and integration testing
+pytest-cov>=3.0.0  # For test coverage reporting
 
 # Utility Dependencies
 python-dotenv>=0.20.0 # For managing environment variables (e.g., API keys, sensitive settings)
@@ -22,9 +27,6 @@ requests>=2.25.0    # For making HTTP requests (e.g., to fetch AI models, intera
 # sphinx-rtd-theme
 # sphinx.ext.napoleon
 # (and others listed in docs/conf.py extensions)
-
-# Messaging Queue
-pika>=1.3.0 # For RabbitMQ client
 
 # Model Management & Versioning
 packaging>=23.0 # For semantic version parsing (used in ModelRegistryClient)

@@ -15,4 +15,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Command to run the Packet Parser Service
-CMD ["python", "src/analysis/packet_parser_service.py"]
+CMD ["python", "src/parsing/packet_parser_service.py"]

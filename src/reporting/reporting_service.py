@@ -12,7 +12,7 @@ from typing import List, Dict, Any
 from src.messaging.rabbitmq_client import RabbitMQClient
 from src.messaging.schemas import AnalysisResult, ANALYSIS_RESULTS_TOPIC
 from src.reporting.report_generator import ReportGenerator
-from src.utils.logger_config import setup_logging
+from src.utils.logging_config import setup_logging
 
 logger = logging.getLogger(__name__)
 
@@ -140,12 +140,19 @@ if __name__ == '__main__':
 
     RABBITMQ_HOST = os.getenv('RABBITMQ_HOST', 'localhost')
     RABBITMQ_PORT = int(os.getenv('RABBITMQ_PORT', 5672))
+    RABBITMQ_USER = os.getenv('RABBITMQ_USER', 'user') # Added
+    RABBITMQ_PASSWORD = os.getenv('RABBITMQ_PASSWORD', 'password') # Added
 
     logger.info("Initializing Reporting Service Example...")
     mq_client_instance = None
     reporting_service_instance = None
     try:
-        mq_client_instance = RabbitMQClient(host=RABBITMQ_HOST, port=RABBITMQ_PORT)
+        mq_client_instance = RabbitMQClient(
+            host=RABBITMQ_HOST, 
+            port=RABBITMQ_PORT,
+            username=RABBITMQ_USER, # Added
+            password=RABBITMQ_PASSWORD # Added
+        )
         
         # CoreAnalysisService publishes to ANALYSIS_RESULTS_EXCHANGE_NAME with ANALYSIS_RESULTS_QUEUE_ROUTING_KEY.
         # ReportingService needs to consume from a queue bound to this exchange and routing key.

@@ -23,7 +23,7 @@ import mlflow.sklearn # Added MLflow scikit-learn integration
 
 # Assuming src is in PYTHONPATH or script is run from project root
 # Adjust imports based on your project structure and how this script will be invoked
-# from src.utils.logger_config import setup_logging # Example
+# from src.utils.logging_config import setup_logging # Example
 # from src.ai_monitoring.model_registry_client import ModelRegistryClient # Example for saving
 # from src.storage.data_loader import load_training_data # Example
 

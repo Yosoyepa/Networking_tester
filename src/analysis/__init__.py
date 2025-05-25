@@ -19,6 +19,4 @@
 # from .ieee802_11_analyzer import WiFiAnalyzer
 
 # Expose the new service if it's intended to be directly importable from the package level
-from .packet_parser_service import PacketParserService
-from .statistics_collector_service import StatisticsCollectorService
 from .core_analysis_service import CoreAnalysisService

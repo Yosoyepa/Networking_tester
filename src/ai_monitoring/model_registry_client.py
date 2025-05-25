@@ -1,35 +1,46 @@
 """
-Client for interacting with a file-based ML Model Registry.
+Client for interacting with a hybrid ML Model Registry.
 
-The registry is defined by a JSON manifest file that lists available models,
-their versions, and paths to model/scaler files.
+The registry supports both:
+1. File-based registry (JSON manifest) for lightweight operations
+2. MLflow Model Registry for robust versioning and production deployment
+
+This enhanced version provides seamless integration between both systems.
 """
 import json
 import os
 import logging
-from typing import List, Dict, Optional, Any
-from packaging.version import parse as parse_version # For semantic version comparison
-import datetime # Added for creation_date default
+from typing import List, Dict, Optional, Any, Union
+from packaging.version import parse as parse_version
+import datetime
+import mlflow
+import mlflow.sklearn
+from mlflow.tracking import MlflowClient
+from mlflow.exceptions import MlflowException
 
 logger = logging.getLogger(__name__)
 
 DEFAULT_MANIFEST_PATH = "data/models/model_registry.json"
 
 class ModelRegistryClient:
-    def __init__(self, manifest_path: Optional[str] = None, project_root_dir: Optional[str] = None):
+    def __init__(self, 
+                 manifest_path: Optional[str] = None, 
+                 project_root_dir: Optional[str] = None,
+                 use_mlflow: bool = True,
+                 mlflow_tracking_uri: Optional[str] = None):
         """
-        Initializes the ModelRegistryClient.
+        Initializes the enhanced ModelRegistryClient with MLflow integration.
 
         Args:
             manifest_path (Optional[str]): Path to the model registry manifest JSON file.
-                                           Defaults to DEFAULT_MANIFEST_PATH.
-            project_root_dir (Optional[str]): The absolute path to the project\'s root directory.
-                                              If None, paths in the manifest are assumed to be
-                                              absolute or resolvable from the current working directory.
-                                              It\'s recommended to provide this for robust path resolution.
+            project_root_dir (Optional[str]): The absolute path to the project's root directory.
+            use_mlflow (bool): Whether to use MLflow Model Registry in addition to file-based registry.
+            mlflow_tracking_uri (Optional[str]): MLflow tracking URI. If None, uses default from environment.
         """
         self.project_root_dir = project_root_dir if project_root_dir else os.getcwd()
-        # Ensure manifest_path is resolved correctly using project_root_dir from the start
+        self.use_mlflow = use_mlflow
+        
+        # Initialize file-based registry
         self.manifest_path = manifest_path or DEFAULT_MANIFEST_PATH
         if not os.path.isabs(self.manifest_path):
             self.resolved_manifest_path = os.path.join(self.project_root_dir, self.manifest_path)
@@ -38,6 +49,18 @@ class ModelRegistryClient:
             
         self.registry_data: Dict[str, Any] = {}
         self._load_manifest()
+        
+        # Initialize MLflow client if enabled
+        self.mlflow_client: Optional[MlflowClient] = None
+        if self.use_mlflow:
+            try:
+                if mlflow_tracking_uri:
+                    mlflow.set_tracking_uri(mlflow_tracking_uri)
+                self.mlflow_client = MlflowClient()
+                logger.info("MLflow Model Registry integration enabled")
+            except Exception as e:
+                logger.warning(f"Failed to initialize MLflow client: {e}. Falling back to file-based registry only.")
+                self.use_mlflow = False
 
     def _make_path_relative(self, path_to_make_relative: str) -> str:
         """Converts an absolute path to be relative to the project root, if it\'s within the project."""
@@ -192,6 +215,170 @@ class ModelRegistryClient:
         Raises:
             ValueError: If the model version already exists for the given model name.
         """
+        if "models" not in self.registry_data:
+            self.registry_data["models"] = []
+
+        model_entry = None
+        for entry in self.registry_data["models"]:
+            if entry.get("model_name") == model_name:
+                model_entry = entry
+                break
+        
+        if model_entry is None:
+            model_entry = {
+                "model_name": model_name,
+                "versions": []
+            }
+            self.registry_data["models"].append(model_entry)
+
+        # Check if version already exists
+        for v_details in model_entry["versions"]:
+            if v_details.get("version") == model_version:
+                error_msg = f"Version \'{model_version}\' already exists for model \'{model_name}\'."
+                logger.error(error_msg)
+                raise ValueError(error_msg)
+
+        relative_model_path = self._make_path_relative(model_path)
+        relative_scaler_path = self._make_path_relative(scaler_path) if scaler_path else None
+
+        version_details = {
+            "version": model_version,
+            "description": description or f"Model version {model_version}",
+            "model_path": relative_model_path,
+            "creation_date": creation_date or datetime.datetime.utcnow().isoformat(),
+            "metadata": metadata or {}
+        }
+        if relative_scaler_path:
+            version_details["scaler_path"] = relative_scaler_path
+        
+        model_entry["versions"].append(version_details)
+        
+        # Sort versions by semantic versioning, newest first, after adding
+        model_entry["versions"].sort(key=lambda v: parse_version(v.get("version", "0.0.0")), reverse=True)
+
+        self._save_manifest()
+        
+        # Return a copy of the details as they are in the registry (with relative paths)
+        registered_details = version_details.copy()
+        registered_details["model_name"] = model_name 
+        logger.info(f"Successfully registered model \'{model_name}\' version \'{model_version}\'.")
+        return registered_details
+
+    def _register_model_mlflow(self, 
+                               model_name: str, 
+                               model_version: str, 
+                               model_path: str, 
+                               metadata: Optional[Dict[str, Any]] = None,
+                               scaler_path: Optional[str] = None,
+                               description: Optional[str] = None,
+                               creation_date: Optional[str] = None) -> Dict[str, Any]:
+        """
+        Registers a new model version with MLflow.
+
+        Args:
+            model_name (str): The name of the model.
+            model_version (str): The version string (e.g., "1.0.0").
+            model_path (str): Path to the model artifact.
+            metadata (Optional[Dict[str, Any]]): Arbitrary metadata for the model version.
+            scaler_path (Optional[str]): Path to the scaler artifact, if any.
+            description (Optional[str]): A description for this model version.
+            creation_date (Optional[str]): ISO format string of creation date. Defaults to now.
+
+        Returns:
+            Dict[str, Any]: The details of the registered model version in MLflow.
+            
+        Raises:
+            ValueError: If the model version already exists for the given model name in MLflow.
+        """
+        # Check if the model exists in MLflow
+        try:
+            mlflow_model = self.mlflow_client.get_registered_model(model_name)
+        except MlflowException as e:
+            if e.error_code == "RESOURCE_DOES_NOT_EXIST":
+                mlflow_model = None
+            else:
+                logger.error(f"MLflow error when checking model existence: {e}")
+                raise
+
+        if mlflow_model is None:
+            # Create a new registered model in MLflow
+            mlflow_model = self.mlflow_client.create_registered_model(model_name, 
+                                                                     "Model registered via hybrid registry client")
+            logger.info(f"Created new registered model in MLflow: {model_name}")
+        else:
+            logger.info(f"Found existing registered model in MLflow: {model_name}")
+
+        # Check if version already exists in MLflow
+        existing_versions = [v.version for v in mlflow_model.latest_versions]
+        if model_version in existing_versions:
+            error_msg = f"Version \'{model_version}\' already exists for model \'{model_name}\' in MLflow."
+            logger.error(error_msg)
+            raise ValueError(error_msg)
+
+        # Register the model version with MLflow
+        try:
+            # Log the model artifact to MLflow
+            mlflow_model_uri = f"models:/{model_name}/{model_version}"
+            mlflow.sklearn.log_model(artifact_path=mlflow_model_uri, 
+                                     sk_model=model_path, 
+                                     registered_model_name=model_name)
+            
+            # Set the model version description and metadata
+            self.mlflow_client.update_model_version(model_name, model_version, 
+                                                   description=description, 
+                                                   tags=metadata)
+            
+            logger.info(f"Successfully registered model version in MLflow: {model_name} v{model_version}")
+            
+            return {
+                "version": model_version,
+                "model_path": mlflow_model_uri,
+                "scaler_path": scaler_path, # Handle scaler_path if needed
+                "description": description,
+                "creation_date": creation_date or datetime.datetime.utcnow().isoformat(),
+                "metadata": metadata or {}
+            }
+        except Exception as e:
+            logger.error(f"Failed to register model version in MLflow: {e}", exc_info=True)
+            raise
+
+    def register_model(self, 
+                       model_name: str, 
+                       model_version: str, 
+                       model_path: str, 
+                       metadata: Optional[Dict[str, Any]] = None,
+                       scaler_path: Optional[str] = None,
+                       description: Optional[str] = None,
+                       creation_date: Optional[str] = None) -> Dict[str, Any]:
+        """
+        Registers a new model or a new version of an existing model.
+
+        This method first attempts to register the model with MLflow. If MLflow integration is
+        disabled or fails, it falls back to the file-based registry.
+
+        Args:
+            model_name (str): The name of the model.
+            model_version (str): The version string (e.g., "1.0.0").
+            model_path (str): Path to the model artifact. Will be stored relative to project_root_dir.
+            metadata (Optional[Dict[str, Any]]): Arbitrary metadata for the model version.
+            scaler_path (Optional[str]): Path to the scaler artifact, if any. Stored relative.
+            description (Optional[str]): A description for this model version.
+            creation_date (Optional[str]): ISO format string of creation date. Defaults to now.
+
+        Returns:
+            Dict[str, Any]: The details of the registered model version.
+            
+        Raises:
+            ValueError: If the model version already exists for the given model name.
+        """
+        # First, try to register with MLflow if enabled
+        if self.use_mlflow:
+            try:
+                return self._register_model_mlflow(model_name, model_version, model_path, metadata, scaler_path, description, creation_date)
+            except Exception as e:
+                logger.warning(f"MLflow registration failed: {e}. Falling back to file-based registry.")
+
+        # Fallback to file-based registration
         if "models" not in self.registry_data:
             self.registry_data["models"] = []
 

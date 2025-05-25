@@ -16,7 +16,7 @@ from src.analysis.ieee802_11_analyzer import IEEE802_11_Analyzer
 from src.analysis.ieee802_3_analyzer import IEEE802_3_Analyzer
 from src.analysis.flow_analyzer import FlowAnalyzer
 from src.analysis.rule_based_anomaly_detector import RuleBasedAnomalyDetector # Corrected import
-from src.analysis.statistics_collector import StatisticsCollector # Added missing import
+# from src.analysis.statistics_collector import StatisticsCollector # Added missing import
 from src.reporting.report_generator import ReportGenerator
 from src.storage.database_handler import DatabaseHandler
 
@@ -40,7 +40,7 @@ class AnalysisEngine:
         self.current_output_pcap_path = None
 
         self.frame_capturer = FrameCapture(packet_processing_callback=self._process_and_store_packet)
-        self.stats_collector = StatisticsCollector(self.config) # Now defined
+        # self.statistics_collector = StatisticsCollector(self.config_manager) # Now defined
         self.report_generator = ReportGenerator()
         self.db_handler = DatabaseHandler()
         self.alerter = Alerter(self.config)
@@ -150,7 +150,7 @@ class AnalysisEngine:
             **(summary_details if isinstance(summary_details, dict) else {})
         }
 
-        self.stats_collector.process_packet_analysis(current_analysis)
+        # self.statistics_collector.process_packet_analysis(current_analysis)
         self.all_analyzed_data.append(current_analysis)
 
         if self.db_handler.is_enabled:
@@ -199,7 +199,7 @@ class AnalysisEngine:
     def run_live_capture(self, interface=None, count=0, timeout=None, bpf_filter=None, output_pcap_path=None, cli_report_format=None):
         logger.info(f"Starting live capture run: interface={interface}, count={count}, timeout={timeout}, filter='{bpf_filter}', write_to='{output_pcap_path}'")
         self.is_running = True
-        self.stats_collector.reset()
+        # self.statistics_collector.reset()
         self.all_analyzed_data = []
         self.live_capture_packets_to_write = []
         self.current_output_pcap_path = output_pcap_path
@@ -230,7 +230,7 @@ class AnalysisEngine:
             print(f"Error: PCAP file '{pcap_file_path}' not found.")
             return
         self.is_running = True
-        self.stats_collector.reset()
+        # self.statistics_collector.reset()
         self.all_analyzed_data = []
         self.live_capture_packets_to_write = [] 
         self.current_output_pcap_path = None 

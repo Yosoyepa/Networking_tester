@@ -15,4 +15,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Command to run the Statistics Collector Service
-CMD ["python", "src/analysis/statistics_collector_service.py"]
+CMD ["python", "src/statistics/statistics_collector_service.py"]

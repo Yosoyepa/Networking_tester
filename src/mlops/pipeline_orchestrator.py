@@ -32,7 +32,7 @@ import mlflow
 # from src.utils.config_manager import load_app_settings, load_train_config # Corrected import
 from src.utils.config_manager import ConfigManager # Import ConfigManager class
 
-# from src.utils.logger_config import setup_logging # Example
+# from src.utils.logging_config import setup_logging # Example
 
 logger = logging.getLogger(__name__)
 

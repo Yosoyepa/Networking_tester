@@ -9,8 +9,8 @@ services:
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
     environment:
-      RABBITMQ_DEFAULT_USER: user
-      RABBITMQ_DEFAULT_PASS: password
+      RABBITMQ_DEFAULT_USER: user # This is for the RabbitMQ container itself
+      RABBITMQ_DEFAULT_PASS: password # This is for the RabbitMQ container itself
     healthcheck:
       test: ["CMD", "rabbitmqctl", "status"]
       interval: 30s
@@ -26,8 +26,10 @@ services:
       - ./data/captures:/app/data/captures # Mount pcap data
     environment:
       RABBITMQ_HOST: rabbitmq
+      RABBITMQ_USER: user # Corrected
+      RABBITMQ_PASS: password # Corrected
       PYTHONPATH: /app
-      # PCAP_FILE: "data/captures/your_capture.pcap" # Example: Set if service reads from a specific file
+      PCAP_FILE: "/app/data/captures/test9.pcap" # Explicitly set absolute path
       # INTERFACE_NAME: "eth0" # Example: Set if service captures live traffic
     depends_on:
       rabbitmq:
@@ -42,6 +44,8 @@ services:
       - .:/app
     environment:
       RABBITMQ_HOST: rabbitmq
+      RABBITMQ_USER: user # Corrected
+      RABBITMQ_PASS: password # Corrected
       PYTHONPATH: /app
     depends_on:
       rabbitmq:
@@ -57,6 +61,8 @@ services:
       - ./data/reports:/app/data/reports # For saving stats reports if applicable
     environment:
       RABBITMQ_HOST: rabbitmq
+      RABBITMQ_USER: user # Corrected
+      RABBITMQ_PASS: password # Corrected
       PYTHONPATH: /app
     depends_on:
       rabbitmq:
@@ -71,6 +77,8 @@ services:
       - .:/app
     environment:
       RABBITMQ_HOST: rabbitmq
+      RABBITMQ_USER: user # Corrected
+      RABBITMQ_PASS: password # Corrected
       PYTHONPATH: /app
     depends_on:
       rabbitmq:
@@ -84,9 +92,13 @@ services:
     volumes:
       - .:/app
       - ./data/models:/app/data/models # Mount models directory
+      - ./config:/app/config # Mount config directory
     environment:
       RABBITMQ_HOST: rabbitmq
+      RABBITMQ_USER: user # Corrected
+      RABBITMQ_PASS: password # Corrected
       PYTHONPATH: /app
+      SETTINGS_FILE_PATH: "/app/config/settings.yaml" # Added
       # QOS_MODEL_NAME: "qos_anomaly_default" # Can be overridden
       # QOS_MODEL_VERSION: "latest"
     depends_on:
@@ -102,6 +114,8 @@ services:
       - .:/app
     environment:
       RABBITMQ_HOST: rabbitmq
+      RABBITMQ_USER: user # Corrected
+      RABBITMQ_PASS: password # Corrected
       PYTHONPATH: /app
     depends_on:
       rabbitmq:
@@ -117,6 +131,8 @@ services:
       - ./data/reports:/app/data/reports # Mount reports directory
     environment:
       RABBITMQ_HOST: rabbitmq
+      RABBITMQ_USER: user # Corrected
+      RABBITMQ_PASS: password # Corrected
       PYTHONPATH: /app
     depends_on:
       rabbitmq:

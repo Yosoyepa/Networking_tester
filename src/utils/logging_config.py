@@ -68,3 +68,36 @@ def setup_logging(): # Removed parameters, will get from config
 # Logger para este módulo
 logger = logging.getLogger(__name__)
 logger.debug(f'Módulo {__name__} cargado.')
+
+# --- Backward compatible setup_logging function for tests ---
+def setup_logging_legacy(log_level=logging.INFO, console_only=True):
+    """
+    Configura el logging para la aplicación.
+    
+    Args:
+        log_level: Nivel de logging (por defecto INFO)
+        console_only: Si True, solo logea a consola (útil para tests)
+    """
+    # Configuración básica para tests y uso general
+    logging.basicConfig(
+        level=log_level,
+        format="%(asctime)s [%(levelname)-7s] [%(name)-20s] %(message)s",
+        handlers=[logging.StreamHandler(sys.stdout)] if console_only else None
+    )
+    
+    # Configuración para archivo si no es console_only
+    if not console_only:
+        log_format_str = "%(asctime)s [%(levelname)-7s] [%(name)-20s] [%(funcName)s:%(lineno)d] %(message)s"
+        log_file_path = 'logs/networking_tester.log'
+        numeric_log_level = getattr(logging, str(log_level).upper(), logging.INFO)
+        
+        # Crear directorio si no existe
+        os.makedirs(os.path.dirname(log_file_path), exist_ok=True)
+        
+        # Handler para el archivo de log con rotación
+        file_handler = RotatingFileHandler(
+            log_file_path, maxBytes=5*1024*1024, backupCount=3, encoding='utf-8'
+        )
+        file_handler.setFormatter(logging.Formatter(log_format_str, datefmt="%Y-%m-%d %H:%M:%S"))
+        file_handler.setLevel(numeric_log_level)
+        logging.getLogger().addHandler(file_handler)
