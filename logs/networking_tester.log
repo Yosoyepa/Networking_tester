@@ -13122,3 +13122,78 @@ KeyboardInterrupt
 2025-05-24 20:11:29 [ERROR  ] [src.parsing.packet_parser_service] [_process_raw_packet_message:141] Error processing raw packet message: keys must be str, int, float, bool or None, not member_descriptor
 2025-05-24 20:11:29 [ERROR  ] [src.messaging.message_broker] [wrapper:129] Error processing message: keys must be str, int, float, bool or None, not member_descriptor
 2025-05-24 20:11:29 [ERROR  ] [src.parsing.packet_parser_service] [_process_raw_packet_message:141] Error processing raw packet message: keys must be str, int, float, bool or None, not member_descriptor
+2025-05-24 23:20:08 [INFO   ] [networking_tester   ] [setup_logging:64] Logging configurado. Nivel: INFO. Archivo: C:\Users\juanc\Documents\Proyectos Personales\networking_tester\logs\networking_tester.log
+2025-05-24 23:20:08 [INFO   ] [__main__            ] [initialize:40] 🚀 Starting Phase 2 Task 2.3: ML Model Registry Enhancement
+2025-05-24 23:20:08 [WARNING] [src.ai_monitoring.model_registry_client] [_load_manifest:87] Model registry manifest file not found at: C:\Users\juanc\Documents\Proyectos Personales\data/models/model_registry.json. A new one will be created upon registration.
+2025-05-24 23:20:08 [INFO   ] [src.ai_monitoring.model_registry_client] [__init__:60] MLflow Model Registry integration enabled
+2025-05-24 23:20:08 [WARNING] [root                ] [search_experiments:333] Malformed experiment '0'. Detailed error Yaml file 'C:\Users\juanc\Documents\Proyectos Personales\networking_tester\mlruns\0\meta.yaml' does not exist.
+Traceback (most recent call last):
+  File "C:\Users\juanc\Documents\Proyectos Personales\networking_tester\venv\Lib\site-packages\mlflow\store\tracking\file_store.py", line 329, in search_experiments
+    exp = self._get_experiment(exp_id, view_type)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\juanc\Documents\Proyectos Personales\networking_tester\venv\Lib\site-packages\mlflow\store\tracking\file_store.py", line 427, in _get_experiment
+    meta = FileStore._read_yaml(experiment_dir, FileStore.META_DATA_FILE_NAME)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\juanc\Documents\Proyectos Personales\networking_tester\venv\Lib\site-packages\mlflow\store\tracking\file_store.py", line 1373, in _read_yaml
+    return _read_helper(root, file_name, attempts_remaining=retries)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\juanc\Documents\Proyectos Personales\networking_tester\venv\Lib\site-packages\mlflow\store\tracking\file_store.py", line 1366, in _read_helper
+    result = read_yaml(root, file_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\juanc\Documents\Proyectos Personales\networking_tester\venv\Lib\site-packages\mlflow\utils\file_utils.py", line 310, in read_yaml
+    raise MissingConfigException(f"Yaml file '{file_path}' does not exist.")
+mlflow.exceptions.MissingConfigException: Yaml file 'C:\Users\juanc\Documents\Proyectos Personales\networking_tester\mlruns\0\meta.yaml' does not exist.
+2025-05-24 23:20:08 [WARNING] [root                ] [search_experiments:333] Malformed experiment '0'. Detailed error Yaml file 'C:\Users\juanc\Documents\Proyectos Personales\networking_tester\mlruns\0\meta.yaml' does not exist.
+Traceback (most recent call last):
+  File "C:\Users\juanc\Documents\Proyectos Personales\networking_tester\venv\Lib\site-packages\mlflow\store\tracking\file_store.py", line 329, in search_experiments
+    exp = self._get_experiment(exp_id, view_type)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\juanc\Documents\Proyectos Personales\networking_tester\venv\Lib\site-packages\mlflow\store\tracking\file_store.py", line 427, in _get_experiment
+    meta = FileStore._read_yaml(experiment_dir, FileStore.META_DATA_FILE_NAME)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\juanc\Documents\Proyectos Personales\networking_tester\venv\Lib\site-packages\mlflow\store\tracking\file_store.py", line 1373, in _read_yaml
+    return _read_helper(root, file_name, attempts_remaining=retries)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\juanc\Documents\Proyectos Personales\networking_tester\venv\Lib\site-packages\mlflow\store\tracking\file_store.py", line 1366, in _read_helper
+    result = read_yaml(root, file_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\juanc\Documents\Proyectos Personales\networking_tester\venv\Lib\site-packages\mlflow\utils\file_utils.py", line 310, in read_yaml
+    raise MissingConfigException(f"Yaml file '{file_path}' does not exist.")
+mlflow.exceptions.MissingConfigException: Yaml file 'C:\Users\juanc\Documents\Proyectos Personales\networking_tester\mlruns\0\meta.yaml' does not exist.
+2025-05-24 23:20:08 [INFO   ] [src.ai_monitoring.enhanced_model_registry_client] [__init__:66] MLflow Model Registry integration enabled
+2025-05-24 23:20:08 [INFO   ] [src.ai_monitoring.enhanced_model_registry_client] [__init__:67] MLflow Tracking URI: file:///C:/Users/juanc/Documents/Proyectos%20Personales/networking_tester/mlruns
+2025-05-24 23:20:08 [INFO   ] [src.ai_monitoring.enhanced_model_registry_client] [__init__:69] MLflow Experiment: networking_tester_phase2
+2025-05-24 23:20:08 [INFO   ] [__main__            ] [initialize:51] ✅ Enhanced Model Registry initialized
+2025-05-24 23:20:08 [INFO   ] [__main__            ] [initialize:52] 📁 Registry path: data/models/model_registry.json
+2025-05-24 23:20:08 [INFO   ] [__main__            ] [initialize:53] 🔄 MLflow integration: ENABLED
+2025-05-24 23:20:08 [INFO   ] [__main__            ] [main:322] ============================================================
+2025-05-24 23:20:08 [INFO   ] [__main__            ] [main:323] 🔍 PHASE 2 MODEL REGISTRY VALIDATION
+2025-05-24 23:20:08 [INFO   ] [__main__            ] [main:324] ============================================================
+2025-05-24 23:20:08 [INFO   ] [__main__            ] [validate_registry:63] 🔍 Validating model registry...
+2025-05-24 23:20:08 [INFO   ] [__main__            ] [validate_registry:80] 📊 Found 0 models in registry: []
+2025-05-24 23:20:08 [INFO   ] [__main__            ] [validate_registry:153] 🏥 Registry health: EXCELLENT
+2025-05-24 23:20:08 [INFO   ] [__main__            ] [validate_registry:154] ✅ Valid models: 0
+2025-05-24 23:20:08 [INFO   ] [__main__            ] [validate_registry:155] ❌ Invalid models: 0
+2025-05-24 23:20:08 [INFO   ] [__main__            ] [main:329] ✅ Validation Status: HEALTHY
+2025-05-24 23:20:08 [INFO   ] [__main__            ] [main:330] 🏥 Registry Health: EXCELLENT
+2025-05-24 23:20:08 [INFO   ] [__main__            ] [main:333] 💡 Recommendations:
+2025-05-24 23:20:08 [INFO   ] [__main__            ] [main:335]    1. Add at least one valid model for testing
+2025-05-24 23:20:08 [INFO   ] [__main__            ] [main:339] ============================================================
+2025-05-24 23:20:08 [INFO   ] [__main__            ] [main:340] 🛠️ CREATING PHASE 2 SAMPLE MODELS
+2025-05-24 23:20:08 [INFO   ] [__main__            ] [main:341] ============================================================
+2025-05-24 23:20:08 [INFO   ] [__main__            ] [create_sample_models:167] 🛠️ Creating sample models for Phase 2...
+2025-05-24 23:20:08 [ERROR  ] [__main__            ] [create_sample_models:271] ❌ Error creating sample models: ModelRegistryClient.register_model() got an unexpected keyword argument 'model_id'
+Traceback (most recent call last):
+  File "C:\Users\juanc\Documents\Proyectos Personales\networking_tester\enhance_model_registry.py", line 254, in create_sample_models
+    success = self.registry_client.register_model(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: ModelRegistryClient.register_model() got an unexpected keyword argument 'model_id'
+2025-05-24 23:20:08 [INFO   ] [__main__            ] [main:345] ============================================================
+2025-05-24 23:20:08 [INFO   ] [__main__            ] [main:346] 📊 FINAL REGISTRY STATUS
+2025-05-24 23:20:08 [INFO   ] [__main__            ] [main:347] ============================================================
+2025-05-24 23:20:08 [INFO   ] [__main__            ] [display_registry_status:275] 📊 Displaying Model Registry Status...
+2025-05-24 23:20:08 [INFO   ] [__main__            ] [display_registry_status:280] 📦 Total models: 0
+2025-05-24 23:20:08 [INFO   ] [__main__            ] [display_registry_status:305] 🔄 MLflow models: 0
+2025-05-24 23:20:08 [INFO   ] [__main__            ] [main:350] ============================================================
+2025-05-24 23:20:08 [INFO   ] [__main__            ] [main:351] ✅ PHASE 2 TASK 2.3 COMPLETED: ML Model Registry Enhanced
+2025-05-24 23:20:08 [INFO   ] [__main__            ] [main:352] ============================================================

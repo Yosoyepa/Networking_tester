@@ -38,7 +38,7 @@ class IntegrationTestBase(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         """Set up test environment."""
-        setup_logging(level=logging.INFO)
+        setup_logging()
         cls.logger = logging.getLogger(__name__)
         
         # Test configuration

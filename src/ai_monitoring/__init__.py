@@ -7,9 +7,9 @@ from .anomaly_detector import AnomalyDetector
 from .feature_extractor import PacketFeatureExtractor
 from .qos_analyzer_ml import QoSMLAnalyzer
 from .feature_extractor_service import FeatureExtractorService
-from .qos_ml_inference_service import QoSMLInferenceService
+from .qos_ml_inference_service import EnhancedQoSMLInferenceService
 
 __all__ = [
     "FeatureExtractorService",
-    "QoSMLInferenceService"
+    "EnhancedQoSMLInferenceService"
 ]

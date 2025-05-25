@@ -467,10 +467,10 @@ class EnhancedFeatureExtractorService:
                 
         return validation_results
 
-    def _on_message_callback(self, ch, method, properties, body):
+    def _on_message_callback(self, message_data: Dict[str, Any]):
         """Callback function to process a single ParsedPacket message."""
         try:
-            parsed_packet_message = ParsedPacket.from_json(body.decode('utf-8'))
+            parsed_packet_message = ParsedPacket.from_json(json.dumps(message_data))
             logger.debug(f"Received ParsedPacket message: {parsed_packet_message.message_id}")
             
             # Extract features using comprehensive method
@@ -481,17 +481,12 @@ class EnhancedFeatureExtractorService:
                 self.mq_client.publish(
                     exchange_name=self.output_exchange_name,
                     routing_key=self.output_routing_key,
-                    message=feature_vector.to_json()
+                    message=json.loads(feature_vector.to_json())
                 )
                 logger.debug(f"Published FeatureVector for packet {parsed_packet_message.message_id}")
             
-            # Acknowledge the message
-            ch.basic_ack(delivery_tag=method.delivery_tag)
-            
         except Exception as e:
             logger.error(f"Error processing message in FeatureExtractorService: {e}", exc_info=True)
-            # Reject the message without requeue to avoid infinite loops
-            ch.basic_nack(delivery_tag=method.delivery_tag, requeue=False)
 
     def start_consuming(self):
         """Start consuming messages from the input queue."""
@@ -500,7 +495,7 @@ class EnhancedFeatureExtractorService:
         try:
             self.mq_client.consume(
                 queue_name=self.input_queue_name,
-                callback=self._on_message_callback
+                callback_function=self._on_message_callback
             )
         except Exception as e:
             logger.error(f"Enhanced FeatureExtractorService failed to start consuming: {e}", exc_info=True)

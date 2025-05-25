@@ -118,7 +118,8 @@ class SimplePipelineTester:
                 logger.warning(f"⚠️  Force killing {service_name}: {e}")
                 process.kill()
             del self.services_processes[service_name]
-              def start_all_services(self):
+            
+    def start_all_services(self):
         """Start all distributed services."""
         logger.info("🚀 Starting all distributed services...")
         
@@ -152,7 +153,8 @@ class SimplePipelineTester:
         """Test packet injection through the packet ingestor."""
         logger.info("💉 Testing packet injection...")
         
-        try:            # Run packet ingestor on test PCAP
+        try:
+            # Run packet ingestor on test PCAP
             command = f"python src/capture/frame_capture.py --file {self.test_pcap_path} --max-packets 5 --verbose"
             result = subprocess.run(command, shell=True, capture_output=True, text=True, timeout=30)
             
